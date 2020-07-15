@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.finderbar.innox.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_instock"
+        android:name="com.finderbar.innox.ui.instock.InstockFragment"
+        android:label="@string/title_instock"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.finderbar.innox.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_create"
+        android:name="com.finderbar.innox.ui.designer.DashboardFragment"
+        android:label="@string/title_create"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.finderbar.innox.ui.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.finderbar.innox.ui.account.AccountFragment"
+        android:label="@string/title_account"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

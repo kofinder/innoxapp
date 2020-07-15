@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">innox</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_instock">InStock</string>
+    <string name="title_create">Create</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_account">Account</string>
+
+    <!--  OTHER TITLE-->
+    <string name="title_custom">Create Customized Designs </string>
+    <string name="title_most_popular">Most Popular Product </string>
+    <string name="title_view_all">View All</string>
+    <string name="choose_one">Choose One</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.dashboard
+package com.finderbar.innox.ui.designer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

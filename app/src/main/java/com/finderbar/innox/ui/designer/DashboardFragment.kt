@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.dashboard
+package com.finderbar.innox.ui.designer
 
 import android.os.Bundle
 import android.view.LayoutInflater
