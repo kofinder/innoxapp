@@ -12,4 +12,10 @@
     <string name="title_view_all">View All</string>
     <string name="choose_one">Choose One</string>
 
+    <!--  CATEGORY-->
+    <string name="category_shoes">Shoes</string>
+    <string name="category_hoodies">Hoodies</string>
+    <string name="category_tshirts">Tshirts</string>
+    <string name="category_one">Choose One</string>
+    <string name="category_two">Choose One</string>
 </resources>
