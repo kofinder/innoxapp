@@ -5,4 +5,5 @@
 
     <!--    FONT_SIZE-->
     <dimen name="title_font_size">20sp</dimen>
+    <dimen name="nav_header_height">60</dimen>
 </resources>

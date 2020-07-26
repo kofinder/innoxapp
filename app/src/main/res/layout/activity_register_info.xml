@@ -14,13 +14,34 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="40dp"
             android:textSize="20sp"
-            android:text="@string/account_register_info"
+            android:text="@string/account_continue_info"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textAlignment="center"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:textSize="14sp"
+                android:text="@string/account_continue_info"
+                android:textColor="@color/colorGray"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -30,7 +51,7 @@
             android:hint="@string/account_name"
             app:endIconCheckable="true"
             android:id="@+id/name"
-            app:endIconMode="custom">
+            app:endIconMode="dropdown_menu">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -41,10 +62,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:hint="@string/account_email"
+            android:hint="@string/account_state_division"
             app:endIconCheckable="true"
-            android:id="@+id/email"
-            app:endIconMode="custom">
+            app:endIconMode="dropdown_menu">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -55,58 +75,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:hint="@string/account_phone"
+            android:hint="@string/account_township"
             app:endIconCheckable="true"
-            android:id="@+id/phone"
+            app:endIconMode="dropdown_menu">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/account_address"
+            app:endIconCheckable="true"
             app:endIconMode="custom">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="@string/account_password"
-            android:id="@+id/txt_password"
-            app:endIconMode="password_toggle">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="@string/account_confirm_password"
-            android:id="@+id/txt_confirm"
-            app:endIconMode="password_toggle">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_continue"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="@string/account_register" />
-
-        <TextView
-            android:id="@+id/txt_account_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/account_info"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            tools:ignore="RtlCompat" />
+            android:text="@string/account_continue" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

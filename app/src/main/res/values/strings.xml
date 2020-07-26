@@ -1,10 +1,17 @@
 <resources>
+    <!-- BOTTOM NAVIGATION -->
     <string name="app_name">innox</string>
     <string name="title_home">Home</string>
     <string name="title_instock">InStock</string>
     <string name="title_create">Create</string>
     <string name="title_cart">Cart</string>
     <string name="title_account">Account</string>
+
+    <!-- DRAWER NAVIGATION -->
+    <string name="nav_privacy">Privacy Policy</string>
+    <string name="nav_about_us">About Us</string>
+    <string name="nav_credit">Credit Libraries</string>
+    <string name="nav_settings">Settings</string>
 
     <!--  OTHER TITLE-->
     <string name="title_custom">Create Customized Designs </string>
@@ -18,4 +25,27 @@
     <string name="category_tshirts">Tshirts</string>
     <string name="category_one">Choose One</string>
     <string name="category_two">Choose One</string>
+
+
+    <!--    ACCOUNT-->
+    <string name="account_info">Please Login to view your account info</string>
+    <string name="account_login_info">Login into 121 Innox</string>
+    <string name="account_register_info">Create New 121 Innox Account</string>
+    <string name="account_login">Login</string>
+    <string name="account_register">Register</string>
+    <string name="account_continue_info">Hi Christopher Cambell, Welcome from 121 Innox Let us Know more about</string>
+    <string name="account_continue">Continue</string>
+    <string name="account_name">Name</string>
+    <string name="account_email">Email</string>
+    <string name="account_phone">Phone</string>
+    <string name="account_upload_profile">Phone</string>
+    <string name="account_state_division">State/Division</string>
+    <string name="account_township">TownShip</string>
+    <string name="account_address">Address</string>
+    <string name="account_password">Password</string>
+    <string name="account_confirm_password">Confirm Password</string>
+    <string name="account_exist">Already have an account?</string>
+    <string name="account_not_found">Don\'t have an account?</string>
+    <string name="account_create">Let\'t create New one</string>
+    <string name="account_visit">Come Login and visit us</string>
 </resources>
