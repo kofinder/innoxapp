@@ -19,6 +19,7 @@ class DesignerFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private val items: MutableList<ImageItem> = arrayListOf()
+    var currentOffset = 0;
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -30,18 +31,21 @@ class DesignerFragment : Fragment() {
         val adaptor = DesignerAdaptor(requireContext())
         val recyclerView: AsymmetricGridView = root.findViewById(R.id.recycler_view)
         val asymmetricAdapter = AsymmetricGridViewAdapter<ImageItem>(requireContext(), recyclerView, adaptor)
-        recyclerView.requestedHorizontalSpacing = Utils.dpToPx(requireContext(), 5F)
+        recyclerView.requestedHorizontalSpacing = Utils.dpToPx(requireContext(), 3F)
         recyclerView.setRequestedColumnCount(3)
-        recyclerView.adapter = asymmetricAdapter
 
-        homeViewModel.result.observe(viewLifecycleOwner, Observer { x ->
-            var y = 0;
-            x.forEach {
-                y++;
-                val colSpan = if (y % 2 == 0) 2 else 1
-                val rowSpan = if (y % 2 == 0) 1 else 2
-                items.add(ImageItem(it.url, colSpan, rowSpan))
+        recyclerView.adapter = asymmetricAdapter
+        homeViewModel.result.observe(viewLifecycleOwner, Observer { result ->
+            result.forEachIndexed { index, product ->
+                var colSpan: Int = if (index % 6 == 0 || index % 6 == 5) {
+                    2
+                } else {
+                    1
+                }
+                val rowSpan = colSpan
+                items.add(ImageItem(product.url, colSpan, rowSpan, currentOffset + index ))
             }
+            currentOffset += result.size;
             adaptor.arrayList = items
         })
 
