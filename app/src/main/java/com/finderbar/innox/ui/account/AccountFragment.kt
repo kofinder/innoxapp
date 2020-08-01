@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ListView
 import androidx.fragment.app.Fragment
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -20,6 +20,9 @@ class AccountFragment : Fragment() {
 
     @BindView(R.id.btn_login) lateinit var loginButton: MaterialButton
     @BindView(R.id.btn_register) lateinit var registerButton: MaterialButton
+   // @BindView(R.id.lst_menu) lateinit var listMenu: ListView
+
+    private val arrayList: ArrayList<String> = arrayListOf<String>("Account", "Order", "Notification", "Logout")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +34,7 @@ class AccountFragment : Fragment() {
 
         loginButton.setOnClickListener{startActivity(Intent(activity, LoginActivity::class.java))}
         registerButton.setOnClickListener{startActivity(Intent(activity, RegisterActivity::class.java))}
+        //listMenu.adapter = AccountMenuAdaptor(requireContext(), arrayList);
 
         return root;
     }

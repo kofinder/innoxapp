@@ -96,6 +96,10 @@ dependencies {
     // LOGGING
     implementation 'com.orhanobut:logger:2.2.0'
 
+   // THREAD HANDLING
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+
     // DEX
     implementation 'com.android.support:multidex:1.0.3'
 

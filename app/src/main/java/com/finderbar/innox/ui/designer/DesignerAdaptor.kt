@@ -15,6 +15,7 @@ class DesignerAdaptor (private val context: Context): BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = View.inflate(context, R.layout.item_designer_product,null)
+        view.setBackgroundColor(view.resources.getColor(R.color.colorPrimaryDark))
         val thumb: ImageView = view.findViewById(R.id.thumb)
         thumb.loadLarge(Uri.parse(arrayList[position].urls))
         return view

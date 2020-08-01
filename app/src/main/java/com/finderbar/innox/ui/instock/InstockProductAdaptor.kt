@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.home
+package com.finderbar.innox.ui.instock
 
 import android.net.Uri
 import android.view.View
@@ -11,7 +11,7 @@ import com.finderbar.innox.inflate
 import com.finderbar.innox.model.Product
 import com.finderbar.jovian.utilities.android.loadLarge
 
-class ProductAdaptor(private val arrayList: MutableList<Product>) : RecyclerView.Adapter<ProductAdaptor.ProductViewHolder>() {
+class InstockProductAdaptor(private val arrayList: MutableList<Product>) : RecyclerView.Adapter<InstockProductAdaptor.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder(parent.inflate(R.layout.item_home_product))
 
@@ -34,8 +34,8 @@ class ProductAdaptor(private val arrayList: MutableList<Product>) : RecyclerView
         val thumb: ImageView = itemView.findViewById(R.id.thumb)
         val title: TextView = itemView.findViewById(R.id.txt_title)
         fun bindData(product: Product) {
-            title.text = product.description
             thumb.loadLarge(Uri.parse(product.url));
+            title.text = product.description
         }
     }
 }

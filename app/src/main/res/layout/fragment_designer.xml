@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGray"
+    android:background="@android:color/transparent"
     tools:context=".ui.designer.DesignerFragment">
     <com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGray"
-        android:divider="@drawable/item_divider_vertical"
+        android:divider="@drawable/item_divider_horizontal"
         android:dividerHeight="5dp"
         android:fadingEdge="none"
         android:focusable="false"

@@ -49,7 +49,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        app:msrv_interval="1"
+                        app:msrv_interval="2"
                         app:msrv_speed_ms_per_inch="100"/>
                 </LinearLayout>
             </LinearLayout>
@@ -94,7 +94,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        app:msrv_interval="1"
+                        app:msrv_interval="2"
                         app:msrv_speed_ms_per_inch="100"/>
                 </LinearLayout>
             </LinearLayout>
@@ -140,7 +140,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        app:msrv_interval="1"
+                        app:msrv_interval="2"
                         app:msrv_speed_ms_per_inch="100"/>
                 </LinearLayout>
             </LinearLayout>
@@ -184,7 +184,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        app:msrv_interval="1"
+                        app:msrv_interval="2"
                         app:msrv_speed_ms_per_inch="100"/>
                 </LinearLayout>
             </LinearLayout>
@@ -229,99 +229,99 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
-                        app:msrv_interval="1"
+                        app:msrv_interval="2"
                         app:msrv_speed_ms_per_inch="100"/>
                 </LinearLayout>
             </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                tools:ignore="MissingConstraints">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:gravity="left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textSize="@dimen/title_font_size"
-                        android:text="@string/title_most_popular"/>
-                    <TextView
-                        android:gravity="right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="@string/title_view_all"/>
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
-                        android:id="@+id/six_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="horizontal"
-                        app:msrv_interval="1"
-                        app:msrv_speed_ms_per_inch="100"/>
-                </LinearLayout>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                tools:ignore="MissingConstraints">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:orientation="horizontal">-->
+<!--                    <TextView-->
+<!--                        android:gravity="left"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:textSize="@dimen/title_font_size"-->
+<!--                        android:text="@string/title_most_popular"/>-->
+<!--                    <TextView-->
+<!--                        android:gravity="right"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:textColor="@color/colorPrimaryDark"-->
+<!--                        android:text="@string/title_view_all"/>-->
+<!--                </RelativeLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView-->
+<!--                        android:id="@+id/six_recycler_view"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_marginBottom="8dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        app:msrv_interval="2"-->
+<!--                        app:msrv_speed_ms_per_inch="100"/>-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                tools:ignore="MissingConstraints">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:gravity="left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textSize="@dimen/title_font_size"
-                        android:text="@string/title_most_popular"/>
-                    <TextView
-                        android:gravity="right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="@string/title_view_all"/>
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
-                        android:id="@+id/seven_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="horizontal"
-                        app:msrv_interval="1"
-                        app:msrv_speed_ms_per_inch="100"/>
-                </LinearLayout>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                tools:ignore="MissingConstraints">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:orientation="horizontal">-->
+<!--                    <TextView-->
+<!--                        android:gravity="left"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:textSize="@dimen/title_font_size"-->
+<!--                        android:text="@string/title_most_popular"/>-->
+<!--                    <TextView-->
+<!--                        android:gravity="right"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:textColor="@color/colorPrimaryDark"-->
+<!--                        android:text="@string/title_view_all"/>-->
+<!--                </RelativeLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView-->
+<!--                        android:id="@+id/seven_recycler_view"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_marginBottom="8dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        app:msrv_interval="2"-->
+<!--                        app:msrv_speed_ms_per_inch="100"/>-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
         </LinearLayout>
 </ScrollView>

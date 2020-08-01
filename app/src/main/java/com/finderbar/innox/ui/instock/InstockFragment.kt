@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.R
 import com.finderbar.innox.ui.home.HomeViewModel
-import com.finderbar.innox.ui.home.ProductAdaptor
 
 class InstockFragment : Fragment() {
 
@@ -26,8 +25,7 @@ class InstockFragment : Fragment() {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_instock, container, false)
 
-
-        val productAdaptor: ProductAdaptor = ProductAdaptor(arrayListOf())
+        val productAdaptor: InstockProductAdaptor = InstockProductAdaptor(arrayListOf())
         val firstRecycleView: RecyclerView = root.findViewById(R.id.first_recycler_view)
         firstRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
         firstRecycleView.adapter = productAdaptor
@@ -43,6 +41,10 @@ class InstockFragment : Fragment() {
         val fourRecycleView: RecyclerView = root.findViewById(R.id.four_recycler_view)
         fourRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
         fourRecycleView.adapter = productAdaptor
+
+        val fiveRecycleView: RecyclerView = root.findViewById(R.id.five_recycler_view)
+        fiveRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
+        fiveRecycleView.adapter = productAdaptor
 
         homeViewModel.result.observe(viewLifecycleOwner, Observer {
             productAdaptor.addAll(it)

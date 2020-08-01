@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.cart.CartFragment">
+    <ScrollView
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <com.finderbar.innox.utilities.ICGridLayout
+            android:id="@+id/ICGridLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_spacing="4dp"
+            app:columns="4">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_bottom="1"
+                app:layout_left="0"
+                app:layout_right="4"
+                app:layout_top="0"
+                android:background="#ff0000"
+                android:textColor="@color/colorWhite"
+                android:text="ONE" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_bottom="3"
+                app:layout_left="3"
+                app:layout_right="4"
+                app:layout_top="1"
+                android:background="#00ff00"
+                android:textColor="@color/colorWhite"
+                android:text="TWO"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_bottom="4"
+                app:layout_left="0"
+                app:layout_right="3"
+                app:layout_top="1"
+                android:background="#0000ff"
+                android:textColor="@color/colorWhite"
+                android:text="THREE"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_bottom="4"
+                app:layout_left="3"
+                app:layout_right="4"
+                app:layout_top="3"
+                android:background="#ffff00"
+                android:textColor="@color/colorWhite"
+                android:text="FOUR" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_bottom="6"
+                app:layout_left="0"
+                app:layout_right="1"
+                app:layout_top="4"
+                android:background="#ff00ff"
+                android:textColor="@color/colorWhite"
+                android:text="FIVE" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_bottom="6"
+                app:layout_left="1"
+                app:layout_right="4"
+                app:layout_top="4"
+                android:background="#3949AB"
+                android:textColor="@color/colorWhite"
+                android:text="SIX"/>
+        </com.finderbar.innox.utilities.ICGridLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
