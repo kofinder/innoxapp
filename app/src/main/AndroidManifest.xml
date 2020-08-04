@@ -57,6 +57,16 @@
         <activity android:name=".ui.account.LoginActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.account.RegisterActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.account.RegisterInfoActivity" android:theme="@style/AppTheme" android:exported="true"/>
+
+        <!-- CUSTOMIZE PRODUCT-->
+        <activity android:name=".ui.designer.CustomizeDesignActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.designer.CustomizeProductActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.designer.CustomizeCreateActivity" android:theme="@style/AppTheme"/>
+
+        <!-- INSTOCK PRODUCT-->
+        <activity android:name=".ui.instock.InstockProductActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

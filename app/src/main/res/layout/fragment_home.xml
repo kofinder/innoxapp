@@ -60,13 +60,12 @@
                     android:layout_alignParentLeft="true"
                     android:textSize="@dimen/title_font_size"
                     android:text="@string/title_custom"/>
-                <TextView
-                    android:id="@+id/view_more"
-                    android:gravity="right"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_more_custom"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/title_view_all"/>
             </RelativeLayout>
             <GridLayout
@@ -244,12 +243,13 @@
                     android:layout_alignParentLeft="true"
                     android:textSize="@dimen/title_font_size"
                     android:text="@string/title_most_popular"/>
-                <TextView
-                    android:gravity="right"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_more_instock"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:gravity="right"
                     android:text="@string/title_view_all"/>
             </RelativeLayout>
             <LinearLayout

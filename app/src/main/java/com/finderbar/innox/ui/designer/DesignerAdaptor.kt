@@ -4,28 +4,40 @@ import android.content.Context
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.R
-import com.finderbar.innox.model.ImageItem
+import com.finderbar.innox.inflate
+import com.finderbar.innox.model.Product
 import com.finderbar.jovian.utilities.android.loadLarge
 
-class DesignerAdaptor (private val context: Context): BaseAdapter() {
-    var arrayList: MutableList<ImageItem> = arrayListOf();
+class DesignerAdaptor(private val arrayList: MutableList<Product>) : RecyclerView.Adapter<DesignerAdaptor.ProductViewHolder>() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = View.inflate(context, R.layout.item_designer_product,null)
-        view.setBackgroundColor(view.resources.getColor(R.color.colorPrimaryDark))
-        val thumb: ImageView = view.findViewById(R.id.thumb)
-        thumb.loadLarge(Uri.parse(arrayList[position].urls))
-        return view
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder(parent.inflate(R.layout.item_designer_product))
+
+    override fun getItemCount(): Int = arrayList.size
+
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) = holder.bindData(arrayList[position])
+
+    override fun getItemViewType(position: Int): Int {
+       return if(position % 2 == 0) 2 else 1
     }
 
-    override fun getItem(position: Int): Any = arrayList[position]
+    private fun add(r: Product) {
+        arrayList.add(r)
+        notifyItemInserted(arrayList.size - 1)
+    }
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    fun addAll(resultList: List<Product>) {
+        for (result in resultList) {
+            add(result)
+        }
+    }
 
-    override fun getCount(): Int = arrayList.size
-
+    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val thumb: ImageView = itemView.findViewById(R.id.thumb)
+        fun bindData(product: Product) {
+            thumb.loadLarge(Uri.parse(product.url));
+        }
+    }
 }
-

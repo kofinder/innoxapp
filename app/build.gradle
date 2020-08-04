@@ -80,9 +80,6 @@ dependencies {
     // MULTIPLE RECYCLE VIEW
     implementation 'com.github.takusemba:multisnaprecyclerview:2.0.2'
 
-    // GRID VIEW
-    implementation 'com.felipecsl.asymmetricgridview:library:2.0.1'
-
     // MVVM
     kapt "android.arch.lifecycle:compiler:1.1.1"
     implementation "android.arch.lifecycle:runtime:1.1.1"

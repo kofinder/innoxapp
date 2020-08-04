@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="5dp">
+    android:paddingBottom="0dp">
         <ImageView
             android:id="@+id/thumb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.5"
             android:src="@mipmap/ic_launcher"
             tools:ignore="ContentDescription" />
         <com.google.android.material.button.MaterialButton
+            android:layout_below="@+id/thumb"
             android:id="@+id/btn_create"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create Designer" />
-</LinearLayout>
+            android:text="Create Designer"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="0dp"/>
+</androidx.cardview.widget.CardView>
