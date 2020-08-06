@@ -1,9 +1,14 @@
 package com.finderbar.innox.ui.designer
 
 import android.content.Context
+import android.graphics.Typeface
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import android.widget.TextView
+import com.finderbar.innox.R
+
 
 class DesignerExpendableAdaptor(private val context: Context, private val header: MutableList<String>, private val body: HashMap<String, MutableList<String>>): BaseExpandableListAdapter() {
 
@@ -14,7 +19,18 @@ class DesignerExpendableAdaptor(private val context: Context, private val header
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var convertView = convertView
+        val headerTitle = getGroup(groupPosition) as String
+        if (convertView == null) {
+            val infalInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            convertView = infalInflater.inflate(R.layout.item_designer_list_group, null)
+        }
+
+        val lblListHeader = convertView?.findViewById(R.id.lblListHeader) as TextView
+        lblListHeader.setTypeface(null, Typeface.BOLD)
+        lblListHeader.text = headerTitle
+
+        return convertView!!
     }
 
 
@@ -25,7 +41,15 @@ class DesignerExpendableAdaptor(private val context: Context, private val header
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val childText = getChild(groupPosition, childPosition) as String
+        var convertView = convertView
+        if (convertView == null) {
+            val infalInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            convertView = infalInflater.inflate(R.layout.item_designer_list_item, null)
+        }
+        val txtListChild = convertView?.findViewById(R.id.lblListItem) as TextView
+        txtListChild.text = childText
+        return convertView!!
     }
 
     override fun getGroup(groupPosition: Int): Any  = header[groupPosition]

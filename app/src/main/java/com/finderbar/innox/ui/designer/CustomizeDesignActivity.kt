@@ -23,7 +23,7 @@ class CustomizeDesignActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customize_designer)
         ButterKnife.bind(this)
-
+        prepareListData()
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Customized Design Listing"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
