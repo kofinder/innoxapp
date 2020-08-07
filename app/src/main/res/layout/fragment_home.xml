@@ -72,11 +72,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:columnCount="4">
+                android:columnCount="4"
+                android:rowCount="2"
+                android:orientation="vertical">
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -92,9 +95,10 @@
                         android:text="T shirts"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -110,9 +114,10 @@
                         android:text="Crop troops"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -128,9 +133,10 @@
                         android:text="Crop troops"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -146,9 +152,10 @@
                         android:text="Crop troops"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -164,9 +171,10 @@
                         android:text="Crop troops"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -182,9 +190,10 @@
                         android:text="Crop troops"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -200,9 +209,10 @@
                         android:text="Crop troops"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -219,8 +229,6 @@
                 </LinearLayout>
             </GridLayout>
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
