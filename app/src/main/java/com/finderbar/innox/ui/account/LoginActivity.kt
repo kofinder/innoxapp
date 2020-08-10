@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.finderbar.innox.MainActivity
+import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.R
 import com.google.android.material.button.MaterialButton
 

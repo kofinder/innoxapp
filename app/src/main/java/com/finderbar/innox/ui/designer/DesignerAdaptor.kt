@@ -1,6 +1,5 @@
 package com.finderbar.innox.ui.designer
 
-import android.content.Context
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.R
 import com.finderbar.innox.inflate
-import com.finderbar.innox.model.Product
+import com.finderbar.innox.repository.home.Product
 import com.finderbar.jovian.utilities.android.loadLarge
 
 class DesignerAdaptor(private val arrayList: MutableList<Product>) : RecyclerView.Adapter<DesignerAdaptor.ProductViewHolder>() {

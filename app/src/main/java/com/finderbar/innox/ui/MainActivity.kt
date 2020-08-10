@@ -1,4 +1,4 @@
-package com.finderbar.innox
+package com.finderbar.innox.ui
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.finderbar.innox.R
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,12 +28,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.finderbar.innox.R.layout.activity_main)
         ButterKnife.bind(this)
 
-        navController = findNavController(R.id.main_nav_host)
-        appBarConfiguration = AppBarConfiguration.Builder(setOf(R.id.navigation_home, R.id.navigation_instock,
-            R.id.navigation_create, R.id.navigation_cart, R.id.navigation_account)).setDrawerLayout(drawerLayout).build();
+        navController = findNavController(com.finderbar.innox.R.id.main_nav_host)
+        appBarConfiguration = AppBarConfiguration.Builder(setOf(
+            R.id.navigation_home,
+            R.id.navigation_instock,
+            R.id.navigation_create,
+            R.id.navigation_cart,
+            R.id.navigation_account
+        )).setDrawerLayout(drawerLayout).build();
 
         setSupportActionBar(toolbar)
 

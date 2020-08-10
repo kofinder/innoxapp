@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.R
 import com.finderbar.innox.inflate
-import com.finderbar.innox.model.Product
+import com.finderbar.innox.repository.home.Product
 import com.finderbar.jovian.utilities.android.loadLarge
 
 class InstockProductAdaptor(private val arrayList: MutableList<Product>) : RecyclerView.Adapter<InstockProductAdaptor.ProductViewHolder>() {
