@@ -1,45 +1,47 @@
 package com.finderbar.innox.ui.home
 
-import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.finderbar.innox.R
+import com.finderbar.innox.databinding.ItemImageSliderBinding
+import com.finderbar.innox.repository.home.Banner
+import com.finderbar.jovian.utilities.android.loadLarge
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 
-class ImageSlideAdaptor(private val context: Context): SliderViewAdapter<ImageSlideAdaptor.SliderAdapterVH>() {
+class ImageSlideAdaptor(private val arrayList: MutableList<Banner>): SliderViewAdapter<ImageSlideAdaptor.SliderViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapterVH {
-        val inflate: View = LayoutInflater.from(parent?.context).inflate(R.layout.image_slider_layout_item, null)
-        return SliderAdapterVH(inflate)
+    inner class SliderViewHolder(binding: ItemImageSliderBinding) : ViewHolder(binding.root) {
+        var txtTitle: TextView? = binding.txtTitle
+        var imgSlide: ImageView = binding.imgSlider
     }
 
-    override fun getCount(): Int = 4
+    override fun onCreateViewHolder(parent: ViewGroup?): SliderViewHolder {
+        val inflater = LayoutInflater.from(parent?.context)
+        val binding = ItemImageSliderBinding.inflate(inflater, parent, false)
+        return SliderViewHolder(binding)
+    }
 
-    override fun onBindViewHolder(viewHolder: SliderAdapterVH?, position: Int) {
-        when (position) {
-            0 -> Glide.with(viewHolder?.itemView!!)
-                .load("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                .into(viewHolder.imageViewBackground)
-            1 -> Glide.with(viewHolder!!.itemView)
-                .load("https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260")
-                .into(viewHolder.imageViewBackground)
-            2 -> Glide.with(viewHolder!!.itemView)
-                .load("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                .into(viewHolder.imageViewBackground)
-            else -> Glide.with(viewHolder!!.itemView)
-                .load("https://images.pexels.com/photos/218983/pexels-photo-218983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                .into(viewHolder.imageViewBackground)
+    override fun getCount(): Int = arrayList.size
+
+    override fun onBindViewHolder(viewHolder: SliderViewHolder?, position: Int) {
+        val banner = arrayList[position]
+        viewHolder?.txtTitle?.text = banner.name
+        viewHolder?.imgSlide?.loadLarge(Uri.parse(banner.photoUrl))
+    }
+
+
+    private fun add(r: Banner) {
+        arrayList.add(r)
+        notifyDataSetChanged()
+    }
+
+    fun addAll(resultList: List<Banner>) {
+        for (result in resultList) {
+            add(result)
         }
     }
 
-    inner class SliderAdapterVH(itemView: View): ViewHolder(itemView) {
-        var itemView: View = itemView
-        var imageViewBackground: ImageView = itemView.findViewById(R.id.iv_auto_image_slider)
-        var textViewDescription: TextView = itemView.findViewById(R.id.tv_auto_image_slider)
-    }
 }

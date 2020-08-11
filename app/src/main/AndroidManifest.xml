@@ -45,7 +45,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="false"
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name">
@@ -67,6 +71,8 @@
         <activity android:name=".ui.instock.InstockProductActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme"/>
+
+        <activity android:name=".ui.product.ProductDetailActivity" android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.designer
+package com.finderbar.innox.utilities
 
 import android.graphics.Rect
 import android.view.View

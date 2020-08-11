@@ -102,4 +102,9 @@ class CustomizeDesignActivity: AppCompatActivity() {
         listDataChild.put(listDataHeader.get(1), nowShowing)
         listDataChild.put(listDataHeader.get(2), comingSoon)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

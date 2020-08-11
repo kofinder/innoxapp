@@ -20,4 +20,9 @@ class CustomizeProductActivity: AppCompatActivity() {
         supportActionBar?.title = "CreateDesign"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

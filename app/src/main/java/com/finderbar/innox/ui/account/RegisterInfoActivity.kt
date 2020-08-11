@@ -19,4 +19,9 @@ class RegisterInfoActivity : AppCompatActivity() {
 
         registerButton.setOnClickListener{startActivity(Intent(this, RegisterInfoActivity::class.java))}
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -15,6 +15,7 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.finderbar.innox.R
 import com.finderbar.innox.ui.home.HomeViewModel
+import com.finderbar.innox.utilities.SpaceItemDecoration
 
 
 class DesignerFragment : Fragment() {
@@ -45,7 +46,11 @@ class DesignerFragment : Fragment() {
         }
 
         recyclerReview.layoutManager = layoutManager
-        recyclerReview.addItemDecoration(SpaceItemDecoration(20));
+        recyclerReview.addItemDecoration(
+            SpaceItemDecoration(
+                20
+            )
+        );
         recyclerReview.adapter = adaptor
 
         homeViewModel.result.observe(viewLifecycleOwner, Observer {

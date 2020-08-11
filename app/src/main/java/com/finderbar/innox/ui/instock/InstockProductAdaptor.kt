@@ -13,7 +13,7 @@ import com.finderbar.jovian.utilities.android.loadLarge
 
 class InstockProductAdaptor(private val arrayList: MutableList<Product>) : RecyclerView.Adapter<InstockProductAdaptor.ProductViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder(parent.inflate(R.layout.item_home_product))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder(parent.inflate(R.layout.item_popular_product))
 
     override fun getItemCount(): Int = arrayList.size
 

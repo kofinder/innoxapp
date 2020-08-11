@@ -4,6 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.jakewharton.butterknife'
 
+kapt {
+    mapDiagnosticLocations = true
+}
+androidExtensions {
+    experimental = true
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -84,6 +91,8 @@ dependencies {
 
     //SLIDE IMAGE
     implementation 'com.github.smarteist:autoimageslider:1.3.2'
+    implementation 'com.caverock:androidsvg-aar:1.4'
+
 
     // MULTIPLE RECYCLE VIEW
     implementation 'com.github.takusemba:multisnaprecyclerview:2.0.2'
@@ -95,6 +104,9 @@ dependencies {
 
     // LOGGING
     implementation 'com.orhanobut:logger:2.2.0'
+
+    // LOADING & PROGRESS
+    implementation 'com.wang.avi:library:2.1.3'
 
    // THREAD HANDLING
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
