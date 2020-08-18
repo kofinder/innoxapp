@@ -12,16 +12,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentHomeBinding
 import com.finderbar.innox.repository.Status
 import com.finderbar.innox.ui.designer.CustomizeDesignActivity
+import com.finderbar.innox.ui.product.ProductDetailActivity
 import com.finderbar.innox.utilities.SpaceItemDecoration
+import com.finderbar.innox.viewmodel.HomeViewModel
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , ItemProductClick {
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -53,11 +56,11 @@ class HomeFragment : Fragment() {
         binding.rvCategoryProduct.layoutManager = GridLayoutManager(requireContext(), 4);
         binding.rvCategoryProduct.adapter = categoryAdaptor
 
-        val popularAdaptor = PopularProductAdaptor(arrayListOf())
+        val popularAdaptor = PopularProductAdaptor(arrayListOf(), this)
         binding.rvPopularProduct.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
         binding.rvPopularProduct.adapter = popularAdaptor
 
-        val promotionAdaptor = PromotionProductAdaptor(arrayListOf())
+        val promotionAdaptor = PromotionProductAdaptor(arrayListOf(), this)
         binding.rvPromotionProduct.addItemDecoration(SpaceItemDecoration(10));
         binding.rvPromotionProduct.layoutManager = GridLayoutManager(requireContext(), 2);
         binding.rvPromotionProduct.adapter = promotionAdaptor
@@ -82,5 +85,12 @@ class HomeFragment : Fragment() {
         binding.btnMoreCustom.setOnClickListener{startActivity(Intent(activity, CustomizeDesignActivity::class.java))}
 
         return rootView;
+    }
+
+    override fun onItemClick(_id: Int, position: Int) {
+        val intent = Intent(activity, ProductDetailActivity::class.java)
+        intent.putExtra("_id", _id)
+        intent.putExtra("position", position)
+        startActivity(intent)
     }
 }

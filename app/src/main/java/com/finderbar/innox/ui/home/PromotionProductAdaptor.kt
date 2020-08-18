@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.AppConstant.ITEM
 import com.finderbar.innox.AppConstant.LOADING
+import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemLoadingBinding
 import com.finderbar.innox.databinding.ItemPromotionProductBinding
 import com.finderbar.innox.repository.home.PromotionProduct
 import com.finderbar.jovian.utilities.android.loadLarge
 import kotlinx.android.synthetic.main.item_popular_product.view.*
 
-class PromotionProductAdaptor(private val arrayList: MutableList<PromotionProduct>) : RecyclerView.Adapter<PromotionProductAdaptor.ItemViewHolder>() {
+class PromotionProductAdaptor(private val arrayList: MutableList<PromotionProduct>, private val itemClick : ItemProductClick) : RecyclerView.Adapter<PromotionProductAdaptor.ItemViewHolder>() {
 
     abstract class ItemViewHolder(root: View) : RecyclerView.ViewHolder(root)
     private class PromotionProductViewHolder(binding: ItemPromotionProductBinding) : ItemViewHolder(binding.root);
@@ -30,9 +31,10 @@ class PromotionProductAdaptor(private val arrayList: MutableList<PromotionProduc
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val datum : PromotionProduct = arrayList[position]
         val view = holder as PromotionProductViewHolder
-        holder.itemView.thumb.loadLarge(Uri.parse(datum.images?.get(0)))
-        holder.itemView.txt_title.text = datum.name
-        holder.itemView.txt_price.text = datum.price
+        view.itemView.thumb.loadLarge(Uri.parse(datum.images?.get(0)))
+        view.itemView.txt_title.text = datum.name
+        view.itemView.txt_price.text = datum.price
+        view.itemView.setOnClickListener{ itemClick.onItemClick(datum.id!!, position) }
     }
 
     override fun getItemViewType(position: Int): Int {

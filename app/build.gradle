@@ -101,6 +101,8 @@ dependencies {
     // UI BINDING
     implementation 'com.jakewharton:butterknife:10.2.1'
     kapt 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+
 
     // LOGGING
     implementation 'com.orhanobut:logger:2.2.0'

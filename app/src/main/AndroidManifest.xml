@@ -49,6 +49,7 @@
         android:requestLegacyExternalStorage="true"
         android:hardwareAccelerated="false"
         android:usesCleartextTraffic="true"
+        android:largeHeap="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.MainActivity"
@@ -72,7 +73,7 @@
         <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme"/>
 
-        <activity android:name=".ui.product.ProductDetailActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.product.ProductDetailActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>

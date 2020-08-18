@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.home
+package com.finderbar.innox.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +16,15 @@ class HomeViewModel : ViewModel() {
         emit(Resource.loading())
         val api = ApiClient.createService(HomeRepository::class.java)
         val response = api.getScreen()
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadProduct(productId: String)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClient.createService(HomeRepository::class.java)
+        val response = api.getProduct(productId)
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }

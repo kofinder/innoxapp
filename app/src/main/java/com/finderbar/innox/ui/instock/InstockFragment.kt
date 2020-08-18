@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.R
-import com.finderbar.innox.ui.home.HomeViewModel
+import com.finderbar.innox.viewmodel.HomeViewModel
 
 class InstockFragment : Fragment() {
 

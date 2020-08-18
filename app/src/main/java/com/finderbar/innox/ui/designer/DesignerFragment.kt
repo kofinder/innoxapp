@@ -14,7 +14,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.finderbar.innox.R
-import com.finderbar.innox.ui.home.HomeViewModel
+import com.finderbar.innox.viewmodel.HomeViewModel
 import com.finderbar.innox.utilities.SpaceItemDecoration
 
 

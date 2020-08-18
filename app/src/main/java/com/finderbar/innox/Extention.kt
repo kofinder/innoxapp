@@ -28,3 +28,6 @@ fun <T> Call<T>.enqueue(success: (response: Response<T>) -> Unit,
     })
 }
 
+interface ItemProductClick {
+    fun onItemClick(_id: Int, position: Int)
+}
