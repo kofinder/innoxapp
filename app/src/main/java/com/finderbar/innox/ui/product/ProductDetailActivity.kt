@@ -2,6 +2,9 @@ package com.finderbar.innox.ui.product
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
+import android.view.View.MeasureSpec
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.activity.viewModels
@@ -13,9 +16,9 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.finderbar.innox.R
-import com.finderbar.innox.R2.id.indicator
 import com.finderbar.innox.repository.Status
 import com.finderbar.innox.viewmodel.HomeViewModel
+import com.google.android.material.button.MaterialButton
 import com.viewpagerindicator.CirclePageIndicator
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
@@ -32,13 +35,14 @@ class ProductDetailActivity: AppCompatActivity() {
     @BindView(R.id.txt_price) lateinit var txtPrice: TextView
     @BindView(R.id.img_next) lateinit var btnNext: CircleImageView
     @BindView(R.id.img_prev) lateinit var btnPrev: CircleImageView
+    @BindView(R.id.btn_cart) lateinit var btnCart: MaterialButton
     @BindView(R.id.indicator) lateinit var btnIndicator: CirclePageIndicator
     @BindView(R.id.vp_slider_layout) lateinit var sliderLayout: ViewPager
 
     private val homeVM: HomeViewModel by viewModels()
 
-   var currentPage = 0
-   var numberOfPages = 0
+   private var currentPage = 0
+   private var numberOfPages = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +86,7 @@ class ProductDetailActivity: AppCompatActivity() {
             "WebOS","Ubuntu","Windows7","Max OS X")
         )
         highlightView.adapter = hAdaptor
-
+        setListViewHeight(highlightView)
 
         sliderLayout.adapter = ImageSlidePagerAdapter(applicationContext, mutableListOf("https://demonuts.com/Demonuts/SampleImages/W-03.JPG", "https://demonuts.com/Demonuts/SampleImages/W-08.JPG", "https://demonuts.com/Demonuts/SampleImages/W-10.JPG",
             "https://demonuts.com/Demonuts/SampleImages/W-13.JPG", "https://demonuts.com/Demonuts/SampleImages/W-17.JPG", "https://demonuts.com/Demonuts/SampleImages/W-21.JPG")
@@ -90,6 +94,7 @@ class ProductDetailActivity: AppCompatActivity() {
         btnIndicator.setViewPager(sliderLayout)
         val density = resources.displayMetrics.density
         btnIndicator.radius = 5 * density
+
 
         val handler = Handler()
         val update = Runnable {
@@ -114,7 +119,33 @@ class ProductDetailActivity: AppCompatActivity() {
             override fun onPageScrollStateChanged(pos: Int) {}
         })
 
+
+        btnCart.setOnClickListener{
+            val frag = AddToCartDialogFragment.newInstance("item?._id!!", "prefs.fullName", "prefs.avatar", "getCurrentTime()")
+            frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
+        }
+
     }
+
+
+    private fun setListViewHeight(listView: ListView) {
+        val listAdapter = listView.adapter ?: return
+        val desiredWidth =
+            MeasureSpec.makeMeasureSpec(listView.width, MeasureSpec.UNSPECIFIED)
+        var totalHeight = 0
+        var view: View? = null
+        for (i in 0 until listAdapter.count) {
+            view = listAdapter.getView(i, view, listView)
+            if (i == 0) view.setLayoutParams(ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
+            )
+            view.measure(desiredWidth, MeasureSpec.UNSPECIFIED)
+            totalHeight += view.measuredHeight
+        }
+        val params = listView.layoutParams
+        params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
+        listView.layoutParams = params
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

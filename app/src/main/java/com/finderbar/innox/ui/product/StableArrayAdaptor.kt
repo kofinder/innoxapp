@@ -13,7 +13,9 @@ class StableArrayAdapter(context: Context, private val words: MutableList<String
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getItem(position: Int): Any = words[position]
+
     override fun getCount(): Int  = words.size
+
     override fun getItemId(position: Int): Long  = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

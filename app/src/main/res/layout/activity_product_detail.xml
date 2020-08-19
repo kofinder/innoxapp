@@ -170,6 +170,9 @@
                     android:id="@+id/list_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:listSelector="@android:color/transparent"
                     android:orientation="vertical"/>
             </LinearLayout>
 
@@ -217,6 +220,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/cart_text"
+            android:layout_margin="0dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"/>
     </LinearLayout>
