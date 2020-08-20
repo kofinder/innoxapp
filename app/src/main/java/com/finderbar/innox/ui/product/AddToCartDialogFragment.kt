@@ -1,22 +1,14 @@
 package com.finderbar.innox.ui.product
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.finderbar.innox.R
-import de.hdodenhof.circleimageview.CircleImageView
+import com.finderbar.innox.databinding.FragmentDialogAddToCartBinding
+import com.finderbar.innox.ui.checkout.ProductCheckoutActivity
 
 class AddToCartDialogFragment : DialogFragment() {
-//    private var txtBody: TextView? = null;
-//    private var txtUserName: TextView? = null;
-//    private var imgAvatar: CircleImageView? = null;
-//    private var txtTimeAgo: TextView? = null
-//
-//    private var body: String? = null
-//    private var userName: String? = null
-//    private var userAvatar: String? = null;
-//    private var timeAgo: String? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -45,37 +37,19 @@ class AddToCartDialogFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        val view =  inflater.inflate(R.layout.fragment_dialog_add_to_cart, parent, false)
-//        txtUserName = view.findViewById(R.id.txt_usr_name)
-//        imgAvatar = view.findViewById(R.id.user_image)
-//        txtBody = view.findViewById(R.id.body)
-//        txtTimeAgo = view.findViewById(R.id.txt_ago)
-//        // set initial value
-//        txtBody?.setMarkdown(body!!)
-//        txtUserName?.text = userName
-//        imgAvatar?.loadAvatar(Uri.parse(userAvatar))
-//        txtTimeAgo?.text = agoTimeUtil(timeAgo!!)
-
-        return view
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-//        txtUserName = null
-//        imgAvatar = null
-//        txtBody = null
+        val binding: FragmentDialogAddToCartBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_add_to_cart, parent , false)
+        var rootView : View  = binding.root
+        binding.btnCart.setOnClickListener{startActivity(Intent(activity, ProductCheckoutActivity::class.java))}
+        return rootView
     }
 
     companion object {
         const val TAG = "AddToCartDialogFragment"
         fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): AddToCartDialogFragment {
             val fragment = AddToCartDialogFragment()
-//            val args = Bundle()
+            val args = Bundle()
 //            args.putString(ARG_KEY_ANSWER_BODY, body)
-//            args.putString(ARG_KEY_USER_NAME, userName)
-//            args.putString(ARG_KEY_USER_AVATAR, userAvatar)
-//            args.putString(ARG_KEY_TIME_AGO, timeAgo)
-//            fragment.arguments = args
+            fragment.arguments = args
             return fragment
         }
     }

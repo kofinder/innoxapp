@@ -49,6 +49,7 @@
     <string name="account_not_found">Don\'t have an account?</string>
     <string name="account_create">Let\'t create New one</string>
     <string name="account_visit">Come Login and visit us</string>
+    <string name="remark">Remark</string>
 
     <!-- PRODUCT DETAIL-->
     <string name="product_colors">Available Colors</string>
@@ -62,5 +63,15 @@
     <string name="cart_text">Add to Cart</string>
     <string name="cart_summary">Cost Summary</string>
     <string name="sub_total">Sub Total</string>
+    <string name="item_total">Total</string>
     <string name="total">Total Cost</string>
+
+
+    <string name="item_cost">Items Cost</string>
+    <string name="delivery_fees">Delivery Fees</string>
+    <string name="delivery_info">Delivery Information</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="order_confirm">Confirm Orders</string>
+    <string name="order_item">Order Items</string>
+    <string name="order_info">Lorem Ipsum has been the industry standard dummy text ever since the 1500s,  it to make a type specimen book. It has survived not only five centuries, remaining essentially unchanged.</string>
 </resources>
