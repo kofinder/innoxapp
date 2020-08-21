@@ -46,11 +46,7 @@ class DesignerFragment : Fragment() {
         }
 
         recyclerReview.layoutManager = layoutManager
-        recyclerReview.addItemDecoration(
-            SpaceItemDecoration(
-                20
-            )
-        );
+        recyclerReview.addItemDecoration( SpaceItemDecoration(20) );
         recyclerReview.adapter = adaptor
 
         homeViewModel.result.observe(viewLifecycleOwner, Observer {
