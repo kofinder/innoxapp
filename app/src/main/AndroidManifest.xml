@@ -69,10 +69,9 @@
         <activity android:name=".ui.designer.CustomizeCreateActivity" android:theme="@style/AppTheme"/>
 
         <!-- INSTOCK PRODUCT-->
-        <activity android:name=".ui.instock.InstockProductActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme"/>
-
+        <activity android:name=".ui.instock.InstockProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.product.ProductDetailActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.checkout.ProductCheckoutActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>

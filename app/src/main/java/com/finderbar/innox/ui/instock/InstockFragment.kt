@@ -1,5 +1,6 @@
 package com.finderbar.innox.ui.instock
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,11 +44,8 @@ class InstockFragment : Fragment() {
             }
         })
 
-        binding.btnSearch.setOnClickListener {
-            print("hello world")
-        }
+        binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InstockSearchActivity::class.java))}
 
         return rootView
-
     }
 }
