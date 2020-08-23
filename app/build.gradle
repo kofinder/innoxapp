@@ -94,10 +94,6 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
 
 
-    // MULTIPLE RECYCLE VIEW
-    implementation 'com.github.takusemba:multisnaprecyclerview:2.0.2'
-
-
     // UI BINDING
     implementation 'com.jakewharton:butterknife:10.2.1'
     kapt 'com.jakewharton:butterknife-compiler:10.2.1'

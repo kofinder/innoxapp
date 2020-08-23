@@ -74,4 +74,5 @@
     <string name="order_confirm">Confirm Orders</string>
     <string name="order_item">Order Items</string>
     <string name="order_info">Lorem Ipsum has been the industry standard dummy text ever since the 1500s,  it to make a type specimen book. It has survived not only five centuries, remaining essentially unchanged.</string>
+    <string name="search_text">What kind of clothing do you want find?</string>
 </resources>

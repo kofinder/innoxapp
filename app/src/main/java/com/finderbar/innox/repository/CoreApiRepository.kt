@@ -1,4 +1,4 @@
-package com.finderbar.innox.repository.home
+package com.finderbar.innox.repository
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
@@ -7,17 +7,22 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface HomeRepository {
+interface CoreApiRepository {
     @GET("home")
     suspend fun getScreen(): Response<ServiceResponse<HomeScreen>>
 
+    @GET("categorys")
+    suspend fun getCategory(): Response<ServiceResponse<Categories>>
+
     @GET("product")
-    suspend fun getProduct(@Query("product_id") productId: String): Response<ServiceResponse<HomeScreen>>
+    suspend fun getProduct(@Query("product_id") productId: String): Response<ServiceResponse<ProductDetail>>
 }
 
 @Keep
 data class ServiceResponse<T>(
-    @SerializedName("data") val data: T
+    @SerializedName("data") val data: T,
+    @SerializedName("responseMessage") val responseMessage: String,
+    @SerializedName("errorList") val error: ArrayList<Any>
 )
 
 data class HomeScreen(
@@ -43,7 +48,30 @@ data class Category(
     @SerializedName("category_id") val id: Int? = 0,
     @SerializedName("sequence_no") val seqId: Int? = 0,
     @SerializedName("category_name") val name: String? = "",
+    @SerializedName("image_path") val photoUrl: String? = "",
+    @SerializedName("sub_categorys") val subCategory: MutableList<SubCategory>? = mutableListOf()
+)
+
+@Keep
+data class Categories(
+    @SerializedName("categorys")
+    val categories: MutableList<Category>? = mutableListOf()
+)
+
+@Keep
+data class SubCategory(
+    @SerializedName("sub_category_id") val id: Int? = 0,
+    @SerializedName("sequence_no") val seqId: Int? = 0,
+    @SerializedName("name") val name: String? = "",
     @SerializedName("image_path") val photoUrl: String? = ""
+)
+
+@Keep
+data class Product(
+    @SerializedName("prodcut_id") val id: Int? = 0,
+    @SerializedName("product_name") val name: String? = "",
+    @SerializedName("price_text") val price: String? = "",
+    @SerializedName("images") val images: List<String>? = listOf()
 )
 
 @Keep

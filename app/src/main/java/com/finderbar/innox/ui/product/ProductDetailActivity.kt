@@ -17,7 +17,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.finderbar.innox.R
 import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.HomeViewModel
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 import com.google.android.material.button.MaterialButton
 import com.viewpagerindicator.CirclePageIndicator
 import de.hdodenhof.circleimageview.CircleImageView
@@ -39,7 +39,7 @@ class ProductDetailActivity: AppCompatActivity() {
     @BindView(R.id.indicator) lateinit var btnIndicator: CirclePageIndicator
     @BindView(R.id.vp_slider_layout) lateinit var sliderLayout: ViewPager
 
-    private val homeVM: HomeViewModel by viewModels()
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
    private var currentPage = 0
    private var numberOfPages = 0
@@ -58,7 +58,7 @@ class ProductDetailActivity: AppCompatActivity() {
         txtPrice.text = "20000ks"
         txtDescription.text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged"
 
-        homeVM.loadProduct("").observe(this, Observer { res ->
+        baseApiVM.loadProduct("").observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

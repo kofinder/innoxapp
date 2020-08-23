@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.finderbar.innox.databinding.ItemImageSliderBinding
-import com.finderbar.innox.repository.home.Banner
+import com.finderbar.innox.repository.Banner
 import com.finderbar.jovian.utilities.android.loadLarge
 import com.smarteist.autoimageslider.SliderViewAdapter
 

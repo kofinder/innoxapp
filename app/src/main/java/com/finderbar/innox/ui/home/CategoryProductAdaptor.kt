@@ -9,7 +9,7 @@ import com.finderbar.innox.AppConstant.ITEM
 import com.finderbar.innox.AppConstant.LOADING
 import com.finderbar.innox.databinding.ItemCategoryProductBinding
 import com.finderbar.innox.databinding.ItemLoadingBinding
-import com.finderbar.innox.repository.home.Category
+import com.finderbar.innox.repository.Category
 import com.finderbar.jovian.utilities.android.loadAvatar
 import kotlinx.android.synthetic.main.item_category_product.view.*
 

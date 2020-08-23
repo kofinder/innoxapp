@@ -15,7 +15,7 @@ class SpaceItemDecoration(mspace: Int) : RecyclerView.ItemDecoration() {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.apply {
 
-            when ((parent!!.getChildLayoutPosition(view)) % 3) {
+            when ((parent.getChildLayoutPosition(view)) % 3) {
                 0,  1  -> {
                     left = space
                     right = space

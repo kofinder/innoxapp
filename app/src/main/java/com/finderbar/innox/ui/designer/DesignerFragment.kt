@@ -4,38 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.finderbar.innox.R
-import com.finderbar.innox.viewmodel.HomeViewModel
+import com.finderbar.innox.databinding.FragmentDesignerBinding
+import com.finderbar.innox.repository.Status
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 import com.finderbar.innox.utilities.SpaceItemDecoration
 
 
 class DesignerFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private lateinit var unkinder: Unbinder
-
-    @BindView(R.id.recycler_view) lateinit var recyclerReview: RecyclerView
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_designer, container, false)
-        unkinder = ButterKnife.bind(this, root)
+        val binding: FragmentDesignerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_designer, container , false)
+        var rootView : View  = binding.root
 
         val adaptor = DesignerAdaptor(arrayListOf())
         val layoutManager = GridLayoutManager(requireContext(), 2);
+
         layoutManager.spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (position % 3 == 0)
@@ -45,20 +41,24 @@ class DesignerFragment : Fragment() {
             }
         }
 
-        recyclerReview.layoutManager = layoutManager
-        recyclerReview.addItemDecoration( SpaceItemDecoration(20) );
-        recyclerReview.adapter = adaptor
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addItemDecoration( SpaceItemDecoration(20) );
+        binding.recyclerView.adapter = adaptor
 
-        homeViewModel.result.observe(viewLifecycleOwner, Observer {
-            adaptor.addAll(it)
+        baseApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
+            when (res.status) {
+                Status.LOADING -> {
+                    print(res.status)
+                }
+                Status.SUCCESS -> {
+                    adaptor.addAll(res.data?.categories!!)
+                }
+                Status.ERROR -> {
+                    print(res.msg)
+                }
+            }
         })
 
-        return root
+        return rootView
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unkinder.unbind()
-    }
-
 }

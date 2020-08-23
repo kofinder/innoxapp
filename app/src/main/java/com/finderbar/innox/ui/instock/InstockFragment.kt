@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.R
-import com.finderbar.innox.viewmodel.HomeViewModel
+import com.finderbar.innox.databinding.FragmentInstockBinding
+import com.finderbar.innox.repository.Status
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 
 class InstockFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,34 +24,30 @@ class InstockFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_instock, container, false)
+        val binding: FragmentInstockBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_instock, container , false)
+        var rootView : View  = binding.root
 
-        val productAdaptor: InstockProductAdaptor = InstockProductAdaptor(arrayListOf())
-        val firstRecycleView: RecyclerView = root.findViewById(R.id.first_recycler_view)
-        firstRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
-        firstRecycleView.adapter = productAdaptor
+        val adaptor = InstockCategoryAdaptor(requireContext(), arrayListOf())
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.adapter = adaptor
 
-        val secodRecycleView: RecyclerView = root.findViewById(R.id.second_recycler_view)
-        secodRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
-        secodRecycleView.adapter = productAdaptor
-
-        val thirdRecycleView: RecyclerView = root.findViewById(R.id.third_recycler_view)
-        thirdRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
-        thirdRecycleView.adapter = productAdaptor
-
-        val fourRecycleView: RecyclerView = root.findViewById(R.id.four_recycler_view)
-        fourRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
-        fourRecycleView.adapter = productAdaptor
-
-        val fiveRecycleView: RecyclerView = root.findViewById(R.id.five_recycler_view)
-        fiveRecycleView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
-        fiveRecycleView.adapter = productAdaptor
-
-        homeViewModel.result.observe(viewLifecycleOwner, Observer {
-            productAdaptor.addAll(it)
+        baseApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
+            when (res.status) {
+                Status.LOADING -> { binding.progress.visibility = View.VISIBLE }
+                Status.SUCCESS -> {
+                    binding.progress.visibility = View.GONE
+                    adaptor.addAll(res.data?.categories!!)
+                }
+                Status.ERROR -> { binding.progress.visibility = View.GONE }
+            }
         })
 
-        return root;
+        binding.btnSearch.setOnClickListener {
+            print("hello world")
+        }
+
+        return rootView
+
     }
 }

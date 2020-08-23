@@ -1,7 +1,6 @@
 package com.finderbar.innox.ui.checkout
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -13,19 +12,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
-import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.finderbar.innox.R
 import com.finderbar.innox.repository.Status
-import com.finderbar.innox.ui.product.AddToCartDialogFragment
-import com.finderbar.innox.ui.product.ImageSlidePagerAdapter
-import com.finderbar.innox.ui.product.StableArrayAdapter
-import com.finderbar.innox.viewmodel.HomeViewModel
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 import com.google.android.material.button.MaterialButton
-import com.viewpagerindicator.CirclePageIndicator
-import de.hdodenhof.circleimageview.CircleImageView
 
 class ProductCheckoutActivity : AppCompatActivity() {
 
@@ -40,7 +32,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
     @BindView(R.id.txt_price) lateinit var txtPrice: TextView
     @BindView(R.id.btn_confirm) lateinit var btnConfirm: MaterialButton
 
-    private val homeVM: HomeViewModel by viewModels()
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +48,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
         txtPrice.text = "20000ks"
         //txtDescription.text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged"
 
-        homeVM.loadProduct("").observe(this, Observer { res ->
+        baseApiVM.loadProduct("").observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

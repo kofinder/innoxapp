@@ -10,8 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentHomeBinding
@@ -19,18 +21,14 @@ import com.finderbar.innox.repository.Status
 import com.finderbar.innox.ui.designer.CustomizeDesignActivity
 import com.finderbar.innox.ui.product.ProductDetailActivity
 import com.finderbar.innox.utilities.SpaceItemDecoration
-import com.finderbar.innox.viewmodel.HomeViewModel
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 
 class HomeFragment : Fragment() , ItemProductClick {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
-    private val homeVM: HomeViewModel by viewModels()
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -57,15 +55,22 @@ class HomeFragment : Fragment() , ItemProductClick {
         binding.rvCategoryProduct.adapter = categoryAdaptor
 
         val popularAdaptor = PopularProductAdaptor(arrayListOf(), this)
-        binding.rvPopularProduct.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
+        binding.rvPopularProduct.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvPopularProduct.setHasFixedSize(true);
         binding.rvPopularProduct.adapter = popularAdaptor
+        binding.rvPopularProduct.isNestedScrollingEnabled = false
+        binding.rvPopularProduct.itemAnimator = DefaultItemAnimator()
+        binding.rvPopularProduct.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
         val promotionAdaptor = PromotionProductAdaptor(arrayListOf(), this)
         binding.rvPromotionProduct.addItemDecoration(SpaceItemDecoration(10));
         binding.rvPromotionProduct.layoutManager = GridLayoutManager(requireContext(), 2);
         binding.rvPromotionProduct.adapter = promotionAdaptor
+        binding.rvPromotionProduct.isNestedScrollingEnabled = false
+        binding.rvPromotionProduct.itemAnimator = DefaultItemAnimator()
+        binding.rvPromotionProduct.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
-        homeVM.loadData().observe(viewLifecycleOwner, Observer { res ->
+        baseApiVM.loadData().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

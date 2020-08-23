@@ -10,7 +10,7 @@ import com.finderbar.innox.AppConstant.LOADING
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemLoadingBinding
 import com.finderbar.innox.databinding.ItemPopularProductBinding
-import com.finderbar.innox.repository.home.PopularProduct
+import com.finderbar.innox.repository.PopularProduct
 import com.finderbar.jovian.utilities.android.loadLarge
 import kotlinx.android.synthetic.main.item_popular_product.view.*
 
