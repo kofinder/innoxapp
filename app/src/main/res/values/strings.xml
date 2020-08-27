@@ -82,5 +82,6 @@
     <string name="choose_categories_text">Choose Categories</string>
     <string name="choose_sub_categories_text">Choose Sub Categories</string>
     <string name="keywords">Keywords</string>
+    <string name="price_range">Price Range</string>
     <string name="search">Search</string>
 </resources>

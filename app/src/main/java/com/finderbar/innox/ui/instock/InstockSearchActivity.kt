@@ -1,33 +1,75 @@
 package com.finderbar.innox.ui.instock
 
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
-import android.widget.AutoCompleteTextView
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import butterknife.BindView
-import butterknife.ButterKnife
+import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.R
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputLayout
+import com.finderbar.innox.databinding.ActivityInstockSearchBinding
+import com.finderbar.innox.repository.Category
+import com.finderbar.innox.repository.Status
+import com.finderbar.innox.viewmodel.BaseApiViewModel
+import java.text.NumberFormat
+import java.util.*
+
 
 class InstockSearchActivity:  AppCompatActivity() {
 
-    @BindView(R.id.main_toolbar) lateinit var toolbar: Toolbar
-    @BindView(R.id.ac_category) lateinit var categoryDropdown: AutoCompleteTextView
-    @BindView(R.id.ac_sub_category) lateinit var subCategoryDropdown: AutoCompleteTextView
-    @BindView(R.id.keywords) lateinit var keyword: TextInputLayout
-    @BindView(R.id.btn_search) lateinit var btnSearch: MaterialButton
+    private lateinit var binding: ActivityInstockSearchBinding
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_instock_search)
-        ButterKnife.bind(this)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_instock_search)
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Filter"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.slider.setLabelFormatter { value: Float ->
+            val format = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 0
+            format.currency = Currency.getInstance("MMK")
+            format.format(value.toDouble())
+        }
+
+        val categoryArrayAdaptor = CategoryArrayAdaptor(applicationContext, R.layout.item_dropdown, mutableListOf())
+        categoryArrayAdaptor.setDropDownViewResource(R.layout.item_dropdown)
+        binding.acCategory.clearFocus();
+        binding.acCategory.setAdapter(categoryArrayAdaptor)
+
+
+        baseApiVM.loadCategories().observe(this, androidx.lifecycle.Observer { res ->
+            when(res.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                   categoryArrayAdaptor.addAll(res.data?.categories!!)
+                }
+                Status.ERROR -> {}
+            }
+        })
+
+        binding.acCategory.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?, view: View?,
+                position: Int, id: Long
+            ) {
+                val user: Category = categoryArrayAdaptor.getItem(position)!!
+                Toast.makeText(
+                    applicationContext, "ID: " + user.id.toString() + "\nName: " + user.name,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onNothingSelected(adapter: AdapterView<*>?) {}
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

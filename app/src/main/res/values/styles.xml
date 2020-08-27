@@ -30,4 +30,13 @@
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
+
+
+    <style name="tooltip" parent="Widget.MaterialComponents.Tooltip">
+        <item name="shapeAppearanceOverlay">@style/tooltipShOverylay</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+    <style name="tooltipShOverylay">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
