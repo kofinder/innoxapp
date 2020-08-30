@@ -20,118 +20,44 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
             <LinearLayout
+                android:id="@+id/lbl_search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:padding="10dp"
-                android:orientation="vertical">
-                <TextView
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_search"
+                    app:icon="@drawable/ic_search_black_24dp"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/darker_gray"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/title_font_size"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginBottom="12dp"
-                    android:textStyle="bold"
-                    android:text="@string/filter_text"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:hint="@string/keywords"
-                    app:endIconCheckable="true"
-                    android:id="@+id/keywords"
-                    app:endIconMode="custom">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/price_range"/>
-                    <com.google.android.material.slider.RangeSlider
-                        android:id="@+id/slider"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/price_range"
-                        app:labelStyle="@style/tooltip"
-                        app:labelBehavior="floating"
-                        android:valueTo="500000"
-                        android:valueFrom="0"
-                        app:values="@array/initial_slider_values"
-                        android:layout_margin="0dp"
-                        android:padding="0dp"/>
-                </LinearLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:hint="@string/search_categories_text"
-                    app:endIconCheckable="true"
-                    app:endIconMode="dropdown_menu">
-                    <AutoCompleteTextView
-                        android:id="@+id/ac_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:editable="false"
-                        android:text="@string/choose_categories_text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:hint="@string/search_sub_categories_text"
-                    app:endIconCheckable="true"
-                    app:endIconMode="dropdown_menu">
-                    <AutoCompleteTextView
-                        android:id="@+id/ac_sub_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:editable="false"
-                        android:text="@string/choose_sub_categories_text"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/colorGray"
+                    android:textColor="@android:color/darker_gray"
+                    app:cornerRadius="30dp"
+                    android:textAlignment="textStart"
+                    android:text="@string/search_text"
+                    android:layout_gravity="start"
+                    tools:ignore="RtlCompat" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:background="@color/colorPrimary"
-            android:layout_margin="0dp"
-            android:layout_alignParentBottom="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_search"
-                app:icon="@drawable/ic_search_black_24dp"
-                app:iconGravity="textStart"
-                style="@style/Widget.MaterialComponents.Button"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_below="@+id/lbl_search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/search"
-                android:layout_margin="0dp"
-                android:paddingTop="10dp"
-                app:cornerRadius="0dp"
-                android:paddingBottom="10dp"/>
-        </LinearLayout>
+                android:layout_height="match_parent"/>
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

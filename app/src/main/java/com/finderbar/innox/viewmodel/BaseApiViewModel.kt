@@ -36,4 +36,13 @@ class BaseApiViewModel : ViewModel() {
         }
     }
 
+    fun loadSearchProduct(keyword: String, startPrice: String, endPrice: String, categoryId: String, subCategoryId: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClient.createService(CoreApiRepository::class.java)
+        val response = api.searchProduct(keyword, startPrice, endPrice, categoryId, subCategoryId)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
 }

@@ -44,7 +44,7 @@ class InstockFragment : Fragment() {
             }
         })
 
-        binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InstockSearchActivity::class.java))}
+        binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InstockSearchFilterActivity::class.java))}
 
         return rootView
     }

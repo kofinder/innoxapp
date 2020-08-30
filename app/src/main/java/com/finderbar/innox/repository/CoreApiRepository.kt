@@ -16,6 +16,13 @@ interface CoreApiRepository {
 
     @GET("product")
     suspend fun getProduct(@Query("product_id") productId: String): Response<ServiceResponse<ProductDetail>>
+
+    @GET("products/search")
+    suspend fun searchProduct(@Query("keyword") keyword: String,
+                              @Query("startPrice") startPrice: String,
+                              @Query("endPrice") endPrice: String,
+                              @Query("category_id") categoryId: String,
+                              @Query("sub_category_id") subCategoryId: String): Response<ServiceResponse<Products>>
 }
 
 @Keep
@@ -37,6 +44,20 @@ data class HomeScreen(
 )
 
 @Keep
+data class Categories(
+    @SerializedName("categorys")
+    val categories: MutableList<Category>? = mutableListOf()
+)
+
+@Keep
+data class Products(
+    @SerializedName("products")
+    val products: MutableList<PromotionProduct>? = mutableListOf()
+)
+
+
+
+@Keep
 data class Banner(
     @SerializedName("banner_id") val id: Int? = 0,
     @SerializedName("banner_name") val name: String? = "",
@@ -50,13 +71,13 @@ data class Category(
     @SerializedName("category_name") val name: String? = "",
     @SerializedName("image_path") val photoUrl: String? = "",
     @SerializedName("sub_categorys") val subCategory: MutableList<SubCategory>? = mutableListOf()
-)
+) {
+    override fun toString(): String {
+        return name.toString()
+    }
+}
 
-@Keep
-data class Categories(
-    @SerializedName("categorys")
-    val categories: MutableList<Category>? = mutableListOf()
-)
+
 
 @Keep
 data class SubCategory(

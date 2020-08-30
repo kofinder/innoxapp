@@ -1,24 +1,25 @@
 package com.finderbar.innox.ui.instock
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockSearchBinding
-import com.finderbar.innox.repository.Category
 import com.finderbar.innox.repository.Status
+import com.finderbar.innox.ui.product.ProductDetailActivity
+import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BaseApiViewModel
-import java.text.NumberFormat
-import java.util.*
 
-
-class InstockSearchActivity:  AppCompatActivity() {
+class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
     private lateinit var binding: ActivityInstockSearchBinding
     private val baseApiVM: BaseApiViewModel by viewModels()
@@ -29,51 +30,43 @@ class InstockSearchActivity:  AppCompatActivity() {
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         setSupportActionBar(binding.mainToolbar)
-        supportActionBar?.title = "Filter"
+        supportActionBar?.title = "Hoddies"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.slider.setLabelFormatter { value: Float ->
-            val format = NumberFormat.getCurrencyInstance()
-            format.maximumFractionDigits = 0
-            format.currency = Currency.getInstance("MMK")
-            format.format(value.toDouble())
-        }
+        val adaptor = SearchProductAdaptor(arrayListOf(), this)
+        binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2);
+        binding.recyclerView.adapter = adaptor
+        binding.recyclerView.isNestedScrollingEnabled = false
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
-        val categoryArrayAdaptor = CategoryArrayAdaptor(applicationContext, R.layout.item_dropdown, mutableListOf())
-        categoryArrayAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-        binding.acCategory.clearFocus();
-        binding.acCategory.setAdapter(categoryArrayAdaptor)
-
-
-        baseApiVM.loadCategories().observe(this, androidx.lifecycle.Observer { res ->
-            when(res.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {
-                   categoryArrayAdaptor.addAll(res.data?.categories!!)
+        baseApiVM.loadSearchProduct("Man", "0", "15000", "1", "1").observe(this, Observer { res ->
+            when (res.status) {
+                Status.LOADING -> {
+                    binding.progress.visibility = View.VISIBLE
                 }
-                Status.ERROR -> {}
+                Status.SUCCESS -> {
+                    binding.progress.visibility = View.GONE
+                    adaptor.addAll(res.data?.products!!)
+                }
+                Status.ERROR -> {
+                    binding.progress.visibility = View.GONE
+                }
             }
         })
-
-        binding.acCategory.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?, view: View?,
-                position: Int, id: Long
-            ) {
-                val user: Category = categoryArrayAdaptor.getItem(position)!!
-                Toast.makeText(
-                    applicationContext, "ID: " + user.id.toString() + "\nName: " + user.name,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            override fun onNothingSelected(adapter: AdapterView<*>?) {}
-        }
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onItemClick(_id: Int, position: Int) {
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        intent.putExtra("_id", _id)
+        intent.putExtra("position", position)
+        startActivity(intent)
     }
 }
