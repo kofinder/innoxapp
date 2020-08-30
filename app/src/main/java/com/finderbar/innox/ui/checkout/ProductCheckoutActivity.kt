@@ -1,52 +1,32 @@
 package com.finderbar.innox.ui.checkout
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.ListView
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.finderbar.innox.R
+import com.finderbar.innox.databinding.ActivityProductCheckoutBinding
 import com.finderbar.innox.repository.Status
 import com.finderbar.innox.viewmodel.BaseApiViewModel
-import com.google.android.material.button.MaterialButton
 
 class ProductCheckoutActivity : AppCompatActivity() {
 
-    @BindView(R.id.main_toolbar) lateinit var toolbar: Toolbar
-
-
-    @BindView(R.id.ac_state_division) lateinit var acDivision: AutoCompleteTextView
-    @BindView(R.id.ac_township) lateinit var acTownship: AutoCompleteTextView
-    @BindView(R.id.list_item) lateinit var highlightView: ListView
-    //@BindView(R.id.txt_description) lateinit var txtDescription: TextView
-   // @BindView(R.id.txt_title) lateinit var txtTitle: TextView
-    @BindView(R.id.txt_price) lateinit var txtPrice: TextView
-    @BindView(R.id.btn_confirm) lateinit var btnConfirm: MaterialButton
-
+    private lateinit var binding: ActivityProductCheckoutBinding
     private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_checkout)
-        ButterKnife.bind(this)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_product_checkout)
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Checkout"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //txtTitle.text = "Hoddies"
-        txtPrice.text = "20000ks"
-        //txtDescription.text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged"
+        binding.txtPrice.text = "20000ks"
 
         baseApiVM.loadProduct("").observe(this, Observer { res ->
             when (res.status) {
@@ -64,47 +44,20 @@ class ProductCheckoutActivity : AppCompatActivity() {
 
         val colorAdaptor: ArrayAdapter<String> = ArrayAdapter(applicationContext, R.layout.item_dropdown, listOf("Android","IPhone","WindowsMobile","Blackberry",
             "WebOS","Ubuntu","Windows7","Max OS X"))
-        acDivision.setAdapter(colorAdaptor)
-        acDivision.clearFocus()
+        binding.dropdownState.setAdapter(colorAdaptor)
+        binding.dropdownState.clearFocus()
 
         val sizeAdaptor: ArrayAdapter<String> = ArrayAdapter(applicationContext, R.layout.item_dropdown, listOf("Android","IPhone","WindowsMobile","Blackberry",
             "WebOS","Ubuntu","Windows7","Max OS X"))
-        acTownship.setAdapter(sizeAdaptor)
-        acTownship.clearFocus()
+        binding.dropdownTownship.setAdapter(sizeAdaptor)
+        binding.dropdownTownship.clearFocus()
 
-//        val hAdaptor = StableArrayAdapter(applicationContext,  mutableListOf("Android","IPhone","WindowsMobile","Blackberry",
-//            "WebOS","Ubuntu","Windows7","Max OS X")
-//        )
-//        highlightView.adapter = hAdaptor
-//        setListViewHeight(highlightView)
-
-        btnConfirm.setOnClickListener{
+        binding.btnConfirm.setOnClickListener{
             val frag = ConfirmOrderFragment.newInstance()
             frag.show(supportFragmentManager, ConfirmOrderFragment.TAG)
         }
 
     }
-
-
-    private fun setListViewHeight(listView: ListView) {
-        val listAdapter = listView.adapter ?: return
-        val desiredWidth =
-            View.MeasureSpec.makeMeasureSpec(listView.width, View.MeasureSpec.UNSPECIFIED)
-        var totalHeight = 0
-        var view: View? = null
-        for (i in 0 until listAdapter.count) {
-            view = listAdapter.getView(i, view, listView)
-            if (i == 0) view.setLayoutParams(
-                ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
-            )
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED)
-            totalHeight += view.measuredHeight
-        }
-        val params = listView.layoutParams
-        params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
-        listView.layoutParams = params
-    }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

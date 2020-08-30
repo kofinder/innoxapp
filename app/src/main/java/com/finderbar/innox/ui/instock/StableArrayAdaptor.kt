@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.product
+package com.finderbar.innox.ui.instock
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemExpendableCategoryBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.ui.instock.InstockSubCategoryAdaptor
@@ -16,7 +17,7 @@ import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.jovian.utilities.android.loadLarge
 import de.hdodenhof.circleimageview.CircleImageView
 
-class CategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<Category>) : RecyclerView.Adapter<CategoryExpendableAdaptor.CategoryExpendableViewHolder>() {
+class CategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<Category>, var onItemClick: ItemProductClick) : RecyclerView.Adapter<CategoryExpendableAdaptor.CategoryExpendableViewHolder>() {
     private val expandedPositionSet: HashSet<Int> = HashSet()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryExpendableViewHolder {
@@ -32,7 +33,7 @@ class CategoryExpendableAdaptor(private val context: Context, private val arrayL
         holder.txtTitle.text = datum.name
         holder.thumb.loadLarge(Uri.parse(datum.photoUrl))
 
-        holder.recyclerView.adapter = InstockSubCategoryAdaptor(context, datum.subCategory!!)
+        holder.recyclerView.adapter = InstockSubCategoryAdaptor(datum.subCategory!!, onItemClick)
         holder.recyclerView.addItemDecoration(SpaceItemDecoration(10));
         holder.recyclerView.layoutManager = GridLayoutManager(context, 2);
         holder.recyclerView.setHasFixedSize(true)

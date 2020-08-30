@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'com.jakewharton.butterknife'
 
 kapt {
     mapDiagnosticLocations = true
@@ -62,11 +62,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
 
 
-    //Kotlin extensions for activity and fragments
+    // ENTENSTION FOR ACTIVITY AND FRAGMENT
     implementation 'androidx.fragment:fragment-ktx:1.1.0'
     implementation "androidx.activity:activity-ktx:1.0.0"
 
-    //Retrofit and OkHttp dependencies
+    // NETWORK
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.6.2'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    //Android architecture components
+    //ARCHITECTURE COMPONENT
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03'
@@ -92,11 +92,6 @@ dependencies {
     //SLIDE IMAGE
     implementation 'com.github.smarteist:autoimageslider:1.3.2'
     implementation 'com.caverock:androidsvg-aar:1.4'
-
-
-    // UI BINDING
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    kapt 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
 
 

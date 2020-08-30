@@ -1,9 +1,8 @@
-package com.finderbar.innox.ui.instock
+package com.finderbar.innox.ui.designer
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,26 +12,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
-import com.finderbar.innox.databinding.ActivityInstockSearchBinding
+import com.finderbar.innox.databinding.ActivityCustomizeProductBinding
 import com.finderbar.innox.repository.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BaseApiViewModel
 
-class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
-
-    private lateinit var binding: ActivityInstockSearchBinding
+class CustomizeDesignProductActivity: AppCompatActivity(), ItemProductClick {
     private val baseApiVM: BaseApiViewModel by viewModels()
+    private lateinit var binding: ActivityCustomizeProductBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_instock_search)
-        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_customize_product)
 
         setSupportActionBar(binding.mainToolbar)
-        supportActionBar?.title = "Hoddies"
+        supportActionBar?.title = "Customize T-shirts"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val adaptor = SearchProductAdaptor(arrayListOf(), this)
+        val adaptor = CustomizeProductAdaptor(arrayListOf(), this)
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2);
         binding.recyclerView.adapter = adaptor
@@ -40,7 +37,9 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
-        baseApiVM.loadSearchProduct("Man", "0", "15000", "1", "1").observe(this, Observer { res ->
+        val subCategoryId: Int = intent?.extras?.get("subCategoryId") as Int
+
+        baseApiVM.loadCustomSubCategoryProduct(subCategoryId).observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     binding.progress.visibility = View.VISIBLE
@@ -54,7 +53,6 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
                 }
             }
         })
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -63,9 +61,8 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent = Intent(this, InstockProductDetailActivity::class.java)
-        intent.putExtra("_id", _id)
-        intent.putExtra("position", position)
+        val intent= Intent(this,CustomizeCreateDesignActivity::class.java)
+        intent.putExtra("productId", _id)
         startActivity(intent)
     }
 }

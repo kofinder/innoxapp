@@ -5,42 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+import androidx.fragment.app.viewModels
 import com.finderbar.innox.R
-import com.google.android.material.button.MaterialButton
+import com.finderbar.innox.databinding.FragmentAccountBinding
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 
 
 class AccountFragment : Fragment() {
 
-    private lateinit var unkinder: Unbinder
-
-    @BindView(R.id.btn_login) lateinit var loginButton: MaterialButton
-    @BindView(R.id.btn_register) lateinit var registerButton: MaterialButton
-   // @BindView(R.id.lst_menu) lateinit var listMenu: ListView
-
-    private val arrayList: ArrayList<String> = arrayListOf<String>("Account", "Order", "Notification", "Logout")
+    private lateinit var binding: FragmentAccountBinding
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_account, container, false)
-        unkinder = ButterKnife.bind(this, root)
-
-        loginButton.setOnClickListener{startActivity(Intent(activity, LoginActivity::class.java))}
-        registerButton.setOnClickListener{startActivity(Intent(activity, RegisterActivity::class.java))}
-        //listMenu.adapter = AccountMenuAdaptor(requireContext(), arrayList);
-
-        return root;
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
+        binding.btnLogin.setOnClickListener{startActivity(Intent(activity, LoginActivity::class.java))}
+        binding.btnRegister.setOnClickListener{startActivity(Intent(activity, RegisterActivity::class.java))}
+        return binding.root;
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unkinder.unbind()
-    }
 }

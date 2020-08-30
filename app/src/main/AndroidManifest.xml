@@ -59,21 +59,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.account.LoginActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.account.RegisterActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.account.RegisterInfoActivity" android:theme="@style/AppTheme" android:exported="true"/>
 
         <!-- CUSTOMIZE PRODUCT-->
-        <activity android:name=".ui.designer.CustomizeDesignActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.designer.CustomizeProductActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.designer.CustomizeCreateActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.designer.CustomizeDesignListActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.designer.CustomizeDesignProductActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.designer.CustomizeCreateDesignActivity" android:theme="@style/AppTheme"/>
 
         <!-- INSTOCK PRODUCT-->
         <activity android:name=".ui.instock.InstockProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.instock.InstockSearchFilterActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.product.ProductDetailActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.checkout.ProductCheckoutActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 

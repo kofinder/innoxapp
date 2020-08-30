@@ -18,8 +18,8 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentHomeBinding
 import com.finderbar.innox.repository.Status
-import com.finderbar.innox.ui.designer.CustomizeDesignActivity
-import com.finderbar.innox.ui.product.ProductDetailActivity
+import com.finderbar.innox.ui.designer.CustomizeDesignListActivity
+import com.finderbar.innox.ui.instock.InstockProductDetailActivity
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BaseApiViewModel
 import com.smarteist.autoimageslider.IndicatorAnimations
@@ -87,13 +87,13 @@ class HomeFragment : Fragment() , ItemProductClick {
             }
         })
 
-        binding.btnMoreCustom.setOnClickListener{startActivity(Intent(activity, CustomizeDesignActivity::class.java))}
+        binding.btnMoreCustom.setOnClickListener{startActivity(Intent(activity, CustomizeDesignListActivity::class.java))}
 
         return rootView;
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent = Intent(activity, ProductDetailActivity::class.java)
+        val intent = Intent(activity, InstockProductDetailActivity::class.java)
         intent.putExtra("_id", _id)
         intent.putExtra("position", position)
         startActivity(intent)

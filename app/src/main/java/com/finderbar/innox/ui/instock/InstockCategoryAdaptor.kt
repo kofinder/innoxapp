@@ -23,7 +23,7 @@ class InstockCategoryAdaptor(private val context: Context, private val arrayList
     override fun onBindViewHolder(holder: CategoryInstockViewHolder, position: Int)  {
         val datum : Category = arrayList[position]
         holder.txtTitle.text = datum.name
-        holder.recyclerView.adapter = InstockSubCategoryAdaptor(context, datum.subCategory!!)
+        holder.recyclerView.adapter = InstockSubCategoryAdaptor(datum.subCategory!!, null)
         holder.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerView.setHasFixedSize(true)
         holder.recyclerView.isNestedScrollingEnabled = false

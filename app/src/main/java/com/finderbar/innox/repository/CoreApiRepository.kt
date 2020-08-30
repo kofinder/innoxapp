@@ -23,6 +23,12 @@ interface CoreApiRepository {
                               @Query("endPrice") endPrice: String,
                               @Query("category_id") categoryId: String,
                               @Query("sub_category_id") subCategoryId: String): Response<ServiceResponse<Products>>
+
+    @GET("custom_products/list_by_sub_category")
+    suspend fun getAllCustomSubCategoryProduct(@Query("sub_category_id") subCategoryId: Int): Response<ServiceResponse<CustomProducts>>
+
+    @GET("custom_products/detail")
+    suspend fun getDesignerProduct(@Query("custom_product_id") productId: Int): Response<ServiceResponse<Designer>>
 }
 
 @Keep
@@ -55,8 +61,18 @@ data class Products(
     val products: MutableList<PromotionProduct>? = mutableListOf()
 )
 
+@Keep
+data class CustomProducts(
+    @SerializedName("total_count")
+    val totalCount: Int = 0,
+    @SerializedName("has_more_list")
+    val hasNex: Boolean = false,
+    @SerializedName("products")
+    val products: MutableList<Product>? = mutableListOf()
+)
 
 
+// DOMAIN MODEL
 @Keep
 data class Banner(
     @SerializedName("banner_id") val id: Int? = 0,
@@ -71,12 +87,7 @@ data class Category(
     @SerializedName("category_name") val name: String? = "",
     @SerializedName("image_path") val photoUrl: String? = "",
     @SerializedName("sub_categorys") val subCategory: MutableList<SubCategory>? = mutableListOf()
-) {
-    override fun toString(): String {
-        return name.toString()
-    }
-}
-
+)
 
 
 @Keep
@@ -141,4 +152,37 @@ data class Sizes(
     @SerializedName("size_id") val id: Int,
     @SerializedName("size_name") val name: String,
     @SerializedName("size_code") val code: String
+)
+
+@Keep
+data class Designer(
+    @SerializedName("custom_product_id") val id: Int,
+    @SerializedName("product_name") val name: String,
+    @SerializedName("initial_price") val price: Int,
+    @SerializedName("initial_price_text") val priceText: String,
+    @SerializedName("custom_items") val customItems:  MutableList<CustomItems>? = mutableListOf()
+)
+
+@Keep
+data class CustomItems(
+    @SerializedName("custom_item_id") val id: Int,
+    @SerializedName("sequence_no") val seq: Int,
+    @SerializedName("item_name") val name: String,
+    @SerializedName("item_price") val price: Int,
+    @SerializedName("item_price_text") val priceText: String,
+    @SerializedName("color_id") val colorId: Int,
+    @SerializedName("color_code") val colorCode: String,
+    @SerializedName("color_name") val colorName: String,
+    @SerializedName("custom_item_layouts") val customLayout:  MutableList<CustomLayout>? = mutableListOf()
+)
+
+@Keep
+data class CustomLayout(
+    @SerializedName("custom_item_layout_id") val id: Int,
+    @SerializedName("sequence_no") val seq: Int,
+    @SerializedName("layout_name") val name: String,
+    @SerializedName("layout_price") val price: Int,
+    @SerializedName("layout_price_text") val priceText: String,
+    @SerializedName("layout_image") val imageAvatar: String
+
 )

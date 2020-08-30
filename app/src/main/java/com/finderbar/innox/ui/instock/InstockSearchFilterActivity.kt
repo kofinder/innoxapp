@@ -14,7 +14,6 @@ import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockSearchFilterBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.repository.Status
-import com.finderbar.innox.ui.designer.CustomizeDesignActivity
 import com.finderbar.innox.viewmodel.BaseApiViewModel
 import java.text.NumberFormat
 import java.util.*

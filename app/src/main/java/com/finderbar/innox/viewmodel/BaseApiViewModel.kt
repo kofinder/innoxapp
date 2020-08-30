@@ -45,4 +45,22 @@ class BaseApiViewModel : ViewModel() {
         }
     }
 
+    fun loadCustomSubCategoryProduct(subCategoryId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClient.createService(CoreApiRepository::class.java)
+        val response = api.getAllCustomSubCategoryProduct(subCategoryId)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadDesignerProduct(productId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClient.createService(CoreApiRepository::class.java)
+        val response = api.getDesignerProduct(productId)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
 }

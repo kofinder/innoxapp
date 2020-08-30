@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.product
+package com.finderbar.innox.ui.instock
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -46,7 +46,8 @@ class AddToCartDialogFragment : DialogFragment() {
     companion object {
         const val TAG = "AddToCartDialogFragment"
         fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): AddToCartDialogFragment {
-            val fragment = AddToCartDialogFragment()
+            val fragment =
+                AddToCartDialogFragment()
             val args = Bundle()
 //            args.putString(ARG_KEY_ANSWER_BODY, body)
             fragment.arguments = args

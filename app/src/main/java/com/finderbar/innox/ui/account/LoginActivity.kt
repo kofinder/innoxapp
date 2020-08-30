@@ -2,30 +2,28 @@ package com.finderbar.innox.ui.account
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import butterknife.BindView
-import butterknife.ButterKnife
+import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.R
-import com.google.android.material.button.MaterialButton
+import com.finderbar.innox.databinding.ActivityLoginBinding
+import com.finderbar.innox.viewmodel.BaseApiViewModel
 
 class LoginActivity: AppCompatActivity() {
 
-    @BindView(R.id.main_toolbar) lateinit var toolbar: Toolbar
-    @BindView(R.id.btn_login) lateinit var loginButton: MaterialButton
+    private lateinit var binding: ActivityLoginBinding
+    private val baseApiVM: BaseApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        ButterKnife.bind(this)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Login"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        loginButton.setOnClickListener{startActivity(Intent(this, MainActivity::class.java))}
-
+        binding.btnLogin.setOnClickListener{startActivity(Intent(this, MainActivity::class.java))}
     }
 
     override fun onSupportNavigateUp(): Boolean {
