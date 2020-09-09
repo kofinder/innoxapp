@@ -8,12 +8,12 @@ import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityLoginBinding
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class LoginActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

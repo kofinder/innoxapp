@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityCustomizeProductBinding
-import com.finderbar.innox.repository.Status
+import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class CustomizeDesignProductActivity: AppCompatActivity(), ItemProductClick {
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var binding: ActivityCustomizeProductBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class CustomizeDesignProductActivity: AppCompatActivity(), ItemProductClick {
 
         val subCategoryId: Int = intent?.extras?.get("subCategoryId") as Int
 
-        baseApiVM.loadCustomSubCategoryProduct(subCategoryId).observe(this, Observer { res ->
+        bizApiVM.loadCustomSubCategoryProduct(subCategoryId).observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     binding.progress.visibility = View.VISIBLE

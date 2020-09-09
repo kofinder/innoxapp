@@ -13,8 +13,8 @@ import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockSearchFilterBinding
 import com.finderbar.innox.repository.Category
-import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.network.Status
+import com.finderbar.innox.viewmodel.BizApiViewModel
 import java.text.NumberFormat
 import java.util.*
 
@@ -22,7 +22,7 @@ import java.util.*
 class InstockSearchFilterActivity:  AppCompatActivity() {
 
     private lateinit var binding: ActivityInstockSearchFilterBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class InstockSearchFilterActivity:  AppCompatActivity() {
         binding.acCategory.setAdapter(categoryArrayAdaptor)
 
 
-        baseApiVM.loadCategories().observe(this, androidx.lifecycle.Observer { res ->
+        bizApiVM.loadCategories().observe(this, androidx.lifecycle.Observer { res ->
             when(res.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {

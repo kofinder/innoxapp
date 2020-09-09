@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface CoreApiRepository {
+interface BizApiRepository {
     @GET("home")
     suspend fun getScreen(): Response<ServiceResponse<HomeScreen>>
 
@@ -29,6 +29,13 @@ interface CoreApiRepository {
 
     @GET("custom_products/detail")
     suspend fun getDesignerProduct(@Query("custom_product_id") productId: Int): Response<ServiceResponse<Designer>>
+
+    @GET("artwork/categorys")
+    suspend fun getArtWorkCategory(): Response<ServiceResponse<ArtWorkByCategory>>
+
+    @GET("artworks_by_designer")
+    suspend fun getArtWorkDesigner(@Query("designer_id") productId: Int): Response<ServiceResponse<ArtWorkByDesigner>>
+
 }
 
 @Keep
@@ -69,6 +76,18 @@ data class CustomProducts(
     val hasNex: Boolean = false,
     @SerializedName("products")
     val products: MutableList<Product>? = mutableListOf()
+)
+
+@Keep
+data class ArtWorkByCategory(
+    @SerializedName("artwork_categorys")
+    val artWorkCategory: MutableList<ArtWorkCategory>? = mutableListOf()
+)
+
+@Keep
+data class ArtWorkByDesigner(
+    @SerializedName("artworks")
+    val artWorks: MutableList<ArtWork>? = mutableListOf()
 )
 
 
@@ -184,5 +203,20 @@ data class CustomLayout(
     @SerializedName("layout_price") val price: Int,
     @SerializedName("layout_price_text") val priceText: String,
     @SerializedName("layout_image") val imageAvatar: String
+)
 
+@Keep
+data class ArtWork(
+    @SerializedName("artwork_id") val id: Int,
+    @SerializedName("artwork_name") val name: String,
+    @SerializedName("artwork_price") val price: String,
+    @SerializedName("artwork_price_text") val priceText: String,
+    @SerializedName("artwork_image") val imageAvatar: String
+)
+
+@Keep
+data class ArtWorkCategory(
+    @SerializedName("category_id") val id: Int,
+    @SerializedName("category_name") val name: String,
+    @SerializedName("category_code") val code: String
 )

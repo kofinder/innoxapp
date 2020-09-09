@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.databinding.ItemExpendableSubCategoryBinding
-import com.finderbar.innox.databinding.ItemInstockSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
 import com.finderbar.jovian.utilities.android.loadLarge
 

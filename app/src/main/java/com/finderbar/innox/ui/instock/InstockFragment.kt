@@ -12,12 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentInstockBinding
-import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.network.Status
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class InstockFragment : Fragment() {
 
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +33,7 @@ class InstockFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.adapter = adaptor
 
-        baseApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
+        bizApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> { binding.progress.visibility = View.VISIBLE }
                 Status.SUCCESS -> {

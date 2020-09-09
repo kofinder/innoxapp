@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityCustomizeDesignerBinding
-import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.network.Status
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class CustomizeDesignListActivity: AppCompatActivity(), ItemProductClick {
 
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var binding: ActivityCustomizeDesignerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class CustomizeDesignListActivity: AppCompatActivity(), ItemProductClick {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.adapter = adaptor
 
-        baseApiVM.loadCategories().observe(this, Observer { res ->
+        bizApiVM.loadCategories().observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     binding.progress.visibility = View.VISIBLE

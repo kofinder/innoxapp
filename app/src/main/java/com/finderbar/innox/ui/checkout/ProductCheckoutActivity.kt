@@ -9,13 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityProductCheckoutBinding
-import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.network.Status
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class ProductCheckoutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductCheckoutBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
 
         binding.txtPrice.text = "20000ks"
 
-        baseApiVM.loadProduct("").observe(this, Observer { res ->
+        bizApiVM.loadProduct("").observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

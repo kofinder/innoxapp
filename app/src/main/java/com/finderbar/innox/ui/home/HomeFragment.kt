@@ -17,18 +17,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentHomeBinding
-import com.finderbar.innox.repository.Status
+import com.finderbar.innox.network.Status
 import com.finderbar.innox.ui.designer.CustomizeDesignListActivity
 import com.finderbar.innox.ui.instock.InstockProductDetailActivity
 import com.finderbar.innox.utilities.SpaceItemDecoration
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 
-class HomeFragment : Fragment() , ItemProductClick {
+class HomeFragment : Fragment(), ItemProductClick {
 
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -70,7 +70,7 @@ class HomeFragment : Fragment() , ItemProductClick {
         binding.rvPromotionProduct.itemAnimator = DefaultItemAnimator()
         binding.rvPromotionProduct.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
-        baseApiVM.loadData().observe(viewLifecycleOwner, Observer { res ->
+        bizApiVM.loadData().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

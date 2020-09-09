@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentDesignerBinding
-import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.network.Status
+import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.utilities.SpaceItemDecoration
 
 
 class DesignerFragment : Fragment() {
 
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -45,7 +45,7 @@ class DesignerFragment : Fragment() {
         binding.recyclerView.addItemDecoration( SpaceItemDecoration(20) );
         binding.recyclerView.adapter = adaptor
 
-        baseApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
+        bizApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

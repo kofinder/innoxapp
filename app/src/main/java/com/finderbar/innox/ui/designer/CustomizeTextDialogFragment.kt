@@ -1,14 +1,12 @@
-package com.finderbar.innox.ui.instock
-import android.content.Intent
+package com.finderbar.innox.ui.designer
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.finderbar.innox.R
-import com.finderbar.innox.databinding.FragmentDialogAddToCartBinding
-import com.finderbar.innox.ui.checkout.ProductCheckoutActivity
+import com.finderbar.innox.databinding.FragmentDialogCustomizeDesignerBinding
 
-class AddToCartDialogFragment : DialogFragment() {
+class CustomizeTextDialogFragment: DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -31,16 +29,15 @@ class AddToCartDialogFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        val binding: FragmentDialogAddToCartBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_add_to_cart, parent , false)
+        val binding: FragmentDialogCustomizeDesignerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_customize_text_designer, parent , false)
         var rootView : View  = binding.root
-        binding.btnCart.setOnClickListener{startActivity(Intent(activity, ProductCheckoutActivity::class.java))}
         return rootView
     }
 
     companion object {
-        const val TAG = "AddToCartDialogFragment"
-        fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): AddToCartDialogFragment {
-            val fragment = AddToCartDialogFragment()
+        const val TAG = "CustomizeTextDialogFragment"
+        fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): CustomizeTextDialogFragment {
+            val fragment = CustomizeTextDialogFragment()
             val args = Bundle()
             fragment.arguments = args
             return fragment

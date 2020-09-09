@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockSearchBinding
-import com.finderbar.innox.repository.Status
+import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
     private lateinit var binding: ActivityInstockSearchBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
-        baseApiVM.loadSearchProduct("Man", "0", "15000", "1", "1").observe(this, Observer { res ->
+        bizApiVM.loadSearchProduct("Man", "0", "15000", "1", "1").observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     binding.progress.visibility = View.VISIBLE

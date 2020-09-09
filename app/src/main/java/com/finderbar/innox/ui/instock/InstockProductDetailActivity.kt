@@ -9,22 +9,20 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockProductDetailBinding
-import com.finderbar.innox.repository.Status
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.network.Status
+import com.finderbar.innox.viewmodel.BizApiViewModel
 import java.util.*
 
 
 class InstockProductDetailActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityInstockProductDetailBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
    private var currentPage = 0
    private var numberOfPages = 0
@@ -42,7 +40,7 @@ class InstockProductDetailActivity: AppCompatActivity() {
         binding.txtPrice.text = "20000ks"
         binding.txtDescription.text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged"
 
-        baseApiVM.loadProduct("").observe(this, Observer { res ->
+        bizApiVM.loadProduct("").observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)

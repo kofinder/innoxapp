@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentAccountBinding
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

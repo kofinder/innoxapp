@@ -42,7 +42,6 @@
                         android:id="@+id/txt_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="99999 Ks"
                         android:textStyle="bold"
                         android:textSize="@dimen/title_font_size"
                         android:textColor="@color/colorWhite"/>
@@ -77,15 +76,16 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="?attr/actionBarSize"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/lbl_btn"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"/>
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -98,7 +98,11 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
+                            <ImageView
+                                android:id="@+id/img_designer"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/placeholder"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -123,35 +127,25 @@
             android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggleGroup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="0dp"
-                app:singleSelection="true">
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_text"
                     app:icon="@drawable/ic_shopping_cart_white_24dp"
                     app:iconTintMode="src_atop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Text"/>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_design"
-                    app:icon="@drawable/ic_shopping_cart_white_24dp"
-                    app:iconTintMode="src_atop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Default Design"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_artwork"
                     app:icon="@drawable/ic_shopping_cart_white_24dp"
                     app:iconTintMode="src_atop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Designer ArtWork"/>
-            </com.google.android.material.button.MaterialButtonToggleGroup>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

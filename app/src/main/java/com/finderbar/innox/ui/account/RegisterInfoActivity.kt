@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityRegisterInfoBinding
-import com.finderbar.innox.viewmodel.BaseApiViewModel
+import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class RegisterInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterInfoBinding
-    private val baseApiVM: BaseApiViewModel by viewModels()
+    private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
