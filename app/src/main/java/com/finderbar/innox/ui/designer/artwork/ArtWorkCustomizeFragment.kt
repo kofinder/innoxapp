@@ -10,7 +10,7 @@ import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentCustomizeArtworkBinding
 import com.finderbar.innox.utilities.ViewPagerAdapter
 
-class ArtWorkCustomizeFragment: Fragment(), FragCallBack, BackCallBack {
+class ArtWorkCustomizeFragment: Fragment(), FragCallBack {
 
     private lateinit var rootFrag: RootFragListener
 

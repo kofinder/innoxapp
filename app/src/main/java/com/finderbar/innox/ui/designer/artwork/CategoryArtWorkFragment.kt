@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.AppConstant.ART_WORK_CATEGORY_ID
 import com.finderbar.innox.AppConstant.ART_WORK_CATEGORY_TITLE
-import com.finderbar.innox.BackCallBack
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
+import com.finderbar.innox.RootFragListener
 import com.finderbar.innox.databinding.FragmentArtworkBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
@@ -24,7 +24,7 @@ import com.finderbar.innox.viewmodel.BizApiViewModel
 class CategoryArtWorkFragment: Fragment(), ItemProductClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()
-    private lateinit var fragCallBack: BackCallBack
+    private lateinit var fragCallBack: RootFragListener
     private var categoryId: Int = 0
     private var title: String = ""
 
@@ -44,10 +44,10 @@ class CategoryArtWorkFragment: Fragment(), ItemProductClick {
 
         val binding: FragmentArtworkBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_artwork, container , false)
         var rootView : View = binding.root
-        fragCallBack = parentFragment as BackCallBack
+        fragCallBack = parentFragment as RootFragListener
 
         binding.txtTitle.text = "$title ArtWork "
-        binding.btnBack.setOnClickListener{fragCallBack.backPressed()}
+        binding.btnBack.setOnClickListener{fragCallBack.onBackPressed()}
 
         bizApiVM.loadArtWorkByCategoryId(categoryId).observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
