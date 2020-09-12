@@ -16,4 +16,10 @@ object AppConstant {
     const val NETWORK_STATUS_NOT_CONNECTED = 0
     const val NETWORK_STATUS_WIFI = 1
     const val NETWORK_STATUS_MOBILE = 2
+
+    const val ART_WORK_CATEGORY_ID = "artwork_category_id"
+    const val ART_WORK_CATEGORY_TITLE = "artwork_category_title"
+
+    const val ART_WORK_DESIGNER_ID = "artwork_designer_id"
+    const val ART_WORK_DESIGNER_TITLE = "artwork_designer_title"
 }

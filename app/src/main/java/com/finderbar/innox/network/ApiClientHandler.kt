@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiClientHandler  {
 
-    private const val BASE_URL : String = "http://188.166.207.190/innox/api/v1.0/"
+    private const val BASE_URL : String = "http://188.166.207.190/api/v1.0/"
     private val okHttpClient by lazy { OkHttpClient() }
 
     private val retrofit: Retrofit by lazy {

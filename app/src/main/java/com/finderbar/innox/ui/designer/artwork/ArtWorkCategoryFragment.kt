@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.designer
+package com.finderbar.innox.ui.designer.artwork
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.ItemProductClick
+import com.finderbar.innox.FragCallBack
+import com.finderbar.innox.ItemArtWorkCallBack
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentArtworkCategoryBinding
 import com.finderbar.innox.network.Status
@@ -19,8 +20,11 @@ import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
 
-class ArtWorkCategoryFragment: Fragment(), ItemProductClick {
+class ArtWorkCategoryFragment: Fragment(), ItemArtWorkCallBack {
+
     private val bizApiVM: BizApiViewModel by viewModels()
+    private lateinit var fragCallBack: FragCallBack
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,13 +33,19 @@ class ArtWorkCategoryFragment: Fragment(), ItemProductClick {
 
         val binding: FragmentArtworkCategoryBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_artwork_category, container , false)
         var rootView : View = binding.root
+        fragCallBack = parentFragment as FragCallBack
+
         bizApiVM.loadArtWorkCategory().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                    val adaptor = ArtWorkCategoryAdaptor(res.data?.artWorkCategory!!, this)
+                    val adaptor =
+                        ArtWorkCategoryAdaptor(
+                            res.data?.artWorkCategory!!,
+                            this
+                        )
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
                     binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2);
                     binding.recyclerView.adapter = adaptor
@@ -52,7 +62,12 @@ class ArtWorkCategoryFragment: Fragment(), ItemProductClick {
         return rootView;
     }
 
-    override fun onItemClick(_id: Int, position: Int) {
-
+    override fun onItemClick(_id: Int, title: String) {
+        val frag =
+            CategoryArtWorkFragment.newInstance(
+                _id,
+                title
+            );
+        fragCallBack.fragListener(frag)
     }
 }

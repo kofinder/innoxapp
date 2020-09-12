@@ -11,6 +11,8 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityCustomizeCreateBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.ui.designer.artwork.CustomizeArtWorkDialogFragment
+import com.finderbar.innox.ui.designer.fontstyle.CustomizeTextDialogFragment
 
 import com.finderbar.innox.viewmodel.BizApiViewModel
 

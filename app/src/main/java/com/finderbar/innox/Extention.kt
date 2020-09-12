@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,4 +31,18 @@ fun <T> Call<T>.enqueue(success: (response: Response<T>) -> Unit,
 
 interface ItemProductClick {
     fun onItemClick(_id: Int, position: Int)
+}
+
+interface ItemArtWorkCallBack {
+    fun onItemClick(_id: Int, title: String)
+}
+
+interface FragCallBack {
+    fun fragListener(frag: Fragment)
+    fun backPressed()
+}
+
+interface RootFragListener {
+    fun onPressed(frag: Fragment)
+    fun onBackPressed()
 }

@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.designer
+package com.finderbar.innox.ui.designer.fontstyle
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -37,7 +37,8 @@ class CustomizeTextDialogFragment: DialogFragment() {
     companion object {
         const val TAG = "CustomizeTextDialogFragment"
         fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): CustomizeTextDialogFragment {
-            val fragment = CustomizeTextDialogFragment()
+            val fragment =
+                CustomizeTextDialogFragment()
             val args = Bundle()
             fragment.arguments = args
             return fragment

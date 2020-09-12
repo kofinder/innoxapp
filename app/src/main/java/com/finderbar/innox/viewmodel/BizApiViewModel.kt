@@ -63,10 +63,19 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
-    fun loadArtWorkDesigner(productId: Int)  = liveData(Dispatchers.IO) {
+    fun loadArtWorkDesigner()  = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         val api = ApiClientHandler.createService(BizApiRepository::class.java)
-        val response = api.getArtWorkDesigner(productId)
+        val response = api.getArtWorkDesigner()
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadArtWorkByDesignerId(designerId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.getArtWorkByDesignerId(designerId)
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }
@@ -76,6 +85,16 @@ class BizApiViewModel : ViewModel() {
         emit(Resource.loading())
         val api = ApiClientHandler.createService(BizApiRepository::class.java)
         val response = api.getArtWorkCategory()
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+
+    fun loadArtWorkByCategoryId(categoryId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.getArtWorkByCategoryId(categoryId)
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }

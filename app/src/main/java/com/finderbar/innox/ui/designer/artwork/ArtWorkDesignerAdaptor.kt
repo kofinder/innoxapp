@@ -1,17 +1,20 @@
-package com.finderbar.innox.ui.designer
+package com.finderbar.innox.ui.designer.artwork
 
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.ItemProductClick
+import com.finderbar.innox.ItemArtWorkCallBack
 import com.finderbar.innox.databinding.ItemArtworkDesignerBinding
-import com.finderbar.innox.repository.ArtWork
+import com.finderbar.innox.repository.ArtWorkDesigner
 import com.finderbar.jovian.utilities.android.loadLarge
 
 
-class ArtWorkDesignerAdaptor(private val arrays: MutableList<ArtWork>, private val itemClick : ItemProductClick) : RecyclerView.Adapter<ArtWorkDesignerAdaptor.ItemViewHolder>() {
+class ArtWorkDesignerAdaptor(
+    private val arrays: MutableList<ArtWorkDesigner>,
+    private val itemClick: ItemArtWorkCallBack
+) : RecyclerView.Adapter<ArtWorkDesignerAdaptor.ItemViewHolder>() {
 
     abstract class ItemViewHolder(root: View) : RecyclerView.ViewHolder(root)
 
@@ -25,10 +28,9 @@ class ArtWorkDesignerAdaptor(private val arrays: MutableList<ArtWork>, private v
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemArtworkDesignerBinding.inflate(inflater, parent, false)
-        val view = ArtworkDesignerViewHolder(binding)
-        val height = parent.measuredHeight / 4
-        view.itemView.minimumHeight = height
-        return view
+        return ArtworkDesignerViewHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -36,5 +38,10 @@ class ArtWorkDesignerAdaptor(private val arrays: MutableList<ArtWork>, private v
         val datum = arrays[position]
         view.imageAvatar.loadLarge(Uri.parse(datum.imageAvatar))
         view. txtName.text = datum.name
+        view.itemView.setOnClickListener{
+            itemClick.onItemClick(datum.id, datum.name)
+        }
     }
+
+
 }

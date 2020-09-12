@@ -6,7 +6,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 interface BizApiRepository {
     @GET("home")
     suspend fun getScreen(): Response<ServiceResponse<HomeScreen>>
@@ -31,10 +30,16 @@ interface BizApiRepository {
     suspend fun getDesignerProduct(@Query("custom_product_id") productId: Int): Response<ServiceResponse<Designer>>
 
     @GET("artwork/categorys")
-    suspend fun getArtWorkCategory(): Response<ServiceResponse<ArtWorkByCategory>>
+    suspend fun getArtWorkCategory(): Response<ServiceResponse<ArtWorkCategoreis>>
+
+    @GET("artworks_by_category")
+    suspend fun getArtWorkByCategoryId(@Query("artwork_category_id") categoryId: Int): Response<ServiceResponse<ArtWorks>>
+
+    @GET("artwork/designers")
+    suspend fun getArtWorkDesigner(): Response<ServiceResponse<ArtWorkDesigners>>
 
     @GET("artworks_by_designer")
-    suspend fun getArtWorkDesigner(@Query("designer_id") productId: Int): Response<ServiceResponse<ArtWorkByDesigner>>
+    suspend fun getArtWorkByDesignerId(@Query("designer_id") designerId: Int): Response<ServiceResponse<ArtWorks>>
 
 }
 
@@ -79,15 +84,20 @@ data class CustomProducts(
 )
 
 @Keep
-data class ArtWorkByCategory(
+data class ArtWorkCategoreis(
     @SerializedName("artwork_categorys")
     val artWorkCategory: MutableList<ArtWorkCategory>? = mutableListOf()
 )
 
 @Keep
-data class ArtWorkByDesigner(
+data class ArtWorkDesigners(
+    @SerializedName("artwork_designers")
+    val artWorkDesigner: MutableList<ArtWorkDesigner>? = mutableListOf()
+)
+
+data class ArtWorks(
     @SerializedName("artworks")
-    val artWorks: MutableList<ArtWork>? = mutableListOf()
+    val artWork: MutableList<ArtWork>? = mutableListOf()
 )
 
 
@@ -219,4 +229,11 @@ data class ArtWorkCategory(
     @SerializedName("category_id") val id: Int,
     @SerializedName("category_name") val name: String,
     @SerializedName("category_code") val code: String
+)
+
+@Keep
+data class ArtWorkDesigner(
+    @SerializedName("designer_id") val id: Int,
+    @SerializedName("designer_name") val name: String,
+    @SerializedName("designer_avatar") val imageAvatar: String
 )
