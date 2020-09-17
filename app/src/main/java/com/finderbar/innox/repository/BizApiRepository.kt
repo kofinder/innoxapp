@@ -41,6 +41,9 @@ interface BizApiRepository {
     @GET("artworks_by_designer")
     suspend fun getArtWorkByDesignerId(@Query("designer_id") designerId: Int): Response<ServiceResponse<ArtWorks>>
 
+    @GET("fonts")
+    suspend fun getFonts(): Response<ServiceResponse<Fonts>>
+
 }
 
 @Keep
@@ -95,9 +98,16 @@ data class ArtWorkDesigners(
     val artWorkDesigner: MutableList<ArtWorkDesigner>? = mutableListOf()
 )
 
+@Keep
 data class ArtWorks(
     @SerializedName("artworks")
     val artWork: MutableList<ArtWork>? = mutableListOf()
+)
+
+@Keep
+data class Fonts(
+    @SerializedName("fonts")
+    val font: MutableList<Font>? = mutableListOf()
 )
 
 
@@ -226,7 +236,7 @@ data class ArtWork(
 
 @Keep
 data class ArtWorkCategory(
-    @SerializedName("category_id") val id: Int,
+    @SerializedName("categroy_id") val id: Int,
     @SerializedName("category_name") val name: String,
     @SerializedName("category_code") val code: String
 )
@@ -236,4 +246,11 @@ data class ArtWorkDesigner(
     @SerializedName("designer_id") val id: Int,
     @SerializedName("designer_name") val name: String,
     @SerializedName("designer_avatar") val imageAvatar: String
+)
+
+@Keep
+data class Font(
+    @SerializedName("font_id") val id: Int,
+    @SerializedName("font_sample") val name: String,
+    @SerializedName("font_url") val uri: String
 )

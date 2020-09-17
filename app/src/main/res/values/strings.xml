@@ -85,4 +85,5 @@
     <string name="price_range">Price Range</string>
     <string name="search">Search</string>
     <string name="artwork">Choose ArtWork</string>
+    <string name="font_style">Choose Text Styles</string>
 </resources>

@@ -52,11 +52,11 @@ class CustomizeCreateDesignActivity: AppCompatActivity(), ItemProductClick {
 
 
         binding.btnText.setOnClickListener{
-            val frag = CustomizeTextDialogFragment.newInstance("item?._id!!", "prefs.fullName", "prefs.avatar", "getCurrentTime()")
+            val frag = CustomizeTextDialogFragment()
             frag.show(supportFragmentManager, CustomizeTextDialogFragment.TAG)
         }
         binding.btnArtwork.setOnClickListener{
-            val frag = CustomizeArtWorkDialogFragment.newInstance("item?._id!!", "prefs.fullName", "prefs.avatar", "getCurrentTime()")
+            val frag = CustomizeArtWorkDialogFragment()
             frag.show(supportFragmentManager, CustomizeArtWorkDialogFragment.TAG)
         }
     }

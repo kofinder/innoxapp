@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.repository.Font
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,4 +46,8 @@ interface FragCallBack {
 interface RootFragListener {
     fun onPressed(frag: Fragment)
     fun onBackPressed()
+}
+
+interface ItemFontClick {
+    fun onItemClick(font: Font)
 }

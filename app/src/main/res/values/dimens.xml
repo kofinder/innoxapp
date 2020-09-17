@@ -8,5 +8,6 @@
     <dimen name="sub_title_font_size">16sp</dimen>
     <dimen name="body_font_size">14sp</dimen>
     <dimen name="semi_font_size">14sp</dimen>
+    <dimen name="extra_large_font_size">25sp</dimen>
 
 </resources>

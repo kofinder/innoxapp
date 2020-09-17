@@ -101,4 +101,14 @@ class BizApiViewModel : ViewModel() {
     }
 
 
+    fun loadFont()  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.getFonts()
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+
 }

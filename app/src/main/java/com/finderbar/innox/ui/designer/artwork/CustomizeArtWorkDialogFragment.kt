@@ -29,11 +29,11 @@ class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
         window?.setWindowAnimations(R.style.DialogAnimation)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        var bundle = savedInstanceState
-        if (bundle == null) bundle = arguments
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        var bundle = savedInstanceState
+//        if (bundle == null) bundle = arguments
+//    }
 
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,12 +52,12 @@ class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
 
     companion object {
         const val TAG = "CustomizeArtWorkDialogFragment"
-        fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): CustomizeArtWorkDialogFragment {
-            val fragment = CustomizeArtWorkDialogFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
+//        fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): CustomizeArtWorkDialogFragment {
+//            val fragment = CustomizeArtWorkDialogFragment()
+//            val args = Bundle()
+//            fragment.arguments = args
+//            return fragment
+//        }
     }
 
     override fun onPressed(frag: Fragment) {
