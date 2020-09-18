@@ -110,5 +110,24 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
+    fun loadState()  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.getStates()
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+
+    fun loadTownship(stateId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.getTownships(stateId)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
 
 }

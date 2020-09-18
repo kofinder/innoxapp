@@ -51,7 +51,7 @@ class CustomizeTextDialogFragment: DialogFragment(), ItemFontClick {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                    val adaptor =  FontAdaptor(res.data?.font!!, this)
+                    val adaptor =  FontAdaptor(res.data?.fonts!!, this)
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(10))
                     val layoutManager = GridLayoutManager(requireContext(), 2)
                     binding.recyclerView.layoutManager = layoutManager

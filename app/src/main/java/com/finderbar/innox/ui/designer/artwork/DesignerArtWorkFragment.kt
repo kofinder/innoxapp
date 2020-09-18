@@ -56,7 +56,7 @@ class DesignerArtWorkFragment: Fragment(), ItemProductClick {
                 Status.SUCCESS -> {
                     val adaptor =
                         ArtWorkAdaptor(
-                            res.data?.artWork!!,
+                            res.data?.artWorks!!,
                             this
                         )
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(5))

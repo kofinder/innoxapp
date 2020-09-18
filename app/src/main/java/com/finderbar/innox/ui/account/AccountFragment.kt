@@ -26,6 +26,7 @@ class AccountFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
         binding.btnLogin.setOnClickListener{startActivity(Intent(activity, LoginActivity::class.java))}
         binding.btnRegister.setOnClickListener{startActivity(Intent(activity, RegisterActivity::class.java))}
+
         return binding.root;
     }
 

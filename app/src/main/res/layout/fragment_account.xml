@@ -156,7 +156,8 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="@string/account_login_info" />
+                    android:text="@string/account_login_info"
+                    android:textAllCaps="false"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_register"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -164,7 +165,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/account_register_info"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp"
+                    android:textAllCaps="false"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

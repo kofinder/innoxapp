@@ -41,7 +41,7 @@ class ArtWorkDesignerFragment: Fragment(), ItemArtWorkCallBack {
                 Status.SUCCESS -> {
                     val adaptor =
                         ArtWorkDesignerAdaptor(
-                            res.data?.artWorkDesigner!!,
+                            res.data?.artWorkDesigners!!,
                             this
                         )
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(10))

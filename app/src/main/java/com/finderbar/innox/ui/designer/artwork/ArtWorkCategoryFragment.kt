@@ -43,7 +43,7 @@ class ArtWorkCategoryFragment: Fragment(), ItemArtWorkCallBack {
                 Status.SUCCESS -> {
                     val adaptor =
                         ArtWorkCategoryAdaptor(
-                            res.data?.artWorkCategory!!,
+                            res.data?.artWorkCategories!!,
                             this
                         )
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));

@@ -30,7 +30,7 @@ interface BizApiRepository {
     suspend fun getDesignerProduct(@Query("custom_product_id") productId: Int): Response<ServiceResponse<Designer>>
 
     @GET("artwork/categorys")
-    suspend fun getArtWorkCategory(): Response<ServiceResponse<ArtWorkCategoreis>>
+    suspend fun getArtWorkCategory(): Response<ServiceResponse<ArtWorkCategories>>
 
     @GET("artworks_by_category")
     suspend fun getArtWorkByCategoryId(@Query("artwork_category_id") categoryId: Int): Response<ServiceResponse<ArtWorks>>
@@ -43,6 +43,12 @@ interface BizApiRepository {
 
     @GET("fonts")
     suspend fun getFonts(): Response<ServiceResponse<Fonts>>
+
+    @GET("states")
+    suspend fun getStates(): Response<ServiceResponse<States>>
+
+    @GET("townships")
+    suspend fun getTownships(@Query("state_id") stateId: Int): Response<ServiceResponse<TownShips>>
 
 }
 
@@ -87,27 +93,39 @@ data class CustomProducts(
 )
 
 @Keep
-data class ArtWorkCategoreis(
+data class ArtWorkCategories(
     @SerializedName("artwork_categorys")
-    val artWorkCategory: MutableList<ArtWorkCategory>? = mutableListOf()
+    val artWorkCategories: MutableList<ArtWorkCategory>? = mutableListOf()
 )
 
 @Keep
 data class ArtWorkDesigners(
     @SerializedName("artwork_designers")
-    val artWorkDesigner: MutableList<ArtWorkDesigner>? = mutableListOf()
+    val artWorkDesigners: MutableList<ArtWorkDesigner>? = mutableListOf()
 )
 
 @Keep
 data class ArtWorks(
     @SerializedName("artworks")
-    val artWork: MutableList<ArtWork>? = mutableListOf()
+    val artWorks: MutableList<ArtWork>? = mutableListOf()
 )
 
 @Keep
 data class Fonts(
     @SerializedName("fonts")
-    val font: MutableList<Font>? = mutableListOf()
+    val fonts: MutableList<Font>? = mutableListOf()
+)
+
+@Keep
+data class TownShips(
+    @SerializedName("township_list")
+    val townships: MutableList<TownShip>? = mutableListOf()
+)
+
+@Keep
+data class States(
+    @SerializedName("state_list")
+    val states: MutableList<State>? = mutableListOf()
 )
 
 
@@ -253,4 +271,16 @@ data class Font(
     @SerializedName("font_id") val id: Int,
     @SerializedName("font_sample") val name: String,
     @SerializedName("font_url") val uri: String
+)
+
+@Keep
+data class State(
+    @SerializedName("state_id") val id: Int,
+    @SerializedName("state_name") val name: String
+)
+
+@Keep
+data class TownShip(
+    @SerializedName("township_id") val id: Int,
+    @SerializedName("township_name") val name: String
 )

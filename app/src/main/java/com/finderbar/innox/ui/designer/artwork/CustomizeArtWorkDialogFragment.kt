@@ -29,13 +29,6 @@ class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
         window?.setWindowAnimations(R.style.DialogAnimation)
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        var bundle = savedInstanceState
-//        if (bundle == null) bundle = arguments
-//    }
-
-
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE);
         val binding: FragmentDialogCustomizeArtworkBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_customize_artwork, parent , false)
@@ -44,20 +37,12 @@ class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var ft : FragmentTransaction = childFragmentManager.beginTransaction()
-        ft.replace(R.id.ft_main,
-            ArtWorkCustomizeFragment()
-        )
+        ft.replace(R.id.ft_main, ArtWorkCustomizeFragment() )
         ft.commit()
     }
 
     companion object {
         const val TAG = "CustomizeArtWorkDialogFragment"
-//        fun newInstance(body: String, userName: String, userAvatar: String, timeAgo: String): CustomizeArtWorkDialogFragment {
-//            val fragment = CustomizeArtWorkDialogFragment()
-//            val args = Bundle()
-//            fragment.arguments = args
-//            return fragment
-//        }
     }
 
     override fun onPressed(frag: Fragment) {

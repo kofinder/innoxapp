@@ -22,4 +22,13 @@ object AppConstant {
 
     const val ART_WORK_DESIGNER_ID = "artwork_designer_id"
     const val ART_WORK_DESIGNER_TITLE = "artwork_designer_title"
+
+
+
+    const val USER_NAME = "user:name"
+    const val EMAIL = "user:email"
+    const val PHONE = "user:phone"
+    const val PASSWORD = "user:password"
+
+
 }

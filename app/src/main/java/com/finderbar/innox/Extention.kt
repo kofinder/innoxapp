@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.repository.Font
@@ -50,4 +51,12 @@ interface RootFragListener {
 
 interface ItemFontClick {
     fun onItemClick(font: Font)
+}
+
+fun AppCompatActivity.replaceFragment(fragment: Fragment){
+    val fragmentManager = supportFragmentManager
+    val transaction = fragmentManager.beginTransaction()
+    transaction.replace(R.id.ft_main, fragment)
+    transaction.addToBackStack(null)
+    transaction.commit()
 }
