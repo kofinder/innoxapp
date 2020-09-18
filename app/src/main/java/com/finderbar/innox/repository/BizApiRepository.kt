@@ -14,7 +14,7 @@ interface BizApiRepository {
     suspend fun getCategory(): Response<ServiceResponse<Categories>>
 
     @GET("product")
-    suspend fun getProduct(@Query("product_id") productId: String): Response<ServiceResponse<ProductDetail>>
+    suspend fun getProduct(@Query("product_id") productId: Int): Response<ServiceResponse<ProductDetail>>
 
     @GET("products/search")
     suspend fun searchProduct(@Query("keyword") keyword: String,
@@ -167,7 +167,7 @@ data class PromotionProduct(
 data class ProductDetail(
     @SerializedName("product_id") val id: Int? = 0,
     @SerializedName("product_name") val name: String? = "",
-    @SerializedName("images") val images: List<String>? = listOf(),
+    @SerializedName("images") val images: MutableList<String>? = mutableListOf(),
     @SerializedName("price_text") val price: String? = "",
     @SerializedName("origninal_price_text") val originalPrice: String? = "",
     @SerializedName("discount_percentage_text") val discount: String? = "",
@@ -175,19 +175,19 @@ data class ProductDetail(
     @SerializedName("is_popular") val isPopular: Boolean? = false,
     @SerializedName("is_new_arrival") val isNewArrival: Boolean? = false,
     @SerializedName("detail") val description: String? = "",
-    @SerializedName("color_list") val colors: MutableList<Colors>? = mutableListOf(),
-    @SerializedName("size_list") val sizes: MutableList<Sizes>? = mutableListOf()
+    @SerializedName("color_list") val colors: MutableList<Color>? = mutableListOf(),
+    @SerializedName("size_list") val sizes: MutableList<Size>? = mutableListOf()
 )
 
 @Keep
-data class Colors(
+data class Color(
     @SerializedName("color_id") val id: Int,
     @SerializedName("color_name") val name: String,
     @SerializedName("color_code") val code: String
 )
 
 @Keep
-data class Sizes(
+data class Size(
     @SerializedName("size_id") val id: Int,
     @SerializedName("size_name") val name: String,
     @SerializedName("size_code") val code: String

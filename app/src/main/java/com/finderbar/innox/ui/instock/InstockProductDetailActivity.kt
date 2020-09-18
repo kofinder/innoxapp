@@ -24,8 +24,8 @@ class InstockProductDetailActivity: AppCompatActivity() {
     private lateinit var binding: ActivityInstockProductDetailBinding
     private val bizApiVM: BizApiViewModel by viewModels()
 
-   private var currentPage = 0
-   private var numberOfPages = 0
+    private var currentPage = 0
+    private var numberOfPages = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,18 +35,36 @@ class InstockProductDetailActivity: AppCompatActivity() {
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Product Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val productId: Int = intent?.extras?.get("_id") as Int
 
-        binding.txtTitle.text = "Hoddies"
-        binding.txtPrice.text = "20000ks"
-        binding.txtDescription.text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged"
 
-        bizApiVM.loadProduct("").observe(this, Observer { res ->
+        bizApiVM.loadProduct(productId).observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                   print(res.data)
+                    val product = res.data!!
+                    binding.txtTitle.text = product.name
+                    binding.txtPrice.text = product.price
+                    binding.txtDescription.text = product.description
+                    binding.vpLayout.adapter =
+                        ImageSlidePagerAdapter(applicationContext, product.images!!)
+                    binding.btnIndicator.setViewPager(binding.vpLayout)
+                    val density = resources.displayMetrics.density
+                    binding.btnIndicator.radius = 5 * density
+
+                    val colorAdaptor = ColorArrayAdaptor(applicationContext, R.layout.item_dropdown, product.colors!!)
+                    colorAdaptor.setDropDownViewResource(R.layout.item_dropdown)
+                    binding.dropdownColor.clearFocus();
+                    binding.dropdownColor.setAdapter(colorAdaptor)
+
+
+                    val sizeAdaptor = SizeArrayAdaptor(applicationContext, R.layout.item_dropdown, product.sizes!!)
+                    sizeAdaptor.setDropDownViewResource(R.layout.item_dropdown)
+                    binding.dropdownSize.clearFocus();
+                    binding.dropdownSize.setAdapter(sizeAdaptor)
+
                 }
                 Status.ERROR -> {
                     print(res.msg)
@@ -54,40 +72,10 @@ class InstockProductDetailActivity: AppCompatActivity() {
             }
         })
 
-        val colorAdaptor: ArrayAdapter<String> = ArrayAdapter(applicationContext, R.layout.item_dropdown, listOf("Android","IPhone","WindowsMobile","Blackberry",
-            "WebOS","Ubuntu","Windows7","Max OS X"))
-        binding.dropdownColor.setAdapter(colorAdaptor)
-        binding.dropdownColor.clearFocus()
 
-        val sizeAdaptor: ArrayAdapter<String> = ArrayAdapter(applicationContext, R.layout.item_dropdown, listOf("Android","IPhone","WindowsMobile","Blackberry",
-            "WebOS","Ubuntu","Windows7","Max OS X"))
-        binding.dropdownSize.setAdapter(sizeAdaptor)
-        binding.dropdownSize.clearFocus()
-
-        val hAdaptor = StableArrayAdapter(
-            applicationContext, mutableListOf(
-                "Android", "IPhone", "WindowsMobile", "Blackberry",
-                "WebOS", "Ubuntu", "Windows7", "Max OS X"
-            )
-        )
+        val hAdaptor = StableArrayAdapter(applicationContext, mutableListOf("test"))
         binding.lvItem.adapter = hAdaptor
         setListViewHeight(binding.lvItem)
-
-        binding.vpLayout.adapter =
-            ImageSlidePagerAdapter(
-                applicationContext, mutableListOf(
-                    "https://demonuts.com/Demonuts/SampleImages/W-03.JPG",
-                    "https://demonuts.com/Demonuts/SampleImages/W-08.JPG",
-                    "https://demonuts.com/Demonuts/SampleImages/W-10.JPG",
-                    "https://demonuts.com/Demonuts/SampleImages/W-13.JPG",
-                    "https://demonuts.com/Demonuts/SampleImages/W-17.JPG",
-                    "https://demonuts.com/Demonuts/SampleImages/W-21.JPG"
-                )
-            )
-        binding.btnIndicator.setViewPager(binding.vpLayout)
-        val density = resources.displayMetrics.density
-        binding.btnIndicator.radius = 5 * density
-
 
         val handler = Handler()
         val update = Runnable {
@@ -113,8 +101,13 @@ class InstockProductDetailActivity: AppCompatActivity() {
         })
 
 
-        binding.btnCart.setOnClickListener{
-            val frag = AddToCartDialogFragment.newInstance("item?._id!!", "prefs.fullName", "prefs.avatar", "getCurrentTime()")
+        binding.btnCart.setOnClickListener {
+            val frag = AddToCartDialogFragment.newInstance(
+                "item?._id!!",
+                "prefs.fullName",
+                "prefs.avatar",
+                "getCurrentTime()"
+            )
             frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
         }
 
@@ -129,7 +122,8 @@ class InstockProductDetailActivity: AppCompatActivity() {
         var view: View? = null
         for (i in 0 until listAdapter.count) {
             view = listAdapter.getView(i, view, listView)
-            if (i == 0) view.layoutParams = ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
+            if (i == 0) view.layoutParams =
+                ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
             view.measure(desiredWidth, MeasureSpec.UNSPECIFIED)
             totalHeight += view.measuredHeight
         }
@@ -143,4 +137,5 @@ class InstockProductDetailActivity: AppCompatActivity() {
         onBackPressed()
         return true
     }
+
 }

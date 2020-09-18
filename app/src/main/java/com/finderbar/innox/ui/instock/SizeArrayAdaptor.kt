@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
 import com.finderbar.innox.R
-import com.finderbar.innox.repository.Category
+import com.finderbar.innox.repository.Size
 
 
-class CategoryArrayAdaptor(mContext: Context, private val textViewResourceId: Int, val arrays: MutableList<Category>) : ArrayAdapter<Category>(mContext, 0, arrays) {
+class SizeArrayAdaptor(mContext: Context, private val textViewResourceId: Int, val arrays: MutableList<Size>) : ArrayAdapter<Size>(mContext, 0, arrays) {
 
     private var inflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -43,14 +43,14 @@ class CategoryArrayAdaptor(mContext: Context, private val textViewResourceId: In
 
     private val filterName = object : Filter() {
         override fun convertResultToString(resultValue: Any?): CharSequence {
-            val category: Category = resultValue as Category
-            return category.name.toString()
+            val color: Size = resultValue as Size
+            return color.name.toString()
         }
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val results = FilterResults()
 
             if (constraint != null) {
-                val suggestions: ArrayList<Category> = ArrayList<Category>()
+                val suggestions: ArrayList<Size> = ArrayList<Size>()
                 for (arr in arrays) {
                     if (arr.name!!.toLowerCase().contains(constraint.toString().toLowerCase())) {
                         suggestions.add(arr)
@@ -67,7 +67,7 @@ class CategoryArrayAdaptor(mContext: Context, private val textViewResourceId: In
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             clear()
             if (results != null && results.count > 0) {
-                addAll((results.values as ArrayList<Category?>))
+                addAll((results.values as ArrayList<Size?>))
             } else {
                 addAll(arrays)
             }
@@ -75,14 +75,4 @@ class CategoryArrayAdaptor(mContext: Context, private val textViewResourceId: In
         }
     }
 
-    private fun add(r: Category) {
-        arrays.add(r)
-        notifyDataSetChanged()
-    }
-
-    fun addAll(resultList: MutableList<Category>) {
-        for (result in resultList) {
-            add(result)
-        }
-    }
 }

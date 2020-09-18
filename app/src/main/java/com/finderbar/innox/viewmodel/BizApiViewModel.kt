@@ -27,7 +27,7 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
-    fun loadProduct(productId: String)  = liveData(Dispatchers.IO) {
+    fun loadProduct(productId: Int)  = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         val api = ApiClientHandler.createService(BizApiRepository::class.java)
         val response = api.getProduct(productId)

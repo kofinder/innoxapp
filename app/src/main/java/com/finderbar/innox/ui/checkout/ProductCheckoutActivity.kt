@@ -28,7 +28,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
 
         binding.txtPrice.text = "20000ks"
 
-        bizApiVM.loadProduct("").observe(this, Observer { res ->
+        bizApiVM.loadProduct(0).observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)
