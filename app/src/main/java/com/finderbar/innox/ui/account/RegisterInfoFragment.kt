@@ -20,7 +20,6 @@ import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class RegisterInfoFragment: Fragment() {
 
-    private lateinit var binding: FragmentRegisterInfoBinding
     private val bizApiVM: BizApiViewModel by viewModels()
 
 
@@ -36,7 +35,7 @@ class RegisterInfoFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val context = activity as AppCompatActivity
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_info, container , false)
+        val binding: FragmentRegisterInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_info, container , false)
 
         bizApiVM.loadState().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {

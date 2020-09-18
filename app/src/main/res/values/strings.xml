@@ -42,6 +42,10 @@
     <string name="account_upload_profile">Phone</string>
     <string name="account_state_division">State/Division</string>
     <string name="account_township">TownShip</string>
+
+    <string name="choose_state_division">Choose State/Division</string>
+    <string name="choose_township">Choose TownShip</string>
+
     <string name="account_address">Address</string>
     <string name="account_password">Password</string>
     <string name="account_confirm_password">Confirm Password</string>

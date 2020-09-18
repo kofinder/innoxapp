@@ -63,7 +63,6 @@
 
         <activity android:name=".ui.account.LoginActivity" android:theme="@style/AppTheme"/>
         <activity android:name=".ui.account.RegisterActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.account.RegisterInfoActivity" android:theme="@style/AppTheme" android:exported="true"/>
 
         <!-- CUSTOMIZE PRODUCT-->
         <activity android:name=".ui.designer.CustomizeDesignListActivity" android:theme="@style/AppTheme"/>
