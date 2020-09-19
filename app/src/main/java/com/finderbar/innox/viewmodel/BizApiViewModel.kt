@@ -5,6 +5,8 @@ import androidx.lifecycle.liveData
 import com.finderbar.innox.network.ApiClientHandler
 import com.finderbar.innox.repository.BizApiRepository
 import com.finderbar.innox.network.Resource
+import com.finderbar.innox.repository.Login
+import com.finderbar.innox.repository.Register
 import kotlinx.coroutines.Dispatchers
 
 class BizApiViewModel : ViewModel() {
@@ -124,6 +126,24 @@ class BizApiViewModel : ViewModel() {
         emit(Resource.loading())
         val api = ApiClientHandler.createService(BizApiRepository::class.java)
         val response = api.getTownships(stateId)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadTokenByRegister(register: Register)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.register(register)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadTokenByLogin(login: Login)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = ApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.login(login)
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }

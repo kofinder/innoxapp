@@ -11,51 +11,14 @@
             android:layout_height="match_parent"
             android:padding="20dp"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                android:textSize="20sp"
-                android:text="@string/account_continue_info"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:textAlignment="center"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/avatar"
                 android:layout_marginBottom="20dp"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/user"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:textSize="14sp"
-                    android:text="@string/account_continue_info"
-                    android:textColor="@color/colorGray"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"/>
-            </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="@string/account_name"
-                app:endIconCheckable="true"
-                android:id="@+id/name"
-                app:endIconMode="custom">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"

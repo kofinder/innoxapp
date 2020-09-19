@@ -7,11 +7,20 @@ import androidx.multidex.MultiDex
 
 private lateinit var INSTANCE: Application
 
+val prefs: Prefs by lazy {
+    App.prefs!!
+}
+
 class App : Application() {
+
+    companion object {
+        var prefs: Prefs? = null
+    }
 
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+        prefs = Prefs(this)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 

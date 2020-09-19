@@ -3,10 +3,19 @@ package com.finderbar.innox.repository
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface BizApiRepository {
+
+    @POST("register")
+    suspend fun register(@Body register: Register): Response<ServiceResponse<Token>>
+
+    @POST("login")
+    suspend fun login(@Body login: Login): Response<ServiceResponse<Token>>
+
     @GET("home")
     suspend fun getScreen(): Response<ServiceResponse<HomeScreen>>
 
@@ -51,6 +60,34 @@ interface BizApiRepository {
     suspend fun getTownships(@Query("state_id") stateId: Int): Response<ServiceResponse<TownShips>>
 
 }
+
+///// REQUEST DATA MODEL ///////
+
+data class Login(
+ val username: String,
+ val password: String
+)
+
+data class Register(
+    val name: String,
+    val email: String,
+    val phoneNo: String,
+    val password: String,
+    val confirm_password: String,
+    val state_id: String,
+    val township_id: String,
+    val detail_address: String
+)
+
+///// RESPONSE DATA MODEL ///////
+
+@Keep
+data class Token(
+    @SerializedName("jwt_token")
+    val jwtToken: String? = "",
+    @SerializedName("user_id")
+    val userId: String? = ""
+)
 
 @Keep
 data class ServiceResponse<T>(
