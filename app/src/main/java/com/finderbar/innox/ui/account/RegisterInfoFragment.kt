@@ -1,14 +1,18 @@
 package com.finderbar.innox.ui.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import cc.cloudist.acplibrary.ACProgressConstant
+import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.AppConstant.CONFIRM_PASSWORD
 import com.finderbar.innox.AppConstant.EMAIL
 import com.finderbar.innox.AppConstant.PASSWORD
@@ -17,15 +21,19 @@ import com.finderbar.innox.AppConstant.USER_NAME
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentRegisterInfoBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.Color
 import com.finderbar.innox.repository.Register
 import com.finderbar.innox.repository.State
 import com.finderbar.innox.repository.TownShip
+import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import es.dmoral.toasty.Toasty
 
 class RegisterInfoFragment: Fragment() {
 
     private val bizApiVM: BizApiViewModel by viewModels()
+    private lateinit var acProgress: ACProgressFlower
 
     private var userName: String? = ""
     private var email: String? = ""
@@ -53,6 +61,11 @@ class RegisterInfoFragment: Fragment() {
     ): View? {
         val context = activity as AppCompatActivity
         val binding: FragmentRegisterInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_info, container , false)
+        acProgress = ACProgressFlower.Builder(context)
+            .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+            .themeColor(android.graphics.Color.WHITE)
+            .text("Please Wait")
+            .fadeColor(android.graphics.Color.DKGRAY).build();
 
         bizApiVM.loadState().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
@@ -84,7 +97,22 @@ class RegisterInfoFragment: Fragment() {
 
         binding.btnContinue.setOnClickListener{
             bizApiVM.loadTokenByRegister(Register(userName!!, email!!, phone!!, password!!, confirmPassword!!, stateId!!, townShipId!!, binding.edAddress.text.toString(), "",2)).observe(viewLifecycleOwner, Observer { res ->
-                print(res.data)
+                when (res.status) {
+                    Status.LOADING -> {
+                        acProgress.show()
+                    }
+                    Status.SUCCESS -> {
+                        acProgress.dismiss()
+                        Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
+                        prefs.authToken = res.data?.jwtToken!!
+                        prefs.userId = res.data?.userId!!
+                        startActivity(Intent(context, MainActivity::class.java))
+                    }
+                    Status.ERROR -> {
+                        acProgress.dismiss()
+                        Toasty.error(context, res.msg.toString(), Toast.LENGTH_SHORT, true).show();
+                    }
+                }
             })
         }
 

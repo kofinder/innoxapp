@@ -51,6 +51,7 @@ class LoginActivity: AppCompatActivity() {
                         acProgress.dismiss()
                         Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
                         prefs.authToken = res.data?.jwtToken!!
+                        prefs.userId = res.data?.userId!!
                         val homeIntent = Intent(this, MainActivity::class.java)
                         startActivity(homeIntent)
                         finish()
