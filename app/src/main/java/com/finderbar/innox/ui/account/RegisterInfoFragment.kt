@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.finderbar.innox.AppConstant.CONFIRM_PASSWORD
 import com.finderbar.innox.AppConstant.EMAIL
 import com.finderbar.innox.AppConstant.PASSWORD
 import com.finderbar.innox.AppConstant.PHONE
@@ -16,17 +17,33 @@ import com.finderbar.innox.AppConstant.USER_NAME
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentRegisterInfoBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.repository.Color
+import com.finderbar.innox.repository.Register
+import com.finderbar.innox.repository.State
+import com.finderbar.innox.repository.TownShip
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
 class RegisterInfoFragment: Fragment() {
 
     private val bizApiVM: BizApiViewModel by viewModels()
 
+    private var userName: String? = ""
+    private var email: String? = ""
+    private var phone: String? = ""
+    private var password: String? = ""
+    private var confirmPassword: String? = ""
+    private var stateId: Int? = 0
+    private var townShipId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var bundle = savedInstanceState
         if (bundle == null) bundle = arguments
+        userName = bundle?.getString(USER_NAME)
+        email = bundle?.getString(EMAIL)
+        phone = bundle?.getString(PHONE)
+        password = bundle?.getString(PASSWORD)
+        confirmPassword = bundle?.getString(CONFIRM_PASSWORD)
     }
 
     override fun onCreateView(
@@ -44,6 +61,9 @@ class RegisterInfoFragment: Fragment() {
                     stateAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownState.clearFocus();
                     binding.dropdownState.setAdapter(stateAdaptor)
+                    binding.dropdownState.setOnItemClickListener { parent, view, position, id ->
+                        stateId = (parent.getItemAtPosition(position) as State).id
+                    }
                 }
             }
         })
@@ -55,21 +75,31 @@ class RegisterInfoFragment: Fragment() {
                     townshipAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownTownship.clearFocus();
                     binding.dropdownTownship.setAdapter(townshipAdaptor)
+                    binding.dropdownTownship.setOnItemClickListener { parent, view, position, id ->
+                        townShipId = (parent.getItemAtPosition(position) as TownShip).id
+                    }
                 }
             }
         })
+
+        binding.btnContinue.setOnClickListener{
+            bizApiVM.loadTokenByRegister(Register(userName!!, email!!, phone!!, password!!, confirmPassword!!, stateId!!, townShipId!!, binding.edAddress.text.toString(), "",2)).observe(viewLifecycleOwner, Observer { res ->
+                print(res.data)
+            })
+        }
 
         return binding.root;
     }
 
     companion object {
-        fun newInstance(name: String, email: String, phone: String, password: String): RegisterInfoFragment {
+        fun newInstance(userName: String, email: String, phone: String, password: String, confirmPassword: String): RegisterInfoFragment {
             val fragment = RegisterInfoFragment()
             val args = Bundle()
-            args.putString(USER_NAME, name)
+            args.putString(USER_NAME, userName)
             args.putString(EMAIL, email)
             args.putString(PHONE, phone)
             args.putString(PASSWORD, password)
+            args.putString(CONFIRM_PASSWORD, confirmPassword)
             fragment.arguments = args
             return fragment
         }

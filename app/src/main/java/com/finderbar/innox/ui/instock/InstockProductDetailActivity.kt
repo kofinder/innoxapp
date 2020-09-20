@@ -15,6 +15,9 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockProductDetailBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.repository.Color
+import com.finderbar.innox.repository.ProductDetail
+import com.finderbar.innox.repository.Size
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import java.util.*
 
@@ -23,9 +26,15 @@ class InstockProductDetailActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityInstockProductDetailBinding
     private val bizApiVM: BizApiViewModel by viewModels()
-
     private var currentPage = 0
     private var numberOfPages = 0
+    private var colorId: Int? = 0
+    private var sizeId: Int? = 0
+    private var productName: String? = ""
+    private var colorName: String? = ""
+    private var sizeName: String? = ""
+    private var price: String? = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +53,11 @@ class InstockProductDetailActivity: AppCompatActivity() {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                    val product = res.data!!
+                    var product = res.data!!
                     binding.txtTitle.text = product.name
                     binding.txtPrice.text = product.price
                     binding.txtDescription.text = product.description
-                    binding.vpLayout.adapter =
-                        ImageSlidePagerAdapter(applicationContext, product.images!!)
+                    binding.vpLayout.adapter = ImageSlidePagerAdapter(applicationContext, product.images!!)
                     binding.btnIndicator.setViewPager(binding.vpLayout)
                     val density = resources.displayMetrics.density
                     binding.btnIndicator.radius = 5 * density
@@ -58,12 +66,22 @@ class InstockProductDetailActivity: AppCompatActivity() {
                     colorAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownColor.clearFocus();
                     binding.dropdownColor.setAdapter(colorAdaptor)
-
+                    binding.dropdownColor.setOnItemClickListener { parent, view, position, id ->
+                        colorId = (parent.getItemAtPosition(position) as Color).id
+                        colorName = (parent.getItemAtPosition(position) as Color).name
+                    }
 
                     val sizeAdaptor = SizeArrayAdaptor(applicationContext, R.layout.item_dropdown, product.sizes!!)
                     sizeAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownSize.clearFocus();
                     binding.dropdownSize.setAdapter(sizeAdaptor)
+                    binding.dropdownSize.setOnItemClickListener { parent, view, position, id ->
+                        sizeId = (parent.getItemAtPosition(position) as Size).id
+                        sizeName = (parent.getItemAtPosition(position) as Size).name
+                    }
+
+                    productName = product.name
+                    price = product.price
 
                 }
                 Status.ERROR -> {
@@ -102,12 +120,7 @@ class InstockProductDetailActivity: AppCompatActivity() {
 
 
         binding.btnCart.setOnClickListener {
-            val frag = AddToCartDialogFragment.newInstance(
-                "item?._id!!",
-                "prefs.fullName",
-                "prefs.avatar",
-                "getCurrentTime()"
-            )
+            val frag = AddToCartDialogFragment.newInstance(productId, colorId!!, sizeId!!, productName!!, colorName!!, sizeName!!, price!!)
             frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
         }
 

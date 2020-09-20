@@ -74,9 +74,11 @@ data class Register(
     val phoneNo: String,
     val password: String,
     val confirm_password: String,
-    val state_id: String,
-    val township_id: String,
-    val detail_address: String
+    val state_id: Int,
+    val township_id: Int,
+    val detail_address: String,
+    val profile_image: String,
+    val user_role: Int = 2
 )
 
 ///// RESPONSE DATA MODEL ///////

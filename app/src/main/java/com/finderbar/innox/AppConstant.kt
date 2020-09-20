@@ -24,11 +24,20 @@ object AppConstant {
     const val ART_WORK_DESIGNER_TITLE = "artwork_designer_title"
 
 
-
     const val USER_NAME = "user:name"
     const val EMAIL = "user:email"
     const val PHONE = "user:phone"
     const val PASSWORD = "user:password"
+    const val CONFIRM_PASSWORD = "user:confirm_password"
+
+
+    const val ITEM_PRODUCT_ID = "item:product_id"
+    const val ITEM_COLOR_ID = "item:color_id"
+    const val ITEM_SIZE_ID = "item:size_id"
+    const val ITEM_NAME = "item:name"
+    const val ITEM_PRICE = "item:price"
+    const val ITEM_COLOR = "item:color"
+    const val ITEM_SIZE = "item:size"
 
 
 }

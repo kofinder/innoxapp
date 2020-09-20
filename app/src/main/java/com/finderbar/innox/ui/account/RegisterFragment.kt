@@ -23,11 +23,12 @@ class RegisterFragment : Fragment() {
         val context = activity as AppCompatActivity
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container , false)
 
-        var frag: RegisterInfoFragment = RegisterInfoFragment.newInstance(binding.name.text.toString(),
-            binding.email.text.toString(), binding.phone.text.toString(),
-            binding.password.text.toString());
 
-        binding.btnRegister.setOnClickListener{context.replaceFragment(frag)}
+        binding.btnRegister.setOnClickListener{context.replaceFragment(
+            RegisterInfoFragment.newInstance(binding.name.text.toString(),
+                binding.email.text.toString(), binding.phone.text.toString(),
+                binding.password.text.toString(), binding.passwordConfirm.text.toString())
+        )}
 
         return binding.root;
     }

@@ -1,6 +1,8 @@
 package com.finderbar.innox.network
 
 import com.finderbar.innox.AppContext
+import com.finderbar.innox.Prefs
+import com.finderbar.innox.network.interceptors.*
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,13 +13,13 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 
-object ApiClientHandler {
+object AuthApiClientHandler {
 
     private val okHttpClient by lazy { OkHttpClient() }
 
     private val retrofit: Retrofit by lazy {
         val builder = Retrofit.Builder()
-            .baseUrl(NetworkURL.BASE_URL)
+            .baseUrl(NetworkURL.BASE_AUTH_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         val dispatcher = Dispatcher()
@@ -36,6 +38,7 @@ object ApiClientHandler {
             .writeTimeout(NetworkURL.REQUEST_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(NetworkURL.REQUEST_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .addNetworkInterceptor(AuthInterceptor())
             .dispatcher(dispatcher)
             .build()
         builder.client(client).build()
