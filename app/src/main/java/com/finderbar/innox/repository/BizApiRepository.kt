@@ -1,5 +1,6 @@
 package com.finderbar.innox.repository
 
+import androidx.annotation.AnyRes
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import retrofit2.Response
@@ -59,15 +60,21 @@ interface BizApiRepository {
     @GET("townships")
     suspend fun getTownships(@Query("state_id") stateId: Int): Response<ServiceResponse<TownShips>>
 
+
+    @POST("shopping/cart")
+    suspend fun saveShoppingCart(@Body cart: ShoppingCart): Response<ServiceResponse<Any>>
+
 }
 
 ///// REQUEST DATA MODEL ///////
 
+@Keep
 data class Login(
  val username: String,
  val password: String
 )
 
+@Keep
 data class Register(
     val name: String,
     val email: String,
@@ -79,6 +86,14 @@ data class Register(
     val detail_address: String,
     val profile_image: String,
     val user_role: Int = 2
+)
+
+@Keep
+data class ShoppingCart(
+    val product_id: Int,
+    val color_id: Int,
+    val size_id: Int,
+    val quantity: Int
 )
 
 ///// RESPONSE DATA MODEL ///////
@@ -96,6 +111,12 @@ data class ServiceResponse<T>(
     @SerializedName("data") val data: T,
     @SerializedName("responseMessage") val responseMessage: String,
     @SerializedName("errorList") val error: ArrayList<Any>
+)
+
+@Keep
+data class ApiError(
+    @SerializedName("responseCode") val code: Int,
+    @SerializedName("responseMessage") val msg: String
 )
 
 data class HomeScreen(

@@ -40,4 +40,8 @@ object AppConstant {
     const val ITEM_SIZE = "item:size"
 
 
+    // COMMON ERROR MESSAGE
+    const val CONTACT_ADMINISTRATOR = "Please Contact Administrator!"
+
+
 }

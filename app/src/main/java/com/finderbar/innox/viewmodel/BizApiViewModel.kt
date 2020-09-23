@@ -2,12 +2,14 @@ package com.finderbar.innox.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.finderbar.innox.AppConstant.CONTACT_ADMINISTRATOR
 import com.finderbar.innox.network.ApiClientHandler
-import com.finderbar.innox.repository.BizApiRepository
+import com.finderbar.innox.network.AuthApiClientHandler
 import com.finderbar.innox.network.Resource
-import com.finderbar.innox.repository.Login
-import com.finderbar.innox.repository.Register
+import com.finderbar.innox.repository.*
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
+
 
 class BizApiViewModel : ViewModel() {
 
@@ -138,6 +140,9 @@ class BizApiViewModel : ViewModel() {
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }
+        if(response.code() > 1){
+            emit(Resource.error(response.code(), response.body()?.responseMessage.let { CONTACT_ADMINISTRATOR }))
+        }
     }
 
     fun loadTokenByLogin(login: Login)  = liveData(Dispatchers.IO) {
@@ -146,6 +151,26 @@ class BizApiViewModel : ViewModel() {
         val response = api.login(login)
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
+        }
+        if(response.code() > 1){
+            emit(Resource.error(response.code(), response.body()?.responseMessage.let { CONTACT_ADMINISTRATOR }))
+        }
+    }
+
+
+    fun loadAddToCart(cart: ShoppingCart)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.saveShoppingCart(cart)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+        if(response.code() > 1) {
+            val datum = Gson().fromJson(
+                response.errorBody()?.string(),
+                ApiError::class.java
+            )
+            emit(Resource.error(datum.code, datum.msg))
         }
     }
 

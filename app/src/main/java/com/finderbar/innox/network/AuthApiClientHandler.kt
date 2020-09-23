@@ -1,7 +1,6 @@
 package com.finderbar.innox.network
 
 import com.finderbar.innox.AppContext
-import com.finderbar.innox.Prefs
 import com.finderbar.innox.network.interceptors.*
 import com.google.gson.GsonBuilder
 import okhttp3.*
