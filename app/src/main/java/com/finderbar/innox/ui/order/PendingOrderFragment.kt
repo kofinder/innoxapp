@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.cart
+package com.finderbar.innox.ui.order
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.finderbar.innox.R
-import com.finderbar.innox.databinding.FragmentCartBinding
+import com.finderbar.innox.databinding.FragmentOrderPendingBinding
+
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class CartFragment : Fragment() {
+class PendingOrderFragment : Fragment() {
 
-    private lateinit var binding: FragmentCartBinding
+    private lateinit var binding: FragmentOrderPendingBinding
     private val bizApiVM: BizApiViewModel by viewModels()
 
     override fun onCreateView(
@@ -22,12 +22,7 @@ class CartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
-
-        bizApiVM.loadShoppingCart().observe(viewLifecycleOwner, Observer { res ->
-            print(res.data)
-        })
-
-        return binding.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_pending, container, false)
+        return binding.root;
     }
 }

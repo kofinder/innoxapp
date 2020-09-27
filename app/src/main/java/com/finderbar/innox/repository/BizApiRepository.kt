@@ -62,14 +62,15 @@ interface BizApiRepository {
     @GET("townships")
     suspend fun getTownships(@Query("state_id") stateId: Int): Response<ServiceResponse<TownShips>>
 
-
     @POST("shopping/cart")
     suspend fun saveShoppingCart(@Body cart: ShoppingCart): Response<ServiceResponse<Any>>
+
+    @GET("shopping/carts")
+    suspend fun getShoppingCart(): Response<ServiceResponse<ShoppingCarts>>
 
 }
 
 ///// REQUEST DATA MODEL ///////
-
 @Keep
 data class Login(
  val username: String,
@@ -366,4 +367,34 @@ data class User(
     val township: String? = "",
     @SerializedName("address")
     val address: String? = ""
+)
+
+@Keep
+data class ShoppingCarts(
+    @SerializedName("total_amount")
+    val totalAmount: Float? = 0.0f,
+    @SerializedName("total_amount_text")
+    val totalAmountText: String? = "",
+    @SerializedName("shopping_carts")
+    val carts: MutableList<Cart>? = mutableListOf()
+)
+
+@Keep
+data class Cart(
+    @SerializedName("cart_id")
+    val id: String? = "",
+    @SerializedName("product_name")
+    val name: String? = "",
+    @SerializedName("product_price")
+    val price: Float? = 0f,
+    @SerializedName("product_price_text")
+    val priceText: String? = "",
+    @SerializedName("quantity")
+    val quantity: Int? = 0,
+    @SerializedName("product_sub_total")
+    val subTotal: Float? = 0f,
+    @SerializedName("product_sub_total_text")
+    val subTotalText: String? = "",
+    @SerializedName("product_image")
+    val image: String? = ""
 )
