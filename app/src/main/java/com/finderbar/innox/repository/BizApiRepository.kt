@@ -363,5 +363,7 @@ data class User(
     @SerializedName("state_id")
     val state: String? = "",
     @SerializedName("township_id")
-    val township: String? = ""
+    val township: String? = "",
+    @SerializedName("address")
+    val address: String? = ""
 )
