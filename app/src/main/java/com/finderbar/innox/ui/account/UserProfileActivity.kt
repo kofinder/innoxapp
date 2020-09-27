@@ -1,4 +1,5 @@
 package com.finderbar.innox.ui.account
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
@@ -25,6 +26,11 @@ class UserProfileActivity: AppCompatActivity() {
         supportActionBar?.title = "User Profile"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val userId: String = intent?.extras?.getString("_id")!!
+
+        binding.btnEdit.setOnClickListener{
+            val editIntent = Intent(this, EditUserProfileActivity::class.java)
+            startActivity(editIntent)
+        }
 
         bizApiVM.loadUserProfile(userId.toInt()).observe(this, Observer { res ->
             when(res.status) {

@@ -1,6 +1,7 @@
 package com.finderbar.innox.ui.account
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -15,7 +16,14 @@ class EditUserProfileActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_user_profile)
-        supportActionBar?.title = "User Profile"
+
+        setSupportActionBar(binding.mainToolbar)
+        supportActionBar?.title = "Edit User Profile"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
