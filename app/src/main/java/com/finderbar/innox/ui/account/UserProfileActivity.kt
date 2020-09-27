@@ -4,6 +4,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityUserProfileBinding
 import com.finderbar.innox.viewmodel.BizApiViewModel
@@ -20,6 +21,15 @@ class UserProfileActivity: AppCompatActivity() {
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "User Profile"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val userId: Int = intent?.extras?.get("_id") as Int
+        val userId: String = intent?.extras?.getString("_id")!!
+
+        bizApiVM.loadUserProfile(userId.toInt()).observe(this, Observer {
+            print(it)
+        })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

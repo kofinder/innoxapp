@@ -175,4 +175,14 @@ class BizApiViewModel : ViewModel() {
     }
 
 
+    fun loadUserProfile(userId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.getUserProfile(userId)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+
 }

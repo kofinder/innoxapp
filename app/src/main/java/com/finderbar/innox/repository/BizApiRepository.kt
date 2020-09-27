@@ -1,6 +1,5 @@
 package com.finderbar.innox.repository
 
-import androidx.annotation.AnyRes
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import retrofit2.Response
@@ -16,6 +15,9 @@ interface BizApiRepository {
 
     @POST("login")
     suspend fun login(@Body login: Login): Response<ServiceResponse<Token>>
+
+    @GET("user")
+    suspend fun getUserProfile(@Query("user_id") userId: Int): Response<ServiceResponse<User>>
 
     @GET("home")
     suspend fun getScreen(): Response<ServiceResponse<HomeScreen>>
@@ -97,15 +99,6 @@ data class ShoppingCart(
 )
 
 ///// RESPONSE DATA MODEL ///////
-
-@Keep
-data class Token(
-    @SerializedName("jwt_token")
-    val jwtToken: String? = "",
-    @SerializedName("user_id")
-    val userId: String? = ""
-)
-
 @Keep
 data class ServiceResponse<T>(
     @SerializedName("data") val data: T,
@@ -343,4 +336,32 @@ data class State(
 data class TownShip(
     @SerializedName("township_id") val id: Int,
     @SerializedName("township_name") val name: String
+)
+
+@Keep
+data class Token(
+    @SerializedName("jwt_token")
+    val jwtToken: String? = "",
+    @SerializedName("user_id")
+    val userId: String? = ""
+)
+
+@Keep
+data class User(
+    @SerializedName("user_id")
+    val id: String? = "",
+    @SerializedName("user_name")
+    val name: String? = "",
+    @SerializedName("email")
+    val email: String? = "",
+    @SerializedName("phoneNo")
+    val phoneNo: String? = "",
+    @SerializedName("user_role_level_text")
+    val role: String? = "",
+    @SerializedName("profile_image")
+    val image: String? = "",
+    @SerializedName("state_id")
+    val state: String? = "",
+    @SerializedName("township_id")
+    val township: String? = ""
 )
