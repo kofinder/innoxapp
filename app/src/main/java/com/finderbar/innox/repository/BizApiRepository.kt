@@ -3,10 +3,8 @@ package com.finderbar.innox.repository
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
+import java.lang.reflect.Array
 
 interface BizApiRepository {
 
@@ -65,8 +63,17 @@ interface BizApiRepository {
     @POST("shopping/cart")
     suspend fun saveShoppingCart(@Body cart: ShoppingCart): Response<ServiceResponse<Any>>
 
+    @PUT("shopping/cart")
+    suspend fun editShoppingCart(@Query("cart_id") cartId: Int, @Query("quantity") quantity: Int): Response<ServiceResponse<Any>>
+
+    @DELETE("shopping/cart")
+    suspend fun deleteShoppingCart(@Body cart: CartIds): Response<ServiceResponse<Any>>
+
     @GET("shopping/carts")
     suspend fun getShoppingCart(): Response<ServiceResponse<ShoppingCarts>>
+
+    @POST("order/preload")
+    suspend fun orderPreload(@Body cart: CartIds): Response<ServiceResponse<PreLoadOrder>>
 
 }
 
@@ -97,6 +104,12 @@ data class ShoppingCart(
     val color_id: Int,
     val size_id: Int,
     val quantity: Int
+)
+
+@Keep
+data class CartIds(
+    @SerializedName("cart_ids")
+    val categoryIds: ArrayList<Int>
 )
 
 ///// RESPONSE DATA MODEL ///////
@@ -180,6 +193,45 @@ data class TownShips(
 data class States(
     @SerializedName("state_list")
     val states: MutableList<State>? = mutableListOf()
+)
+
+@Keep
+data class PreLoadOrder(
+    @SerializedName("total_cost") val totalCost: Int? = 0,
+    @SerializedName("total_cost_text") val totalCostText: String? = "",
+    @SerializedName("total_item_cost") val totalItemCost: Int? = 0,
+    @SerializedName("total_item_cost_text") val totalItemCostText: String? = "",
+    @SerializedName("delivery_cost") val deliveryCost: Int? = 0,
+    @SerializedName("user_detail") val userDetail: UserDetail,
+    @SerializedName("payment_types") val paymentType: MutableList<PaymentType>? = mutableListOf(),
+    @SerializedName("order_items") val orderItem: MutableList<OrderItem>? = mutableListOf()
+)
+
+data class UserDetail(
+    @SerializedName("user_id") val id: Int? = 0,
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("phone_no") val phoneNo: String? = "",
+    @SerializedName("state_id") val stateId: Int? = 0,
+    @SerializedName("township_id") val townShipId: Int? = 0
+)
+
+data class PaymentType (
+    @SerializedName("payment_type_id") val id: Int? = 0,
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("code") val code: String? = "",
+    @SerializedName("is_offline") val offline: Int? = 0,
+    @SerializedName("payment_image") val image: String? = ""
+)
+
+data class OrderItem(
+    @SerializedName("cart_id") val cartId: Int? = 0,
+    @SerializedName("product_id") val productId: Int? = 0,
+    @SerializedName("product_name") val name: String? = "",
+    @SerializedName("unit_price") val unitPrice: Int? = 0,
+    @SerializedName("unit_price_text") val unitPriceText: String? = "",
+    @SerializedName("quantity") val quantity: Int? = 0,
+    @SerializedName("sub_total") val subTotal: Int? = 0,
+    @SerializedName("image_path") val image: String? = ""
 )
 
 
@@ -382,7 +434,7 @@ data class ShoppingCarts(
 @Keep
 data class Cart(
     @SerializedName("cart_id")
-    val id: String? = "",
+    val id: Int? = 0,
     @SerializedName("product_name")
     val name: String? = "",
     @SerializedName("product_price")
@@ -396,5 +448,6 @@ data class Cart(
     @SerializedName("product_sub_total_text")
     val subTotalText: String? = "",
     @SerializedName("product_image")
-    val image: String? = ""
+    val image: String? = "",
+    var isCheck: Boolean = false
 )

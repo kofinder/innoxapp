@@ -53,6 +53,10 @@ interface ItemFontClick {
     fun onItemClick(font: Font)
 }
 
+interface ItemCheck {
+    fun onItemClick(_id: Int, isCheck: Boolean)
+}
+
 fun AppCompatActivity.replaceFragment(fragment: Fragment){
     val fragmentManager = supportFragmentManager
     val transaction = fragmentManager.beginTransaction()

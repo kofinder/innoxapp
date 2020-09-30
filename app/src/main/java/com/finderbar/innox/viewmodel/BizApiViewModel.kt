@@ -184,6 +184,34 @@ class BizApiViewModel : ViewModel() {
     }
 
 
+    fun loadEditShoppingCart(cartId: Int, quantity: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.editShoppingCart(cartId, quantity)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadDeleteShoppingCart(cart: CartIds) = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.deleteShoppingCart(cart)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+    fun loadOrderPreload(cart: CartIds) = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.orderPreload(cart)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
+
     fun loadUserProfile(userId: Int)  = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
