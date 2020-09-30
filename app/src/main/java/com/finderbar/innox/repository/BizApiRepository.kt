@@ -75,6 +75,9 @@ interface BizApiRepository {
     @POST("order/preload")
     suspend fun orderPreload(@Body cart: CartIds): Response<ServiceResponse<PreLoadOrder>>
 
+    @POST("order/confirm")
+    suspend fun confirmOrder(@Body order: ConfirmOrder): Response<ServiceResponse<OrderConfirm>>
+
 }
 
 ///// REQUEST DATA MODEL ///////
@@ -107,10 +110,22 @@ data class ShoppingCart(
 )
 
 @Keep
+data class ConfirmOrder(
+    val cart_ids: ArrayList<Int>,
+    val paymen_type_code: String,
+    val state_id: Int,
+    val township_id: Int,
+    val detail_address: String,
+    val remark: String
+)
+
+@Keep
 data class CartIds(
     @SerializedName("cart_ids")
     val categoryIds: ArrayList<Int>
 )
+
+
 
 ///// RESPONSE DATA MODEL ///////
 @Keep
@@ -207,31 +222,21 @@ data class PreLoadOrder(
     @SerializedName("order_items") val orderItem: MutableList<OrderItem>? = mutableListOf()
 )
 
-data class UserDetail(
-    @SerializedName("user_id") val id: Int? = 0,
-    @SerializedName("name") val name: String? = "",
-    @SerializedName("phone_no") val phoneNo: String? = "",
-    @SerializedName("state_id") val stateId: Int? = 0,
-    @SerializedName("township_id") val townShipId: Int? = 0
-)
-
-data class PaymentType (
-    @SerializedName("payment_type_id") val id: Int? = 0,
-    @SerializedName("name") val name: String? = "",
-    @SerializedName("code") val code: String? = "",
-    @SerializedName("is_offline") val offline: Int? = 0,
-    @SerializedName("payment_image") val image: String? = ""
-)
-
-data class OrderItem(
-    @SerializedName("cart_id") val cartId: Int? = 0,
-    @SerializedName("product_id") val productId: Int? = 0,
-    @SerializedName("product_name") val name: String? = "",
-    @SerializedName("unit_price") val unitPrice: Int? = 0,
-    @SerializedName("unit_price_text") val unitPriceText: String? = "",
-    @SerializedName("quantity") val quantity: Int? = 0,
-    @SerializedName("sub_total") val subTotal: Int? = 0,
-    @SerializedName("image_path") val image: String? = ""
+@Keep
+data class OrderConfirm(
+    @SerializedName("order_id") val id: Int? = 0,
+    @SerializedName("invoice_number") val invoiceNumber: String? = "",
+    @SerializedName("order_status") val orderStatus: Int? = 0,
+    @SerializedName("order_status_text") val orderStatusText: String? = "",
+    @SerializedName("payment_status") val paymentStatus: Int? = 0,
+    @SerializedName("payment_status_text") val paymentStatusText: String? = "",
+    @SerializedName("delivery_fee") val deliveryFee: Int? = 0,
+    @SerializedName("delivery_fee_text") val deliveryFeeText: String? ="",
+    @SerializedName("total_cost") val totalCost: Int? = 0,
+    @SerializedName("total_cost_text") val totalCostText: String? = "",
+    @SerializedName("user_detail") val userDetail: UserDetail,
+    @SerializedName("payment_types") val paymentType: MutableList<PaymentType>? = mutableListOf(),
+    @SerializedName("order_items") val orderItem: MutableList<OrderItem>? = mutableListOf()
 )
 
 
@@ -450,4 +455,31 @@ data class Cart(
     @SerializedName("product_image")
     val image: String? = "",
     var isCheck: Boolean = false
+)
+@Keep
+data class UserDetail(
+    @SerializedName("user_id") val id: Int? = 0,
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("phone_no") val phoneNo: String? = "",
+    @SerializedName("state_id") val stateId: Int? = 0,
+    @SerializedName("township_id") val townShipId: Int? = 0
+)
+@Keep
+data class PaymentType (
+    @SerializedName("payment_type_id") val id: Int? = 0,
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("code") val code: String? = "",
+    @SerializedName("is_offline") val offline: Int? = 0,
+    @SerializedName("payment_image") val image: String? = ""
+)
+@Keep
+data class OrderItem(
+    @SerializedName("cart_id") val cartId: Int? = 0,
+    @SerializedName("product_id") val productId: Int? = 0,
+    @SerializedName("product_name") val name: String? = "",
+    @SerializedName("unit_price") val unitPrice: Int? = 0,
+    @SerializedName("unit_price_text") val unitPriceText: String? = "",
+    @SerializedName("quantity") val quantity: Int? = 0,
+    @SerializedName("sub_total") val subTotal: Int? = 0,
+    @SerializedName("image_path") val image: String? = ""
 )

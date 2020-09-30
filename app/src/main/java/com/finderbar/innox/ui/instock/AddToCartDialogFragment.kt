@@ -74,7 +74,6 @@ class AddToCartDialogFragment : DialogFragment() {
             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
             .themeColor(android.graphics.Color.WHITE)
             .text("Please Wait")
-
             .fadeColor(android.graphics.Color.DKGRAY).build();
         binding.txtTitle.text = "$productName ($colorName $sizeName)"
         binding.txtPrice.text = price

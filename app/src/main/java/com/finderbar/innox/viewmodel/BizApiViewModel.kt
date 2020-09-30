@@ -211,6 +211,15 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
+    fun loadConfirmOrder(order: ConfirmOrder) = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+        val response = api.confirmOrder(order)
+        if(response.isSuccessful) {
+            emit(Resource.success(response.body()?.data))
+        }
+    }
+
 
     fun loadUserProfile(userId: Int)  = liveData(Dispatchers.IO) {
         emit(Resource.loading())

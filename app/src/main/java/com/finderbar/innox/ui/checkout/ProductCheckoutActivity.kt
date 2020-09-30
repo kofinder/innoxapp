@@ -4,26 +4,31 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import cc.cloudist.acplibrary.ACProgressConstant
+import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityProductCheckoutBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.CartIds
+import com.finderbar.innox.repository.ConfirmOrder
 import com.finderbar.innox.repository.State
 import com.finderbar.innox.repository.TownShip
 import com.finderbar.innox.ui.account.StateArrayAdaptor
 import com.finderbar.innox.ui.account.TownShipArrayAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import es.dmoral.toasty.Toasty
 
 class ProductCheckoutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductCheckoutBinding
     private val bizApiVM: BizApiViewModel by viewModels()
+    private lateinit var acProgress: ACProgressFlower
 
     private var stateId: Int? = 0
     private var townShipId: Int? = 0
@@ -36,10 +41,14 @@ class ProductCheckoutActivity : AppCompatActivity() {
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Checkout"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val cartIds=intent?.getIntegerArrayListExtra("cartIds")
+        val cartIds= intent?.getIntegerArrayListExtra("cartIds")
+        acProgress = ACProgressFlower.Builder(this)
+            .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+            .themeColor(android.graphics.Color.WHITE)
+            .text("Please Wait")
+            .fadeColor(android.graphics.Color.DKGRAY).build();
 
         val adaptor = CheckOutAdaptor(this, mutableListOf());
-
         bizApiVM.loadState().observe(this, Observer { res ->
             when (res.status) {
                 Status.SUCCESS -> {
@@ -47,7 +56,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
                     stateAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownState.clearFocus();
                     binding.dropdownState.setAdapter(stateAdaptor)
-                    binding.dropdownState.setOnItemClickListener { parent, view, position, id ->
+                    binding.dropdownState.setOnItemClickListener { parent, _, position, id ->
                         stateId = (parent.getItemAtPosition(position) as State).id
                     }
                 }
@@ -61,7 +70,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
                     townshipAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownTownship.clearFocus();
                     binding.dropdownTownship.setAdapter(townshipAdaptor)
-                    binding.dropdownTownship.setOnItemClickListener { parent, view, position, id ->
+                    binding.dropdownTownship.setOnItemClickListener { parent, _, position, id ->
                         townShipId = (parent.getItemAtPosition(position) as TownShip).id
                     }
                 }
@@ -80,8 +89,6 @@ class ProductCheckoutActivity : AppCompatActivity() {
                         binding.txtDelivery.text = it.deliveryCost.toString()
                         binding.edName.text?.append(it.userDetail.name)
                         binding.edPhone.text?.append(it.userDetail.phoneNo)
-                        stateId = it.userDetail.stateId
-                        townShipId = it.userDetail.townShipId
                         adaptor.addAll(it.orderItem!!)
                         binding.listItem.adapter = adaptor
                         setListViewHeight(binding.listItem)
@@ -90,6 +97,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
                     }
                 }
                 Status.ERROR -> {
+                    acProgress.hide()
                     print(res.msg)
                 }
             }
@@ -97,8 +105,32 @@ class ProductCheckoutActivity : AppCompatActivity() {
 
 
         binding.btnConfirm.setOnClickListener{
-            val frag = ConfirmOrderFragment.newInstance()
-            frag.show(supportFragmentManager, ConfirmOrderFragment.TAG)
+            val address = binding.address.text.toString();
+            val remark = binding.address.text.toString();
+
+            bizApiVM.loadConfirmOrder(ConfirmOrder(cartIds!!, "COD", stateId!!, townShipId!!, address, remark)).observe(this, Observer { res ->
+                when (res.status) {
+                    Status.LOADING -> {
+                        acProgress.show()
+                    }
+                    Status.SUCCESS -> {
+                        res.data?.let {
+                            acProgress.hide()
+                            Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
+                            val frag = ConfirmOrderFragment.newInstance(ArrayList(it.orderItem!!), it.invoiceNumber!!, it.totalCostText!!, it.deliveryFeeText!!)
+                            frag.show(supportFragmentManager, ConfirmOrderFragment.TAG)
+                        }?: kotlin.run {
+                            acProgress.hide()
+                            Toasty.error(this, "Fail!", Toast.LENGTH_SHORT, true).show();
+                        }
+                    }
+                    Status.ERROR -> {
+                        acProgress.hide()
+                        Toasty.error(this, res.msg!!, Toast.LENGTH_SHORT, true).show();
+                    }
+                }
+            })
+
         }
 
     }
