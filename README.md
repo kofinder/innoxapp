@@ -19,3 +19,7 @@ Product Search
 Product Detail
 -> http://188.166.207.190/innox/api/v1.0/product/detail?product_id=2
 [product_id : required]
+
+
+#Design Link
+https://xd.adobe.com/view/6f8fd9c7-67dc-40f4-62b1-89b14aa735cf-19be/?fbclid=IwAR0ZR398NqXghj5QMj9jrGn9P3wCq-xcK08ATzABumbyyqUb5mpcibRXFe8
