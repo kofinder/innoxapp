@@ -90,7 +90,7 @@ class AddToCartDialogFragment : DialogFragment() {
                     Status.SUCCESS -> {
                         acProgress.dismiss()
                         Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
-                        print(res.data)
+
                     }
                     Status.ERROR -> {
                         acProgress.dismiss()

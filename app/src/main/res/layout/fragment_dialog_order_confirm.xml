@@ -25,6 +25,14 @@
                         android:layout_marginBottom="20dp"/>
                     <TextView
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Order Success"
+                        android:textSize="@dimen/title_font_size"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack"
+                        android:layout_marginBottom="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:paddingLeft="20dp"
@@ -33,7 +41,8 @@
                         android:layout_gravity="left"
                         android:textAlignment="textStart"
                         android:textSize="@dimen/semi_font_size"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@color/colorBlack"
+                        tools:ignore="RtlCompat" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -63,17 +72,17 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textStart"
                             android:layout_weight="1"
                             android:textSize="@dimen/body_font_size"
                             android:layout_gravity="start"
                             android:text="@string/item_cost"/>
                         <TextView
-                            android:id="@+id/txt_cost"
+                            android:id="@+id/txt_invoice"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:textColor="@color/colorWhite"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/body_font_size"
                             android:layout_weight="1"
@@ -103,7 +112,7 @@
                             android:id="@+id/txt_delivery"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:textColor="@color/colorWhite"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/body_font_size"
                             android:layout_weight="1"
@@ -130,9 +139,10 @@
                             android:layout_gravity="start"
                             android:text="@string/total"/>
                         <TextView
+                            android:id="@+id/txt_total"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:textColor="@color/colorWhite"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/body_font_size"
                             android:layout_weight="1"
@@ -149,7 +159,8 @@
                     android:layout_below="@id/lbl_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
                     android:orientation="vertical"
                     android:layout_marginBottom="50dp">
                     <TextView
@@ -157,15 +168,15 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/title_font_size"
                         android:textStyle="bold"
+                        android:padding="20dp"
                         android:textColor="@android:color/black"
                         android:text="@string/order_item"/>
                     <ListView
                         android:id="@+id/list_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:divider="@null"
-                        android:dividerHeight="0dp"
-                        android:listSelector="@android:color/transparent"
+                        android:divider="@color/colorLightGray"
+                        android:dividerHeight="1dp"
                         android:orientation="vertical"/>
                 </LinearLayout>
 

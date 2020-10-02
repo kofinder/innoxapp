@@ -121,7 +121,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
                             frag.show(supportFragmentManager, ConfirmOrderFragment.TAG)
                         }?: kotlin.run {
                             acProgress.hide()
-                            Toasty.error(this, "Fail!", Toast.LENGTH_SHORT, true).show();
+                            Toasty.warning(this, "Fail!", Toast.LENGTH_SHORT, true).show();
                         }
                     }
                     Status.ERROR -> {

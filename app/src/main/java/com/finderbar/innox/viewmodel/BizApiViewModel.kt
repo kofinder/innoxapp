@@ -140,9 +140,9 @@ class BizApiViewModel : ViewModel() {
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }
-        if(response.code() > 1){
-            emit(Resource.error(response.code(), response.body()?.responseMessage.let { CONTACT_ADMINISTRATOR }))
-        }
+//        if(response.code() > 1){
+//            emit(Resource.error(response.code(), response.body()?.responseMessage.let { CONTACT_ADMINISTRATOR }))
+//        }
     }
 
     fun loadTokenByLogin(login: Login)  = liveData(Dispatchers.IO) {
@@ -152,9 +152,9 @@ class BizApiViewModel : ViewModel() {
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }
-        if(response.code() > 1){
-            emit(Resource.error(response.code(), response.body()?.responseMessage.let { CONTACT_ADMINISTRATOR }))
-        }
+//        if(response.code() > 1){
+//            emit(Resource.error(response.code(), response.body()?.responseMessage.let { CONTACT_ADMINISTRATOR }))
+//        }
     }
 
 
@@ -165,13 +165,13 @@ class BizApiViewModel : ViewModel() {
         if(response.isSuccessful) {
             emit(Resource.success(response.body()?.data))
         }
-        if(response.code() > 1) {
-            val datum = Gson().fromJson(
-                response.errorBody()?.string(),
-                ApiError::class.java
-            )
-            emit(Resource.error(datum.code, datum.msg))
-        }
+//        if(response.code() > 1) {
+//            val datum = Gson().fromJson(
+//                response.errorBody()?.string(),
+//                ApiError::class.java
+//            )
+//            emit(Resource.error(datum.code, datum.msg))
+//        }
     }
 
     fun loadShoppingCart() = liveData(Dispatchers.IO) {
