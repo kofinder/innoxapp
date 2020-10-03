@@ -73,7 +73,20 @@ fun ImageView.loadLarge(uri: Uri, requestOptions: RequestOptions.() -> Unit = {}
         .into(this)
 }
 
-fun ImageView.loadAvatar(uri: Uri, requestOptions: RequestOptions.() -> Unit = {}) {
+fun ImageView.loadAvatar(uri: Uri) {
+    Glide.with(this)
+        .load(uri)
+        .apply(RequestOptions.circleCropTransform())
+        .priority(Priority.IMMEDIATE)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .skipMemoryCache(true)
+        .priority(Priority.IMMEDIATE)
+        .placeholder(R.drawable.user)
+        .error(R.drawable.user)
+        .into(this)
+}
+
+fun ImageView.drawableImage(uri: Uri) {
     Glide.with(this)
         .load(uri)
         .apply(RequestOptions.circleCropTransform())

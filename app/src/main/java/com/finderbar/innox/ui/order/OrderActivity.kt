@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentPagerAdapter
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityOrderBinding
 import com.finderbar.innox.utilities.ViewPagerAdapter
@@ -28,7 +29,6 @@ class OrderActivity: AppCompatActivity() {
         adapter.addFragment(PastOrderFragment(), "Past Orders")
         binding.viewPager.adapter = adapter
         binding.tabHost.setupWithViewPager(binding.viewPager)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

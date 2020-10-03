@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentCustomizeArtworkBinding
 import com.finderbar.innox.utilities.ViewPagerAdapter
@@ -23,7 +24,9 @@ class ArtWorkCustomizeFragment: Fragment(), FragCallBack {
         var rootView : View  = binding.root
         rootFrag = parentFragment as RootFragListener
 
-        val adapter = ViewPagerAdapter(childFragmentManager)
+        val adapter = ViewPagerAdapter(
+            childFragmentManager
+        )
         adapter.addFragment(ArtWorkCategoryFragment(), "ArtWork By Category")
         adapter.addFragment(ArtWorkDesignerFragment(), "ArtWork By Designer")
         binding.viewPager.adapter = adapter

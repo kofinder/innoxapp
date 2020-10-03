@@ -79,10 +79,10 @@ interface BizApiRepository {
     suspend fun confirmOrder(@Body order: ConfirmOrder): Response<ServiceResponse<OrderConfirm>>
 
     @GET("order/history/{status}")
-    suspend fun getOrderHistory(@Path("status") status: Int): Response<ServiceResponse<Any>>
+    suspend fun getOrderHistory(@Path("status") status: Int): Response<ServiceResponse<OrderHistories>>
 
     @GET("order/{orderId}")
-    suspend fun getOrderHistoryById(@Query("orderId") orderId: Int): Response<ServiceResponse<Any>>
+    suspend fun getOrderHistoryById(@Path("orderId") orderId: Int): Response<ServiceResponse<Any>>
 
 }
 
@@ -243,6 +243,12 @@ data class OrderConfirm(
     @SerializedName("user_detail") val userDetail: UserDetail,
     @SerializedName("payment_types") val paymentType: MutableList<PaymentType>? = mutableListOf(),
     @SerializedName("order_items") val orderItem: MutableList<OrderItem>? = mutableListOf()
+)
+
+@Keep
+data class OrderHistories(
+    @SerializedName("total_order_count") val totalCount: Int? = 0,
+    @SerializedName("order_items") val orderHistories: MutableList<OrderHistory>? = mutableListOf()
 )
 
 
@@ -488,4 +494,12 @@ data class OrderItem(
     @SerializedName("quantity") val quantity: Int? = 0,
     @SerializedName("sub_total") val subTotal: Int? = 0,
     @SerializedName("image_path") val image: String? = ""
+)
+
+@Keep
+data class OrderHistory(
+    @SerializedName("order_id") val id: Int? = 0,
+    @SerializedName("invoice_number") val invoiceNo: String? = "",
+    @SerializedName("total_cost_text") val totalCostText: String? = "",
+    @SerializedName("order_date") val orderDate: String? = ""
 )
