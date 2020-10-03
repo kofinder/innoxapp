@@ -1,21 +1,6 @@
-# innoxapp
+# PostMan Lin
+- https://www.getpostman.com/collections/96373a88203433274288
 
-Home screen
--> http://188.166.207.190/innox/api/v1.0/home/data_list
 
-Category and Sub-Category
--> http://188.166.207.190/innox/api/v1.0/category/list
--> http://188.166.207.190/innox/api/v1.0/sub_category/list_by_category?category_id=1
-[category_id : required]
-otepad
-Product List
--> http://188.166.207.190/innox/api/v1.0/product/list_by_sub_category?sub_category_id=1
-[sub_category_id : required]
-
-Product Search
--> http://188.166.207.190/innox/api/v1.0/product/list/search?keyword=Man&startPrice=0&endPrice=15000&category_id=1&sub_category_id=4
-[keyword : optional, startPrice : optional, endPrice : optional, category_id : optional, sub_category_id : optional]
-
-Product Detail
--> http://188.166.207.190/innox/api/v1.0/product/detail?product_id=2
-[product_id : required]
+# Design Link
+- https://xd.adobe.com/view/6f8fd9c7-67dc-40f4-62b1-89b14aa735cf-19be/?fbclid=IwAR0ZR398NqXghj5QMj9jrGn9P3wCq-xcK08ATzABumbyyqUb5mpcibRXFe8
