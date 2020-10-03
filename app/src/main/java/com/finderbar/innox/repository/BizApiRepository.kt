@@ -28,10 +28,10 @@ interface BizApiRepository {
 
     @GET("products/search")
     suspend fun searchProduct(@Query("keyword") keyword: String,
-                              @Query("startPrice") startPrice: String,
-                              @Query("endPrice") endPrice: String,
-                              @Query("category_id") categoryId: String,
-                              @Query("sub_category_id") subCategoryId: String): Response<ServiceResponse<Products>>
+                              @Query("startPrice") startPrice: Int,
+                              @Query("endPrice") endPrice: Int,
+                              @Query("category_id") categoryId: Int,
+                              @Query("sub_category_id") subCategoryId: Int): Response<ServiceResponse<Products>>
 
     @GET("custom_products/list_by_sub_category")
     suspend fun getAllCustomSubCategoryProduct(@Query("sub_category_id") subCategoryId: Int): Response<ServiceResponse<CustomProducts>>
@@ -77,6 +77,12 @@ interface BizApiRepository {
 
     @POST("order/confirm")
     suspend fun confirmOrder(@Body order: ConfirmOrder): Response<ServiceResponse<OrderConfirm>>
+
+    @GET("order/history/{status}")
+    suspend fun getOrderHistory(@Path("status") status: Int): Response<ServiceResponse<Any>>
+
+    @GET("order/{orderId}")
+    suspend fun getOrderHistoryById(@Query("orderId") orderId: Int): Response<ServiceResponse<Any>>
 
 }
 

@@ -19,7 +19,7 @@ import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentHomeBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.ui.designer.CustomizeDesignListActivity
-import com.finderbar.innox.ui.instock.InstockProductDetailActivity
+import com.finderbar.innox.ui.instock.InStockProductDetailActivity
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.smarteist.autoimageslider.IndicatorAnimations
@@ -50,7 +50,7 @@ class HomeFragment : Fragment(), ItemProductClick {
         binding.imageSlider.startAutoCycle()
 
         val categoryAdaptor = CategoryProductAdaptor(arrayListOf())
-        binding.rvCategoryProduct.addItemDecoration(SpaceItemDecoration(5));
+        binding.rvCategoryProduct.addItemDecoration(SpaceItemDecoration(10));
         binding.rvCategoryProduct.layoutManager = GridLayoutManager(requireContext(), 4);
         binding.rvCategoryProduct.adapter = categoryAdaptor
 
@@ -93,7 +93,7 @@ class HomeFragment : Fragment(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent = Intent(activity, InstockProductDetailActivity::class.java)
+        val intent = Intent(activity, InStockProductDetailActivity::class.java)
         intent.putExtra("_id", _id)
         intent.putExtra("position", position)
         startActivity(intent)

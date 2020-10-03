@@ -30,7 +30,6 @@ object AppConstant {
     const val PASSWORD = "user:password"
     const val CONFIRM_PASSWORD = "user:confirm_password"
 
-
     const val ITEM_PRODUCT_ID = "item:product_id"
     const val ITEM_COLOR_ID = "item:color_id"
     const val ITEM_SIZE_ID = "item:size_id"
@@ -42,6 +41,4 @@ object AppConstant {
 
     // COMMON ERROR MESSAGE
     const val CONTACT_ADMINISTRATOR = "Please Contact Administrator!"
-
-
 }

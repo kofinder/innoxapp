@@ -4,15 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/civ_thumb"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorGray"
-            android:layout_marginBottom="10dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:maxHeight="150dp"/>
         <TextView
             android:id="@+id/txt_name"
             android:layout_width="match_parent"

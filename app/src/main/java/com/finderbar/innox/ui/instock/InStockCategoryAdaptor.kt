@@ -10,20 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.databinding.ItemInstockCategoryBinding
 import com.finderbar.innox.repository.Category
 
-class InstockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>) : RecyclerView.Adapter<InstockCategoryAdaptor.CategoryInstockViewHolder>() {
+class InStockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>) :
+    RecyclerView.Adapter<InStockCategoryAdaptor.InStockCategoryViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryInstockViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InStockCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemInstockCategoryBinding.inflate(inflater, parent, false)
-        return CategoryInstockViewHolder(binding)
+        return InStockCategoryViewHolder(binding)
     }
 
     override fun getItemCount(): Int = arrayList.size
 
-    override fun onBindViewHolder(holder: CategoryInstockViewHolder, position: Int)  {
+    override fun onBindViewHolder(holder: InStockCategoryViewHolder, position: Int)  {
         val datum : Category = arrayList[position]
         holder.txtTitle.text = datum.name
-        holder.recyclerView.adapter = InstockSubCategoryAdaptor(datum.subCategory!!, null)
+        holder.recyclerView.adapter = InStockSubCategoryAdaptor(datum.subCategory!!, null)
         holder.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerView.setHasFixedSize(true)
         holder.recyclerView.isNestedScrollingEnabled = false
@@ -42,7 +43,7 @@ class InstockCategoryAdaptor(private val context: Context, private val arrayList
         }
     }
 
-    inner class CategoryInstockViewHolder(val binding: ItemInstockCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class InStockCategoryViewHolder(val binding: ItemInstockCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         val recyclerView: RecyclerView = binding.recyclerView
         val txtTitle: TextView = binding.txtTitle
     }

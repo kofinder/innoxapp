@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.instock
+package com.finderbar.innox.ui.designer
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -7,21 +7,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
-import com.finderbar.innox.databinding.ItemInstockSubCategoryBinding
+import com.finderbar.innox.databinding.ItemDesignerSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
 import com.finderbar.jovian.utilities.android.loadLarge
 
-class InstockSubCategoryAdaptor(private val arrayList: MutableList<SubCategory>, var onItemProductClick: ItemProductClick?) : RecyclerView.Adapter<InstockSubCategoryAdaptor.SubCategoryInstockViewHolder>() {
+class DesignerSubCategoryAdaptor(private val arrayList: MutableList<SubCategory>, var onItemProductClick: ItemProductClick?) :
+    RecyclerView.Adapter<DesignerSubCategoryAdaptor.SubCategoryViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryInstockViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemInstockSubCategoryBinding.inflate(inflater, parent, false)
-        return SubCategoryInstockViewHolder(binding)
+        val binding = ItemDesignerSubCategoryBinding.inflate(inflater, parent, false)
+        return SubCategoryViewHolder(binding)
     }
 
     override fun getItemCount(): Int = arrayList.size
 
-    override fun onBindViewHolder(holder: SubCategoryInstockViewHolder, position: Int)  {
+    override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int)  {
         val datum : SubCategory = arrayList[position]
         holder.itemView.setOnClickListener{
             onItemProductClick?.onItemClick(datum.id!!, position)
@@ -30,7 +31,7 @@ class InstockSubCategoryAdaptor(private val arrayList: MutableList<SubCategory>,
         holder.thumb.loadLarge(Uri.parse(datum.photoUrl))
     }
 
-    inner class SubCategoryInstockViewHolder(val binding: ItemInstockSubCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SubCategoryViewHolder(val binding: ItemDesignerSubCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         val txtTitle: TextView = binding.txtTitle
         val thumb: ImageView = binding.thumb
     }

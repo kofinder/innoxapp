@@ -70,10 +70,10 @@
         <activity android:name=".ui.designer.CustomizeCreateDesignActivity" android:theme="@style/AppTheme"/>
 
         <!-- INSTOCK PRODUCT-->
-        <activity android:name=".ui.instock.InstockProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.instock.InstockSearchFilterActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.instock.InstockSearchActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.instock.InstockProductDetailActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InStockProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InStockSearchFilterActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InStockSearchActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InStockProductDetailActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.checkout.ProductCheckoutActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <!-- USER-->

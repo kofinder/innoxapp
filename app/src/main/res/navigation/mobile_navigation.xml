@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_instock"
-        android:name="com.finderbar.innox.ui.instock.InstockFragment"
+        android:name="com.finderbar.innox.ui.instock.InStockFragment"
         android:label="@string/title_instock"
         tools:layout="@layout/fragment_dashboard" />
 

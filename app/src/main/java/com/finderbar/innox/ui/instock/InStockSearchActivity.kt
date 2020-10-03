@@ -18,18 +18,34 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
+class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
     private lateinit var binding: ActivityInstockSearchBinding
     private val bizApiVM: BizApiViewModel by viewModels()
+
+    private var keyWord: String = ""
+    private var categoryId = 0
+    private var categoryName: String = "All"
+    private var subCategoryId  = 0;
+    private var subCategoryName: String? = "All"
+    private var startPrice = 0
+    private var endPrice = 50000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_instock_search)
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
+        keyWord = intent.getStringExtra("keyWord")
+        categoryName = intent.getStringExtra("categoryName")
+        subCategoryName = intent.getStringExtra("subCategoryName")
+        categoryId = intent.getIntExtra("categoryId", 0)
+        subCategoryId = intent.getIntExtra("subCategoryId", 0)
+        startPrice = intent.getIntExtra("startPrice", 0)
+        endPrice = intent.getIntExtra("endPrice", 0)
+
         setSupportActionBar(binding.mainToolbar)
-        supportActionBar?.title = "Hoddies"
+        supportActionBar?.title = categoryName
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val adaptor = SearchProductAdaptor(arrayListOf(), this)
@@ -39,8 +55,9 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
         binding.recyclerView.isNestedScrollingEnabled = false
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
+        binding.btnText.text = subCategoryName
 
-        bizApiVM.loadSearchProduct("Man", "0", "15000", "1", "1").observe(this, Observer { res ->
+        bizApiVM.loadSearchProduct(keyWord, startPrice, endPrice, categoryId, subCategoryId).observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     binding.progress.visibility = View.VISIBLE
@@ -55,6 +72,18 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
             }
         })
 
+        binding.btnFilter.setOnClickListener {
+            val intent = Intent(this, InStockSearchFilterActivity::class.java)
+            intent.putExtra("keyWord", keyWord)
+            intent.putExtra("categoryId", categoryId)
+            intent.putExtra("categoryName", categoryName)
+            intent.putExtra("subCategoryId", categoryId)
+            intent.putExtra("subCategoryName", subCategoryName)
+            intent.putExtra("startPrice", startPrice)
+            intent.putExtra("endPrice", endPrice)
+            startActivity(intent);
+            finish()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -63,7 +92,7 @@ class InstockSearchActivity:  AppCompatActivity(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent = Intent(this, InstockProductDetailActivity::class.java)
+        val intent = Intent(this, InStockProductDetailActivity::class.java)
         intent.putExtra("_id", _id)
         intent.putExtra("position", position)
         startActivity(intent)

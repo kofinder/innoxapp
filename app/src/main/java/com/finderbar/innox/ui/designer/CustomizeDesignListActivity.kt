@@ -27,7 +27,7 @@ class CustomizeDesignListActivity: AppCompatActivity(), ItemProductClick {
         supportActionBar?.title = "Customized Design Listing"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val adaptor = CategoryExpendableAdaptor(applicationContext, arrayListOf(), this)
+        val adaptor = DesignerCategoryExpendableAdaptor(applicationContext, arrayListOf(), this)
         binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.adapter = adaptor
@@ -54,7 +54,7 @@ class CustomizeDesignListActivity: AppCompatActivity(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent= Intent(this,CustomizeDesignProductActivity::class.java)
+        val intent= Intent(this, CustomizeDesignProductActivity::class.java)
         intent.putExtra("subCategoryId", _id)
         startActivity(intent)
     }

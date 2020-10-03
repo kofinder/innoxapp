@@ -15,7 +15,7 @@ import com.finderbar.innox.databinding.FragmentInstockBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class InstockFragment : Fragment() {
+class InStockFragment : Fragment() {
 
     private val bizApiVM: BizApiViewModel by viewModels()
 
@@ -28,23 +28,35 @@ class InstockFragment : Fragment() {
         val binding: FragmentInstockBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_instock, container , false)
         var rootView : View  = binding.root
 
-        val adaptor = InstockCategoryAdaptor(requireContext(), arrayListOf())
+        val adaptor = InStockCategoryAdaptor(requireContext(), arrayListOf())
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.adapter = adaptor
 
         bizApiVM.loadCategories().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
-                Status.LOADING -> { binding.progress.visibility = View.VISIBLE }
-                Status.SUCCESS -> {
-                    binding.progress.visibility = View.GONE
-                    adaptor.addAll(res.data?.categories!!)
+                Status.LOADING -> {
+                    binding.progress.visibility = View.VISIBLE
+                    binding.btnSearch.visibility = View.GONE
                 }
-                Status.ERROR -> { binding.progress.visibility = View.GONE }
+                Status.SUCCESS -> {
+                    res.data?.let {
+                        binding.progress.visibility = View.GONE
+                        binding.btnSearch.visibility = View.VISIBLE
+                        adaptor.addAll(it.categories!!)
+                    } ?: run {
+                        binding.progress.visibility = View.GONE
+                        binding.btnSearch.visibility = View.VISIBLE
+                    }
+                }
+                Status.ERROR -> {
+                    binding.progress.visibility = View.GONE
+                    binding.btnSearch.visibility = View.GONE
+                }
             }
         })
 
-        binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InstockSearchFilterActivity::class.java))}
+        binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InStockSearchFilterActivity::class.java))}
 
         return rootView
     }

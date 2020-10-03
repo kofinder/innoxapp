@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.instock.InstockFragment">
+        tools:context=".ui.instock.InStockFragment">
         <LinearLayout
             android:id="@+id/lbl_search"
             android:layout_width="match_parent"

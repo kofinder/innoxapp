@@ -22,7 +22,7 @@ import com.finderbar.innox.viewmodel.BizApiViewModel
 import java.util.*
 
 
-class InstockProductDetailActivity: AppCompatActivity() {
+class InStockProductDetailActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityInstockProductDetailBinding
     private val bizApiVM: BizApiViewModel by viewModels()

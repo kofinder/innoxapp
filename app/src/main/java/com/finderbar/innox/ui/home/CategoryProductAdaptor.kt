@@ -47,8 +47,8 @@ class CategoryProductAdaptor(private val arrayList: MutableList<Category>) : Rec
         notifyItemInserted(arrayList.size - 1)
     }
 
-    fun addAll(cates: List<Category>) {
-        for (result in cates) {
+    fun addAll(array: List<Category>) {
+        for (result in array) {
             add(result)
         }
     }

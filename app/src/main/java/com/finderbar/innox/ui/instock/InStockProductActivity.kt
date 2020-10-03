@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockProductBinding
 
-class InstockProductActivity : AppCompatActivity() {
+class InStockProductActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInstockProductBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

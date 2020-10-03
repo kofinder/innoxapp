@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.instock.InstockSearchActivity">
+        tools:context=".ui.instock.InStockSearchActivity">
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
@@ -24,30 +24,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize">
-            <LinearLayout
+
+            <RelativeLayout
                 android:id="@+id/lbl_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:padding="10dp"
                 android:orientation="horizontal">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_search"
-                    app:icon="@drawable/ic_search_black_24dp"
-                    app:iconGravity="textStart"
-                    app:iconTint="@android:color/darker_gray"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    app:backgroundTint="@color/colorGray"
-                    android:textColor="@android:color/darker_gray"
-                    app:cornerRadius="30dp"
-                    android:textAlignment="textStart"
-                    android:text="@string/search_text"
-                    android:layout_gravity="start"
-                    tools:ignore="RtlCompat" />
-            </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:strokeColor="@color/colorPrimary"
+                        android:textSize="@dimen/body_font_size"
+                        android:textColor="@color/colorPrimary"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_alignParentLeft="true"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_filter"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:insetLeft="0dp"
+                            android:insetTop="0dp"
+                            android:insetRight="0dp"
+                            android:insetBottom="0dp"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            app:icon="@drawable/ic_baseline_filter_list_24"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
+                            android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_below="@+id/lbl_search"
