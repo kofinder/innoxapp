@@ -81,6 +81,7 @@
         <activity android:name=".ui.account.EditUserProfileActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.order.OrderActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.notification.NotificationActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.order.OrderDetail" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <receiver android:name=".services.NetworkChangeReceiver" android:enabled="true" android:exported="true">
             <intent-filter>

@@ -78,7 +78,15 @@
     <string name="order_confirm">Confirm Orders</string>
     <string name="order_item">Order Items</string>
     <string name="order_id">Order Id</string>
-    <string name="order_info">Lorem Ipsum has been the industry standard dummy text ever since the 1500s,  it to make a type specimen book. It has survived not only five centuries, remaining essentially unchanged.</string>
+    
+    <string name="order_success_info">Your order from Innox is success. We are processing for your order to deliver to you soon. Thanks for shopping with us.</string>
+    <string name="order_active_info">Your order from Innox is success. We are processing for your order to deliver to you soon. Thanks for shopping with us.</string>
+    <string name="order_pending_info">Your order from 121 Innox is success. We are processing for your order to deliver it to you soon.Thanks for shopping with us</string>
+    <string name="order_past_info">Yor order from 121 Innox is delivered on %1$s</string>
+    <string name="order_status">Order Status</string>
+    <string name="deliver_cost">Deliver Cost</string>
+    <string name="order_date">Order Date</string>
+    <string name="total_status">Total Cost</string>
 
     <string name="search_text">What kind of clothing do you want find?</string>
     <string name="filter_text">Find your Product</string>

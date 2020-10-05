@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
@@ -12,7 +11,8 @@ import com.finderbar.innox.databinding.ItemOrderHistoryBinding
 import com.finderbar.innox.repository.OrderHistory
 import com.finderbar.innox.utilities.OrderHistoryType
 
-class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHistory>, private val orderType: OrderHistoryType, val itemOrderClick: ItemProductClick) : RecyclerView.Adapter<OrderHistoryAdaptor.OrderHistoryViewHolder>() {
+class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHistory>, private val orderType: OrderHistoryType, private val itemOrderClick: ItemProductClick) :
+    RecyclerView.Adapter<OrderHistoryAdaptor.OrderHistoryViewHolder>() {
 
 //    companion object: DiffUtil.ItemCallback<OrderHistory>() {
 //        override fun areItemsTheSame(oldItem: OrderHistory, newItem: OrderHistory): Boolean = oldItem === newItem
@@ -44,18 +44,22 @@ class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHis
         holder.binding.txtInvoice.text = datum.invoiceNo
         holder.binding.txtDate.text = datum.orderDate
         holder.binding.txtPrice.text = datum.totalCostText
+
+        holder.itemView.setOnClickListener{
+            datum.id?.let { x -> itemOrderClick.onItemClick(x, position) }
+        }
     }
 
     override fun getItemCount(): Int  = arrays.size
-//
-//    private fun add(order: OrderHistory) {
-//        arrays.add(order)
-//        notifyItemInserted(arrays.size - 1)
-//    }
-//
-//    fun addAll(array: List<OrderHistory>) {
-//        for (result in array) {
-//            add(result)
-//        }
-//    }
+
+    private fun add(order: OrderHistory) {
+        arrays.add(order)
+        notifyItemInserted(arrays.size - 1)
+    }
+
+    fun addAll(array: List<OrderHistory>) {
+        for (result in array) {
+            add(result)
+        }
+    }
 }

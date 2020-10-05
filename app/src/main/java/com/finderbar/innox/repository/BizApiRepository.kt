@@ -82,7 +82,7 @@ interface BizApiRepository {
     suspend fun getOrderHistory(@Path("status") status: Int): Response<ServiceResponse<OrderHistories>>
 
     @GET("order/{orderId}")
-    suspend fun getOrderHistoryById(@Path("orderId") orderId: Int): Response<ServiceResponse<Any>>
+    suspend fun getOrderHistoryById(@Path("orderId") orderId: Int): Response<ServiceResponse<OrderHistoryDetail>>
 
 }
 
@@ -248,7 +248,23 @@ data class OrderConfirm(
 @Keep
 data class OrderHistories(
     @SerializedName("total_order_count") val totalCount: Int? = 0,
-    @SerializedName("order_items") val orderHistories: MutableList<OrderHistory>? = mutableListOf()
+    @SerializedName("order_historys") val orderHistories: MutableList<OrderHistory>? = mutableListOf()
+)
+
+@Keep
+data class OrderHistoryDetail(
+    @SerializedName("order_id") val id: Int? = 0,
+    @SerializedName("invoice_number") val invoiceNumber: String? = "",
+    @SerializedName("order_status") val orderStatus: Int? = 0,
+    @SerializedName("order_status_text") val orderStatusText: String? = "",
+    @SerializedName("payment_status") val paymentStatus: Int? = 0,
+    @SerializedName("payment_status_text") val paymentStatusText: String? = "",
+    @SerializedName("delivery_fee") val deliveryFee: Int? = 0,
+    @SerializedName("delivery_fee_text") val deliveryFeeText: String? = "",
+    @SerializedName("total_cost") val totalCost: Int? = 0,
+    @SerializedName("total_cost_text") val totalCostText: String? = "",
+    @SerializedName("user_detail") val userDetail: UserDetail,
+    @SerializedName("order_items") val orderItem: MutableList<OrderItem>? = mutableListOf()
 )
 
 

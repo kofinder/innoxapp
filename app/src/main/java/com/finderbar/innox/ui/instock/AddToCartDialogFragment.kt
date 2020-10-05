@@ -17,6 +17,7 @@ import com.finderbar.innox.AppConstant.ITEM_PRICE
 import com.finderbar.innox.AppConstant.ITEM_PRODUCT_ID
 import com.finderbar.innox.AppConstant.ITEM_SIZE
 import com.finderbar.innox.AppConstant.ITEM_SIZE_ID
+import com.finderbar.innox.AppContext
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentDialogAddToCartBinding
 import com.finderbar.innox.network.Status
@@ -90,7 +91,8 @@ class AddToCartDialogFragment : DialogFragment() {
                     Status.SUCCESS -> {
                         acProgress.dismiss()
                         Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
-
+                        val intent = Intent(AppContext, MainActivity::class.java)
+                        startActivity(intent)
                     }
                     Status.ERROR -> {
                         acProgress.dismiss()

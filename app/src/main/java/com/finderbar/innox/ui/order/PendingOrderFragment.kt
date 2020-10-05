@@ -1,5 +1,6 @@
 package com.finderbar.innox.ui.order
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.AppContext
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentOrderPastBinding
@@ -31,28 +33,30 @@ class PendingOrderFragment : Fragment(), ItemProductClick {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_pending, container, false)
 
-        val adaptor = OrderHistoryAdaptor(requireContext(), arrayListOf(), OrderHistoryType.ACTIVE, this)
+        val adaptor = OrderHistoryAdaptor(requireContext(), arrayListOf(), OrderHistoryType.PENDING, this)
         val layoutManager = LinearLayoutManager(requireContext());
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext());
         binding.recyclerView.adapter = adaptor
         binding.recyclerView.setHasFixedSize(true)
 
-        bizApiVM.loadOrderHistory(1).observe(viewLifecycleOwner, Observer { res ->
+        bizApiVM.loadOrderHistory(2).observe(viewLifecycleOwner, Observer { res ->
             when(res.status) {
                 Status.LOADING -> {
-                    binding.progress.visibility = View.VISIBLE
+                    binding.pbLoading.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    res.data?.let {
-                        binding.progress.visibility = View.VISIBLE
-                       // adaptor.addAll(it.orderHistories!!)
-                    }.run {
-                        print("empty message")
-                    }
+                    binding.pbLoading.visibility = View.GONE
+                    val adaptor = OrderHistoryAdaptor(requireContext(), res.data?.orderHistories!!, OrderHistoryType.ACTIVE, this)
+                    val layoutManager = LinearLayoutManager(requireContext());
+                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                    binding.recyclerView.layoutManager = LinearLayoutManager(requireContext());
+                    binding.recyclerView.adapter = adaptor
+                    binding.recyclerView.setHasFixedSize(true)
+                    binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
                 }
                 Status.ERROR -> {
-                    binding.progress.visibility = View.GONE
+                    binding.pbLoading.visibility = View.GONE
                 }
             }
         })
@@ -61,6 +65,9 @@ class PendingOrderFragment : Fragment(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        TODO("Not yet implemented")
+        val intent = Intent(AppContext, OrderDetail::class.java)
+        intent.putExtra("orderId", _id)
+        intent.putExtra("orderType", OrderHistoryType.PENDING.name)
+        startActivity(intent)
     }
 }
