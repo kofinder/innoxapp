@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.AppContext
-import com.finderbar.innox.ItemProductClick
+import com.finderbar.innox.ItemOrderClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentOrderActiveBinding
 import com.finderbar.innox.network.Status
@@ -20,7 +20,7 @@ import com.finderbar.innox.utilities.OrderHistoryType
 
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class ActiveOrderFragment : Fragment(), ItemProductClick {
+class ActiveOrderFragment : Fragment(), ItemOrderClick {
 
     private lateinit var binding: FragmentOrderActiveBinding
     private val bizApiVM: BizApiViewModel by viewModels()
@@ -55,10 +55,11 @@ class ActiveOrderFragment : Fragment(), ItemProductClick {
         return binding.root;
     }
 
-    override fun onItemClick(_id: Int, position: Int) {
+    override fun onItemClick(_id: Int, orderDate: String) {
         val intent = Intent(AppContext, OrderDetail::class.java)
         intent.putExtra("orderId", _id)
         intent.putExtra("orderType", OrderHistoryType.ACTIVE.name)
+        intent.putExtra("orderDate", orderDate)
         startActivity(intent)
     }
 }

@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.ItemProductClick
+import com.finderbar.innox.ItemOrderClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemOrderHistoryBinding
 import com.finderbar.innox.repository.OrderHistory
 import com.finderbar.innox.utilities.OrderHistoryType
 
-class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHistory>, private val orderType: OrderHistoryType, private val itemOrderClick: ItemProductClick) :
+class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHistory>, private val orderType: OrderHistoryType, private val itemOrderClick: ItemOrderClick) :
     RecyclerView.Adapter<OrderHistoryAdaptor.OrderHistoryViewHolder>() {
 
 //    companion object: DiffUtil.ItemCallback<OrderHistory>() {
@@ -46,7 +46,7 @@ class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHis
         holder.binding.txtPrice.text = datum.totalCostText
 
         holder.itemView.setOnClickListener{
-            datum.id?.let { x -> itemOrderClick.onItemClick(x, position) }
+            itemOrderClick.onItemClick(datum.id!!, datum.orderDate!!)
         }
     }
 

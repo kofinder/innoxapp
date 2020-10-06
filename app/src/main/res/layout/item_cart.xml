@@ -29,7 +29,8 @@
             <TextView
                 android:id="@+id/txt_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_font_size"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -37,11 +38,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textSize="@dimen/body_font_size"
                     android:text="Unit Price:" />
                 <TextView
                     android:id="@+id/txt_unit_price"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/body_font_size"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,11 +53,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textSize="@dimen/body_font_size"
                     android:text="Count:" />
                 <TextView
                     android:id="@+id/txt_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/body_font_size"
                     android:text="3" />
             </LinearLayout>
             <LinearLayout
@@ -64,11 +69,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:textSize="@dimen/title_font_size"
                     android:text="Sub Total:" />
                 <TextView
                     android:id="@+id/txt_sub_total"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleGroup"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_decrement"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/title_font_size"
+                        android:textStyle="bold"
+                        android:text="-"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_text"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="@color/colorWhite"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/title_font_size"
+                        android:text="5"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_increment"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/title_font_size"
+                        android:textStyle="bold"
+                        android:text="+"/>
+                </com.google.android.material.button.MaterialButtonToggleGroup>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

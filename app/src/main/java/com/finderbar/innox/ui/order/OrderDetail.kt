@@ -54,7 +54,7 @@ class OrderDetail: AppCompatActivity() {
                 }
                 Status.SUCCESS -> {
                     val datum: OrderHistoryDetail = res.data!!
-                    binding.txtInvoice.text = datum.invoiceNumber
+                    binding.txtInvoice.text = "#"+ datum.invoiceNumber
                     binding.txtOrderDate.text = orderDate
                     binding.txtOrderStatus.text = datum.orderStatusText
                     binding.txtOrderDeliverCost.text = datum.deliveryFeeText

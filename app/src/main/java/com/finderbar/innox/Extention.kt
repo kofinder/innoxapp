@@ -35,6 +35,10 @@ interface ItemProductClick {
     fun onItemClick(_id: Int, position: Int)
 }
 
+interface ItemOrderClick {
+    fun onItemClick(_id: Int, orderDate: String)
+}
+
 interface ItemArtWorkCallBack {
     fun onItemClick(_id: Int, title: String)
 }

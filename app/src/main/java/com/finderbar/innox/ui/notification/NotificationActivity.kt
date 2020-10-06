@@ -15,7 +15,8 @@ class NotificationActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
-        supportActionBar?.title = "User Profile"
+        setSupportActionBar(binding.mainToolbar)
+        supportActionBar?.title = "Notification"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
