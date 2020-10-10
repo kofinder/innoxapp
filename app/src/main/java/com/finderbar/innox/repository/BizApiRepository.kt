@@ -23,6 +23,12 @@ interface BizApiRepository {
     @GET("categorys")
     suspend fun getCategory(): Response<ServiceResponse<Categories>>
 
+    @GET("sub_categorys/list_by_category")
+    suspend fun getSubCategory(@Query("category_id") categoryId: Int): Response<ServiceResponse<SubCategories>>
+
+    @GET("products/list_by_sub_category")
+    suspend fun getAllSubCategoryProduct(@Query("sub_category_id") subCategoryId: Int, @Query("page_no") pageNo: Int): Response<ServiceResponse<SubCategoryProduct>>
+
     @GET("product")
     suspend fun getProduct(@Query("product_id") productId: Int): Response<ServiceResponse<ProductDetail>>
 
@@ -156,6 +162,24 @@ data class HomeScreen(
 data class Categories(
     @SerializedName("categorys")
     val categories: MutableList<Category>? = mutableListOf()
+)
+
+@Keep
+data class SubCategories(
+    @SerializedName("category_id")
+    val categoryId: Int = 0,
+    @SerializedName("sub_categorys")
+    val subCategories: MutableList<SubCategory>? = mutableListOf()
+)
+
+@Keep
+data class SubCategoryProduct(
+    @SerializedName("total_count")
+    val totalCount: Int = 0,
+    @SerializedName("has_more_list")
+    val hasMore: Boolean = false,
+    @SerializedName("products")
+    val subCategories: MutableList<Product>? = mutableListOf()
 )
 
 @Keep

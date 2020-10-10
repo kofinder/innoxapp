@@ -12,12 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finderbar.innox.AppContext
 import com.finderbar.innox.ItemInStockClick
+import com.finderbar.innox.ItemProductCategoryClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentInstockBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.ui.instock.adaptor.InStockCategoryAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class InStockFragment : Fragment(), ItemInStockClick {
+class InStockFragment : Fragment(), ItemInStockClick, ItemProductCategoryClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()
 
@@ -30,7 +32,7 @@ class InStockFragment : Fragment(), ItemInStockClick {
         val binding: FragmentInstockBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_instock, container , false)
         var rootView : View  = binding.root
 
-        val adaptor = InStockCategoryAdaptor(requireContext(), arrayListOf(), this)
+        val adaptor = InStockCategoryAdaptor(requireContext(), arrayListOf(), this, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.adapter = adaptor
@@ -59,7 +61,6 @@ class InStockFragment : Fragment(), ItemInStockClick {
         })
 
         binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InStockSearchFilterActivity::class.java))}
-
         return rootView
     }
 
@@ -72,6 +73,12 @@ class InStockFragment : Fragment(), ItemInStockClick {
         intent.putExtra("subCategoryName", subCategoryName)
         intent.putExtra("startPrice", 0)
         intent.putExtra("endPrice", 50000)
+        startActivity(intent)
+    }
+
+    override fun onItemClick(_id: Int) {
+        val intent = Intent(AppContext, InStockProductActivity::class.java)
+        intent.putExtra("categoryId", _id)
         startActivity(intent)
     }
 }

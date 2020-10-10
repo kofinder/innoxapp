@@ -33,6 +33,28 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
+    fun loadSubCategories(categoryId: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        try {
+            val api = ApiClientHandler.createService(BizApiRepository::class.java)
+            val response = api.getSubCategory(categoryId)
+            emit(Resource.success(response.body()?.data))
+        } catch (ex: Exception) {
+            emit(Resource.error(500, ex.message!!))
+        }
+    }
+
+    fun loadAllSubCategoryProduct(subCategoryId: Int, pageNo: Int)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        try {
+            val api = ApiClientHandler.createService(BizApiRepository::class.java)
+            val response = api.getAllSubCategoryProduct(subCategoryId, pageNo)
+            emit(Resource.success(response.body()?.data))
+        } catch (ex: Exception) {
+            emit(Resource.error(500, ex.message!!))
+        }
+    }
+
     fun loadProduct(productId: Int)  = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {

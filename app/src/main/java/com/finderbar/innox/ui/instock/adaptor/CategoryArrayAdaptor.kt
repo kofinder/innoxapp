@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.instock
+package com.finderbar.innox.ui.instock.adaptor
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
 import com.finderbar.innox.R
-import com.finderbar.innox.repository.Color
+import com.finderbar.innox.repository.Category
 
 
-class ColorArrayAdaptor(mContext: Context, private val textViewResourceId: Int, val arrays: MutableList<Color>) : ArrayAdapter<Color>(mContext, 0, arrays) {
+class CategoryArrayAdaptor(mContext: Context, private val textViewResourceId: Int, val arrays: MutableList<Category>) : ArrayAdapter<Category>(mContext, 0, arrays) {
 
     private var inflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -43,14 +43,14 @@ class ColorArrayAdaptor(mContext: Context, private val textViewResourceId: Int, 
 
     private val filterName = object : Filter() {
         override fun convertResultToString(resultValue: Any?): CharSequence {
-            val color: Color = resultValue as Color
-            return color.name.toString()
+            val category: Category = resultValue as Category
+            return category.name.toString()
         }
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val results = FilterResults()
 
             if (constraint != null) {
-                val suggestions: ArrayList<Color> = ArrayList<Color>()
+                val suggestions: ArrayList<Category> = ArrayList<Category>()
                 for (arr in arrays) {
                     if (arr.name!!.toLowerCase().contains(constraint.toString().toLowerCase())) {
                         suggestions.add(arr)
@@ -67,7 +67,7 @@ class ColorArrayAdaptor(mContext: Context, private val textViewResourceId: Int, 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             clear()
             if (results != null && results.count > 0) {
-                addAll((results.values as ArrayList<Color?>))
+                addAll((results.values as ArrayList<Category?>))
             } else {
                 addAll(arrays)
             }
@@ -75,4 +75,14 @@ class ColorArrayAdaptor(mContext: Context, private val textViewResourceId: Int, 
         }
     }
 
+    private fun add(r: Category) {
+        arrays.add(r)
+        notifyDataSetChanged()
+    }
+
+    fun addAll(resultList: MutableList<Category>) {
+        for (result in resultList) {
+            add(result)
+        }
+    }
 }

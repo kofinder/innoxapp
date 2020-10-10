@@ -74,7 +74,7 @@ class RegisterInfoFragment: Fragment() {
                     stateAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownState.clearFocus();
                     binding.dropdownState.setAdapter(stateAdaptor)
-                    binding.dropdownState.setOnItemClickListener { parent, view, position, id ->
+                    binding.dropdownState.setOnItemClickListener { parent, _, position, _ ->
                         stateId = (parent.getItemAtPosition(position) as State).id
                     }
                 }
@@ -88,7 +88,7 @@ class RegisterInfoFragment: Fragment() {
                     townshipAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownTownship.clearFocus();
                     binding.dropdownTownship.setAdapter(townshipAdaptor)
-                    binding.dropdownTownship.setOnItemClickListener { parent, view, position, id ->
+                    binding.dropdownTownship.setOnItemClickListener { parent, _, position, _ ->
                         townShipId = (parent.getItemAtPosition(position) as TownShip).id
                     }
                 }

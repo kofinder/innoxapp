@@ -10,7 +10,6 @@
 TESTING REPORT
 ------------------------------------------------
 
-
 # Product detail
 - Reduce color and size choose select box size 
 - Disable add to cart button when user is not login

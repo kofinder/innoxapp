@@ -15,6 +15,7 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockSearchBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.ui.instock.adaptor.SearchProductAdaptor
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 

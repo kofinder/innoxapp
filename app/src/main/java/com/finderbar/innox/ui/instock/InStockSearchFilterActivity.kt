@@ -12,6 +12,8 @@ import com.finderbar.innox.databinding.ActivityInstockSearchFilterBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.repository.SubCategory
+import com.finderbar.innox.ui.instock.adaptor.CategoryArrayAdaptor
+import com.finderbar.innox.ui.instock.adaptor.SubCategoryArrayAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import kotlinx.android.synthetic.main.activity_instock_search_filter.*
 import java.text.NumberFormat

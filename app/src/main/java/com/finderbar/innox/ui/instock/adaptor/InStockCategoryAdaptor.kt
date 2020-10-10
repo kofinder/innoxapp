@@ -1,4 +1,4 @@
-package com.finderbar.innox.ui.instock
+package com.finderbar.innox.ui.instock.adaptor
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemInStockClick
+import com.finderbar.innox.ItemProductCategoryClick
 import com.finderbar.innox.databinding.ItemInstockCategoryBinding
 import com.finderbar.innox.repository.Category
+import com.finderbar.innox.ui.instock.InStockSubCategoryAdaptor
 
-class InStockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>, var onItemInStockClick: ItemInStockClick) :
+class InStockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>,
+                             var onItemInStockClick: ItemInStockClick, var onItemCategoryClick: ItemProductCategoryClick) :
     RecyclerView.Adapter<InStockCategoryAdaptor.InStockCategoryViewHolder>() {
 
     class InStockCategoryViewHolder(val binding: ItemInstockCategoryBinding) : RecyclerView.ViewHolder(binding.root)
@@ -32,6 +35,9 @@ class InStockCategoryAdaptor(private val context: Context, private val arrayList
         holder.binding.recyclerView.isNestedScrollingEnabled = false
         holder.binding.recyclerView.itemAnimator = DefaultItemAnimator()
         holder.binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
+        holder.binding.btnMoreCustom.setOnClickListener {
+            onItemCategoryClick.onItemClick(datum.id)
+        }
     }
 
     private fun add(r: Category) {

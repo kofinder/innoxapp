@@ -1,5 +1,6 @@
 package com.finderbar.innox.ui.instock
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -17,10 +18,12 @@ import com.finderbar.innox.databinding.ActivityInstockProductDetailBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.Color
-import com.finderbar.innox.repository.ProductDetail
 import com.finderbar.innox.repository.Size
+import com.finderbar.innox.ui.instock.adaptor.ColorArrayAdaptor
+import com.finderbar.innox.ui.instock.adaptor.ImageSlidePagerAdapter
+import com.finderbar.innox.ui.instock.adaptor.SizeArrayAdaptor
+import com.finderbar.innox.ui.instock.adaptor.StableArrayAdapter
 import com.finderbar.innox.viewmodel.BizApiViewModel
-import es.dmoral.toasty.Toasty
 import java.util.*
 
 
@@ -38,6 +41,7 @@ class InStockProductDetailActivity: AppCompatActivity() {
     private var price: String? = ""
 
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_instock_product_detail)
@@ -119,14 +123,11 @@ class InStockProductDetailActivity: AppCompatActivity() {
             override fun onPageScrollStateChanged(pos: Int) {}
         })
 
+        binding.btnCart.isEnabled = !prefs.userId.isNullOrBlank()
 
         binding.btnCart.setOnClickListener {
-            if(prefs.userId.isNullOrBlank()) {
-                val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!)
-                frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
-            } else {
-                Toasty.warning(this, "You are not login.").show();
-            }
+            val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!)
+            frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
         }
 
     }

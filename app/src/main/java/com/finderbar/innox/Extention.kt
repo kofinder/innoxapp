@@ -61,8 +61,12 @@ interface ItemFontClick {
     fun onItemClick(font: Font)
 }
 
-interface ItemCheck {
-    fun onItemClick(_id: Int, isCheck: Boolean)
+interface ItemProductCategoryClick {
+    fun onItemClick(_id: Int)
+}
+
+interface ItemSubCategoryProductClick {
+    fun onItemClick(_id: Int)
 }
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment){
