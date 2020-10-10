@@ -13,7 +13,6 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.repository.SubCategory
 import com.finderbar.innox.viewmodel.BizApiViewModel
-import com.google.android.material.slider.RangeSlider
 import kotlinx.android.synthetic.main.activity_instock_search_filter.*
 import java.text.NumberFormat
 import java.util.*
@@ -95,7 +94,7 @@ class InStockSearchFilterActivity:  AppCompatActivity() {
             intent.putExtra("keyWord", keyWord)
             intent.putExtra("categoryId", categoryId)
             intent.putExtra("categoryName", categoryName)
-            intent.putExtra("subCategoryId", categoryId)
+            intent.putExtra("subCategoryId", subCategoryId)
             intent.putExtra("subCategoryName", subCategoryName)
             intent.putExtra("startPrice", startPrice)
             intent.putExtra("endPrice", endPrice)

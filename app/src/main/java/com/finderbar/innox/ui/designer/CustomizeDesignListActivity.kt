@@ -54,8 +54,9 @@ class CustomizeDesignListActivity: AppCompatActivity(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent= Intent(this, CustomizeDesignProductActivity::class.java)
-        intent.putExtra("subCategoryId", _id)
-        startActivity(intent)
+        print("hello world")
+//        val intent= Intent(this, CustomizeDesignProductActivity::class.java)
+//        intent.putExtra("subCategoryId", _id)
+//        startActivity(intent)
     }
 }

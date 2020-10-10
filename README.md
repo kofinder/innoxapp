@@ -7,12 +7,9 @@
 
 
 
-Innox project testing report
+TESTING REPORT
 ------------------------------------------------
 
-*** Mobile ***
-# Home
-- Category -> Sub Cateogry -> Disable custom product view
 
 # Product detail
 - Reduce color and size choose select box size 
@@ -28,7 +25,6 @@ Innox project testing report
 - There's no error message alert box when user register is not ok
 - User data disapper when go through user edit icon
 
-
 # Add to cart
 - Need to calculate estimate amount base on user input add to cart count
 - After add to cart success, page no need to switch to Home page
@@ -36,8 +32,7 @@ Innox project testing report
 - Need to delete add to cart data
 - Check select box at add to cart page, product image switch when do check and un-check
 
-
 # Order
 - Need to modified sate and city select box name
 - Need to display error message when order validation process occur
-- Need to have action "Done" buttom, after order success
+- Need to have action "Done" bottom, after order success

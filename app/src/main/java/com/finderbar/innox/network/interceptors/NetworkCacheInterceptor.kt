@@ -2,6 +2,7 @@ package com.finderbar.innox.network.interceptors
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class NetworkCacheInterceptor : Interceptor {

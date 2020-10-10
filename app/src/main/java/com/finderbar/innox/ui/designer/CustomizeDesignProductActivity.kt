@@ -61,7 +61,7 @@ class CustomizeDesignProductActivity: AppCompatActivity(), ItemProductClick {
     }
 
     override fun onItemClick(_id: Int, position: Int) {
-        val intent= Intent(this,CustomizeCreateDesignActivity::class.java)
+        val intent= Intent(this,DesignerTemplateActivity::class.java)
         intent.putExtra("productId", _id)
         startActivity(intent)
     }

@@ -1,6 +1,7 @@
 package com.finderbar.innox.network
 
 import com.finderbar.innox.AppContext
+import com.finderbar.innox.network.interceptors.NetworkCacheInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,8 +25,8 @@ object ApiClientHandler {
         dispatcher.maxRequests = 1
 
         val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.HEADERS
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
         val httpCacheDirectory = File(AppContext.cacheDir, "offlineCache")
         val cacheSize = 10 * 1024 * 1024 // 10 MB
         val cache = Cache(httpCacheDirectory, cacheSize.toLong())

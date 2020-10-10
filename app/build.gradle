@@ -118,6 +118,10 @@ dependencies {
     implementation 'cc.cloudist.acplibrary:library:1.2.1'
     implementation 'com.github.GrenderG:Toasty:1.5.0'
 
+    // DRAG & DRAG
+    implementation 'com.github.woxthebox:draglistview:1.7.2'
+
+
 
     // DEX
     implementation 'com.android.support:multidex:1.0.3'

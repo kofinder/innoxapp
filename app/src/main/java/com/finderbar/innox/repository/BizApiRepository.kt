@@ -141,12 +141,6 @@ data class ServiceResponse<T>(
     @SerializedName("errorList") val error: ArrayList<Any>
 )
 
-@Keep
-data class ApiError(
-    @SerializedName("responseCode") val code: Int,
-    @SerializedName("responseMessage") val msg: String
-)
-
 data class HomeScreen(
     @SerializedName("banners")
     val banners: MutableList<Banner>? = mutableListOf(),

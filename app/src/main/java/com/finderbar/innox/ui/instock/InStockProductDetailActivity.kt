@@ -15,10 +15,12 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockProductDetailBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.Color
 import com.finderbar.innox.repository.ProductDetail
 import com.finderbar.innox.repository.Size
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import es.dmoral.toasty.Toasty
 import java.util.*
 
 
@@ -45,7 +47,6 @@ class InStockProductDetailActivity: AppCompatActivity() {
         supportActionBar?.title = "Product Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val productId: Int = intent?.extras?.get("_id") as Int
-
 
         bizApiVM.loadProduct(productId).observe(this, Observer { res ->
             when (res.status) {
@@ -120,8 +121,12 @@ class InStockProductDetailActivity: AppCompatActivity() {
 
 
         binding.btnCart.setOnClickListener {
-            val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!)
-            frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
+            if(prefs.userId.isNullOrBlank()) {
+                val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!)
+                frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
+            } else {
+                Toasty.warning(this, "You are not login.").show();
+            }
         }
 
     }

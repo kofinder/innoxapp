@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -11,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityMainBinding
+import com.finderbar.innox.prefs
+import es.dmoral.toasty.Toasty
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,21 +23,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,com.finderbar.innox.R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        navController = findNavController(com.finderbar.innox.R.id.main_nav_host)
+        navController = findNavController(R.id.main_nav_host)
         appBarConfiguration = AppBarConfiguration.Builder(setOf(
             R.id.navigation_home,
             R.id.navigation_instock,
             R.id.navigation_create,
             R.id.navigation_cart,
             R.id.navigation_account
-        )).setDrawerLayout(binding.mainDrawerLayout).build();
+        )).setDrawerLayout(binding.mainDrawerLayout).build()
 
         setSupportActionBar(binding.mainToolbar)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         visibilityNavElements(navController)
+
+        binding.mainBottomNavigationView.menu.getItem(3).isEnabled = !prefs.userId.isNullOrBlank()
     }
 
     private fun visibilityNavElements(navController: NavController) {

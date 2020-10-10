@@ -35,9 +35,8 @@ class UserProfileActivity: AppCompatActivity() {
         bizApiVM.loadUserProfile(userId.toInt()).observe(this, Observer { res ->
             when(res.status) {
                 Status.LOADING -> {
-
+                    print("message")
                 }
-
                 Status.SUCCESS -> {
                     binding.imgUser.loadAvatar(Uri.parse(res.data?.image))
                     binding.txtName.text = res.data?.name
@@ -47,7 +46,6 @@ class UserProfileActivity: AppCompatActivity() {
                     binding.txtTownship.text = res.data?.township
                     binding.txtAddress.text = res.data?.address
                 }
-
                 Status.ERROR -> {
                     print(res.msg)
                 }

@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.finderbar.innox.AppContext
+import com.finderbar.innox.ItemInStockClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentInstockBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class InStockFragment : Fragment() {
+class InStockFragment : Fragment(), ItemInStockClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()
 
@@ -28,7 +30,7 @@ class InStockFragment : Fragment() {
         val binding: FragmentInstockBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_instock, container , false)
         var rootView : View  = binding.root
 
-        val adaptor = InStockCategoryAdaptor(requireContext(), arrayListOf())
+        val adaptor = InStockCategoryAdaptor(requireContext(), arrayListOf(), this)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.adapter = adaptor
@@ -59,5 +61,17 @@ class InStockFragment : Fragment() {
         binding.btnSearch.setOnClickListener{startActivity(Intent(activity, InStockSearchFilterActivity::class.java))}
 
         return rootView
+    }
+
+    override fun onItemClick(categoryId: Int, categoryName: String, subCategoryId: Int, subCategoryName: String) {
+        val intent = Intent(AppContext, InStockSearchActivity::class.java)
+        intent.putExtra("keyWord", "")
+        intent.putExtra("categoryId", categoryId)
+        intent.putExtra("categoryName", categoryName)
+        intent.putExtra("subCategoryId", subCategoryId)
+        intent.putExtra("subCategoryName", subCategoryName)
+        intent.putExtra("startPrice", 0)
+        intent.putExtra("endPrice", 50000)
+        startActivity(intent)
     }
 }

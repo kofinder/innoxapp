@@ -43,10 +43,15 @@ class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
         subCategoryId = intent.getIntExtra("subCategoryId", 0)
         startPrice = intent.getIntExtra("startPrice", 0)
         endPrice = intent.getIntExtra("endPrice", 0)
-
         setSupportActionBar(binding.mainToolbar)
-        supportActionBar?.title = categoryName
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if(categoryName.isNullOrBlank()) {
+            supportActionBar?.title = "All"
+        } else {
+            supportActionBar?.title = categoryName
+        }
+
 
         val adaptor = SearchProductAdaptor(arrayListOf(), this)
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
@@ -55,7 +60,14 @@ class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
         binding.recyclerView.isNestedScrollingEnabled = false
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
-        binding.btnText.text = subCategoryName
+
+        if (subCategoryName.isNullOrBlank().and(keyWord.isNullOrBlank())) {
+            binding.btnText.text = "All"
+        } else if(keyWord.isNotBlank()) {
+            binding.btnText.text = keyWord
+        } else {
+            binding.btnText.text = subCategoryName
+        }
 
         bizApiVM.loadSearchProduct(keyWord, startPrice, endPrice, categoryId, subCategoryId).observe(this, Observer { res ->
             when (res.status) {

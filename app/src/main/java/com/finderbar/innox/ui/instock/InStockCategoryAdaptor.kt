@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.ItemInStockClick
 import com.finderbar.innox.databinding.ItemInstockCategoryBinding
 import com.finderbar.innox.repository.Category
 
-class InStockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>) :
+class InStockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>, var onItemInStockClick: ItemInStockClick) :
     RecyclerView.Adapter<InStockCategoryAdaptor.InStockCategoryViewHolder>() {
 
     class InStockCategoryViewHolder(val binding: ItemInstockCategoryBinding) : RecyclerView.ViewHolder(binding.root)
@@ -25,7 +26,7 @@ class InStockCategoryAdaptor(private val context: Context, private val arrayList
     override fun onBindViewHolder(holder: InStockCategoryViewHolder, position: Int)  {
         val datum : Category = arrayList[position]
         holder.binding.txtTitle.text = datum.name
-        holder.binding.recyclerView.adapter = InStockSubCategoryAdaptor(datum.subCategory!!, null)
+        holder.binding.recyclerView.adapter = InStockSubCategoryAdaptor(datum.id!!, datum.name!!, datum.subCategory!!, onItemInStockClick)
         holder.binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.binding.recyclerView.setHasFixedSize(true)
         holder.binding.recyclerView.isNestedScrollingEnabled = false

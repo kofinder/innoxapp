@@ -31,6 +31,10 @@ fun <T> Call<T>.enqueue(success: (response: Response<T>) -> Unit,
     })
 }
 
+interface ItemInStockClick {
+    fun onItemClick(categoryId: Int, categoryName: String, subCategoryId: Int, subCategoryName: String)
+}
+
 interface ItemProductClick {
     fun onItemClick(_id: Int, position: Int)
 }

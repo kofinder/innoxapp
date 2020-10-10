@@ -25,6 +25,7 @@ class Prefs(context: Context) {
     fun logout() {
         editor.clear()
         editor.commit()
+        editor.apply()
     }
 
 }
