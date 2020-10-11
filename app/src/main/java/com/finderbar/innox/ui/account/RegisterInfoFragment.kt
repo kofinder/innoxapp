@@ -22,7 +22,6 @@ import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentRegisterInfoBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.prefs
-import com.finderbar.innox.repository.Color
 import com.finderbar.innox.repository.Register
 import com.finderbar.innox.repository.State
 import com.finderbar.innox.repository.TownShip

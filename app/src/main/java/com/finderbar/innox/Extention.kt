@@ -65,10 +65,6 @@ interface ItemProductCategoryClick {
     fun onItemClick(_id: Int)
 }
 
-interface ItemSubCategoryProductClick {
-    fun onItemClick(_id: Int)
-}
-
 fun AppCompatActivity.replaceFragment(fragment: Fragment){
     val fragmentManager = supportFragmentManager
     val transaction = fragmentManager.beginTransaction()

@@ -184,7 +184,12 @@ class BizApiViewModel : ViewModel() {
         try {
             val api = ApiClientHandler.createService(BizApiRepository::class.java)
             val response = api.register(register)
-            emit(Resource.success(response.body()?.data))
+            if(response.code() == 400) {
+                emit(Resource.error(response.code(), "please check your information!"))
+            }
+            if(response.isSuccessful) {
+                emit(Resource.success(response.body()?.data))
+            }
         } catch (ex: Exception) {
             emit(Resource.error(500, ex.message!!))
         }
@@ -195,7 +200,12 @@ class BizApiViewModel : ViewModel() {
         try {
             val api = ApiClientHandler.createService(BizApiRepository::class.java)
             val response = api.login(login)
-            emit(Resource.success(response.body()?.data))
+            if(response.code() == 400) {
+                emit(Resource.error(response.code(), "user not found!"))
+            }
+            if(response.isSuccessful) {
+                emit(Resource.success(response.body()?.data))
+            }
         } catch (ex: Exception) {
             emit(Resource.error(500, ex.message!!))
         }

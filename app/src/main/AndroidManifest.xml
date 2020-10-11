@@ -61,27 +61,27 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.account.LoginActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.account.RegisterActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.account.LoginActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.account.RegisterActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <!-- CUSTOMIZE PRODUCT-->
-        <activity android:name=".ui.designer.CustomizeDesignListActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.designer.CustomizeDesignProductActivity" android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.designer.DesignerTemplateActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.designer.CustomizeDesignListActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.designer.CustomizeDesignProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.designer.DesignerTemplateActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <!-- INSTOCK PRODUCT-->
-        <activity android:name=".ui.instock.InStockProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.instock.InStockSearchFilterActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.instock.InStockSearchActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.instock.InStockProductDetailActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.checkout.ProductCheckoutActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.instock.InStockProductActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.instock.InStockSearchFilterActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.instock.InStockSearchActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.instock.InStockProductDetailActivity" android:theme="@style/AppTheme" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.checkout.ProductCheckoutActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <!-- USER-->
-        <activity android:name=".ui.account.UserProfileActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.account.EditUserProfileActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.order.OrderActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.notification.NotificationActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.order.OrderDetail" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.account.UserProfileActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.account.EditUserProfileActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.order.OrderActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.notification.NotificationActivity" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".ui.order.OrderDetail" android:theme="@style/AppTheme"  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <receiver android:name=".services.NetworkChangeReceiver" android:enabled="true" android:exported="true">
             <intent-filter>

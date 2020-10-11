@@ -26,7 +26,6 @@ class LoginActivity: AppCompatActivity() {
     private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var acProgress: ACProgressFlower
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -41,11 +40,12 @@ class LoginActivity: AppCompatActivity() {
             .text("Please Wait")
             .fadeColor(Color.DKGRAY).build();
 
-        val email: String = binding.email.text?.trim().toString()
-        val password: String = binding.password.text?.trim().toString()
+
 
         binding.btnLogin.setOnClickListener{
-            bizApiVM.loadTokenByLogin(Login(email, password)).observe(this, Observer { res ->
+            val usrName: String = binding.usrName.text?.trim().toString()
+            val password: String = binding.password.text?.trim().toString()
+            bizApiVM.loadTokenByLogin(Login(usrName, password)).observe(this, Observer { res ->
                 when (res.status) {
                     Status.LOADING -> {
                         acProgress.show()
