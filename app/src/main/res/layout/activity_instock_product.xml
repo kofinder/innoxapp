@@ -21,16 +21,49 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:orientation="horizontal">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_sub_category"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_product"
+            android:layout_marginTop="?attr/actionBarSize">
+            <TabHost
+                android:id="@+id/tab_host"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal">
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorGray">
+                        <TabWidget
+                            android:id="@android:id/tabs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:divider="@color/colorGray"
+                            android:showDividers="none"/>
+                    </androidx.core.widget.NestedScrollView>
+                    <FrameLayout
+                        android:id="@android:id/tabcontent"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        android:layout_weight="1">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            <ProgressBar
+                                android:id="@+id/progress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
+                    </FrameLayout>
+                </LinearLayout>
+            </TabHost>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

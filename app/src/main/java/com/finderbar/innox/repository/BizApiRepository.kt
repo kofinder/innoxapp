@@ -179,7 +179,7 @@ data class SubCategoryProduct(
     @SerializedName("has_more_list")
     val hasMore: Boolean = false,
     @SerializedName("products")
-    val subCategories: MutableList<Product>? = mutableListOf()
+    val products: List<Product>? = mutableListOf()
 )
 
 @Keep

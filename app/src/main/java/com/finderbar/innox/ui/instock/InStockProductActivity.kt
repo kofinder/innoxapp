@@ -1,22 +1,38 @@
 package com.finderbar.innox.ui.instock
 
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TabHost
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.finderbar.innox.ItemSubCategoryProductClick
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockProductBinding
 import com.finderbar.innox.network.Status
-import com.finderbar.innox.ui.instock.adaptor.InStockProductSubCategoryAdaptor
+import com.finderbar.innox.ui.instock.adaptor.InStockProductAdaptor
+import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import com.finderbar.jovian.utilities.android.loadAvatar
+import kotlinx.android.synthetic.main.tab_indicator.view.*
 
 
-class InStockProductActivity : AppCompatActivity(), ItemSubCategoryProductClick {
+class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.TabContentFactory {
+
     private lateinit var binding: ActivityInstockProductBinding
+    private lateinit var productAdaptor: InStockProductAdaptor
     private val bizApiVM: BizApiViewModel by viewModels()
     private var categoryId = 0
 
@@ -29,30 +45,128 @@ class InStockProductActivity : AppCompatActivity(), ItemSubCategoryProductClick 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         categoryId = intent.getIntExtra("categoryId", 0)
 
+        val adaptor = InStockProductAdaptor(arrayListOf(), this)
+        binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2);
+        binding.recyclerView.adapter = adaptor
+        binding.recyclerView.isNestedScrollingEnabled = false
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
+
         bizApiVM.loadSubCategories(categoryId).observe(this, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                    binding.rvSubCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                    binding.rvSubCategory.setHasFixedSize(true);
-                    binding.rvSubCategory.adapter = InStockProductSubCategoryAdaptor(res.data?.subCategories!!, this)
-                    binding.rvSubCategory.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+                    val datum = res.data?.subCategories
+                    datum?.forEach { product ->
+                        binding.tabHost.setup()
+                        binding.tabHost.tabWidget.orientation = LinearLayout.VERTICAL
+                        binding.tabHost.addTab(
+                            binding.tabHost.newTabSpec(product.name!!).setIndicator(
+                                createIndicatorView(
+                                    binding.tabHost,
+                                    product.id!!,
+                                    product.name,
+                                    product.photoUrl!!
+                                )
+                            ).setContent(this)
+                        )
+                    }
                 }
                 Status.ERROR -> {
                     print(res.msg)
                 }
             }
         })
+
+
+        binding.tabHost.setOnTabChangedListener {
+            adaptor.clear()
+            val currentIdx: Int = binding.tabHost.currentTab
+            val tabWidget = binding.tabs[currentIdx]
+            val textView: TextView = tabWidget.findViewById(R.id.txt_id)
+            val tabCount: Int = binding.tabHost.tabWidget.childCount
+            val id = textView.text.toString();
+
+            for (x in 0 until tabCount) {
+           //     val indicator: RelativeLayout = binding.tabHost.getChildAt(x).findViewById<View>(R.id.tab_indicator) as RelativeLayout
+                val divider: View = binding.tabHost.getChildAt(x).findViewById(R.id.side_view)
+                if(x == currentIdx) {
+                    divider.visibility = View.VISIBLE
+                //    indicator.setBackgroundColor(Color.WHITE)
+                } else{
+                    divider.visibility = View.GONE
+                   // indicator.setBackgroundColor(Color.GRAY)
+                }
+            }
+
+            bizApiVM.loadAllSubCategoryProduct(id.toInt(), 1).observe(this, Observer { res ->
+                when (res.status) {
+                    Status.LOADING -> {
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    Status.SUCCESS -> {
+                        binding.progress.visibility = View.GONE
+                        adaptor.addAll(res.data?.products!!)
+                    }
+                    Status.ERROR -> {
+                        binding.progress.visibility = View.GONE
+                    }
+                }
+            })
+        }
     }
+
+    //    private void updateWidget(final TabHost tabHost) {
+//        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+//            RelativeLayout tabIndicator = (RelativeLayout) tabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_indicator);
+//            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(R.id.title);
+//            View sideView = tabHost.getTabWidget().getChildAt(i).findViewById(R.id.side_view);
+//            if (tabHost.getCurrentTab() == i) {//选中.
+//                tv.setTextColor(mContext.getResources().getColor(R.color.text_selected));
+//                sideView.setVisibility(View.VISIBLE);
+//                tabIndicator.setBackgroundColor(Color.WHITE);
+//
+//            } else {//不选中
+//                tv.setTextColor(mContext.getResources().getColor(R.color.text_not_select));
+//                sideView.setVisibility(View.GONE);
+//                tabIndicator.setBackground(mContext.getResources().getDrawable(R.drawable.tab_item_bg));
+//
+//            }
+//        }
+//    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 
-    override fun onItemClick(_id: Int) {
-        print("message")
+    override fun onItemClick(_id: Int, position: Int) {
+        val intent = Intent(this, InStockProductDetailActivity::class.java)
+        intent.putExtra("_id", _id)
+        intent.putExtra("position", position)
+        startActivity(intent)
     }
+
+    private fun createIndicatorView(tabHost: TabHost, productId: Int, label: CharSequence, imageUrl: String): View? {
+        val inflater = this.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val tabIndicator: View = inflater.inflate(
+            R.layout.tab_indicator,
+            tabHost.tabWidget,
+            false
+        )
+
+        tabIndicator.civ_thumb.loadAvatar(Uri.parse(imageUrl))
+        tabIndicator.title.text = label
+        tabIndicator.txt_id.text = productId.toString()
+        tabIndicator.side_view.visibility = View.GONE
+        return tabIndicator
+    }
+
+    override fun createTabContent(tag: String?): View {
+        return TextView(this)
+    }
+
 }
