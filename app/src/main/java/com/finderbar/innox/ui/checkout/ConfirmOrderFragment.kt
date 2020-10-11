@@ -1,5 +1,6 @@
 package com.finderbar.innox.ui.checkout
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,9 @@ import androidx.fragment.app.DialogFragment
 import com.finderbar.innox.AppContext
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentDialogOrderConfirmBinding
+import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.OrderItem
+import com.finderbar.innox.ui.order.OrderActivity
 import java.io.Serializable
 
 class ConfirmOrderFragment: DialogFragment() {
@@ -54,6 +57,13 @@ class ConfirmOrderFragment: DialogFragment() {
         binding.listItem.adapter = adaptor
         adaptor.addAll(orderItem!!)
         setListViewHeight(binding.listItem)
+
+
+        binding.btnDone.setOnClickListener{
+            val order = Intent(context, OrderActivity::class.java)
+            order.putExtra("_id", prefs.userId)
+            startActivity(order)
+        }
 
         return binding.root;
     }

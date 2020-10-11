@@ -32,6 +32,4 @@ TESTING REPORT
 - Check select box at add to cart page, product image switch when do check and un-check
 
 # Order
-- Need to modified sate and city select box name
 - Need to display error message when order validation process occur
-- Need to have action "Done" bottom, after order success

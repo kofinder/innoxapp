@@ -41,8 +41,11 @@ class LoginActivity: AppCompatActivity() {
             .text("Please Wait")
             .fadeColor(Color.DKGRAY).build();
 
+        val email: String = binding.email.text?.trim().toString()
+        val password: String = binding.password.text?.trim().toString()
+
         binding.btnLogin.setOnClickListener{
-            bizApiVM.loadTokenByLogin(Login(binding.email.text.toString(), binding.password.text.toString())).observe(this, Observer { res ->
+            bizApiVM.loadTokenByLogin(Login(email, password)).observe(this, Observer { res ->
                 when (res.status) {
                     Status.LOADING -> {
                         acProgress.show()

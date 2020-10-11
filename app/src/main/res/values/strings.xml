@@ -61,7 +61,7 @@
     <string name="product_sizes">Available Sizes</string>
     <string name="product_choose_size">Choose Sizes</string>
     <string name="product_des">Description</string>
-    <string name="product_hight_light">HighLights</string>
+    <string name="product_high_light">HighLights</string>
 
     <!--    CART-->
     <string name="cart_text">Add to Cart</string>

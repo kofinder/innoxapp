@@ -164,7 +164,7 @@
                         android:textSize="@dimen/title_font_size"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
-                        android:text="@string/product_hight_light"/>
+                        android:text="@string/product_high_light"/>
                     <ListView
                         android:id="@+id/lv_item"
                         android:layout_width="match_parent"
