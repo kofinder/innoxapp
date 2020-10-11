@@ -91,14 +91,14 @@ class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.Ta
             val id = textView.text.toString();
 
             for (x in 0 until tabCount) {
-           //     val indicator: RelativeLayout = binding.tabHost.getChildAt(x).findViewById<View>(R.id.tab_indicator) as RelativeLayout
-                val divider: View = binding.tabHost.getChildAt(x).findViewById(R.id.side_view)
+                val indicator: RelativeLayout = binding.tabs[x].findViewById<View>(R.id.tab_indicator) as RelativeLayout
+                val divider: View = binding.tabs[x].findViewById(R.id.side_view)
                 if(x == currentIdx) {
                     divider.visibility = View.VISIBLE
-                //    indicator.setBackgroundColor(Color.WHITE)
+                    indicator.setBackgroundColor(Color.WHITE)
                 } else{
                     divider.visibility = View.GONE
-                   // indicator.setBackgroundColor(Color.GRAY)
+                    indicator.setBackgroundColor(resources.getColor(R.color.colorGray))
                 }
             }
 
@@ -118,25 +118,6 @@ class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.Ta
             })
         }
     }
-
-    //    private void updateWidget(final TabHost tabHost) {
-//        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
-//            RelativeLayout tabIndicator = (RelativeLayout) tabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_indicator);
-//            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(R.id.title);
-//            View sideView = tabHost.getTabWidget().getChildAt(i).findViewById(R.id.side_view);
-//            if (tabHost.getCurrentTab() == i) {//选中.
-//                tv.setTextColor(mContext.getResources().getColor(R.color.text_selected));
-//                sideView.setVisibility(View.VISIBLE);
-//                tabIndicator.setBackgroundColor(Color.WHITE);
-//
-//            } else {//不选中
-//                tv.setTextColor(mContext.getResources().getColor(R.color.text_not_select));
-//                sideView.setVisibility(View.GONE);
-//                tabIndicator.setBackground(mContext.getResources().getDrawable(R.drawable.tab_item_bg));
-//
-//            }
-//        }
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
