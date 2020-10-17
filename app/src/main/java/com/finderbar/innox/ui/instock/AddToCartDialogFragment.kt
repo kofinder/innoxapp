@@ -91,7 +91,15 @@ class AddToCartDialogFragment : DialogFragment() {
                 s!!
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.txtTotal.text = (s.toString().toInt() *  price!!).toString()
+                var count : Int = 1;
+                if(s.isNullOrBlank()) {
+                    count = 1
+                } else {
+                    count = s.toString().toInt();
+                }
+
+                val totalCount = count * price!!
+                binding.txtTotal.text = "$totalCount Ks"
             }
             override fun afterTextChanged(s: Editable?) {
                 s!!

@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
+import com.finderbar.innox.ItemCartCallBack
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemCartBinding
 import com.finderbar.innox.repository.Cart
 import com.finderbar.jovian.utilities.android.loadAvatar
 
-
-class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>): BaseAdapter() {
+class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, private val onItemCallBack: ItemCartCallBack): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private lateinit var binding: ItemCartBinding
@@ -27,18 +27,28 @@ class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>): 
         binding.txtSubTotal.text = datum.subTotalText
         binding.imgProduct.loadAvatar(Uri.parse(datum.image))
         binding.checkbox.isChecked = datum.isCheck
+        binding.btnCount.text = datum.quantity.toString()
+
+        binding.btnIncrement.setOnClickListener {
+            val quantity = datum.quantity?.plus(1)
+            onItemCallBack.onItemClick(datum.id!!, quantity!!)
+        }
+
+        binding.btnDecrement.setOnClickListener {
+           // onItemCallBack.onItemClick(datum, binding)
+        }
 
         binding.checkbox.setOnCheckedChangeListener {_, isCheck ->
             datum.isCheck = isCheck
             this.notifyDataSetChanged()
         }
 
-        return binding.root;
+        return binding.root
     }
 
     override fun getItem(position: Int): Any = arrays[position]
 
-    override fun getItemId(position: Int): Long = position.toLong();
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getCount(): Int = arrays.size
 
@@ -47,16 +57,22 @@ class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>): 
         this.notifyDataSetChanged()
     }
 
+    fun modifyArray(arr: MutableList<Cart>) {
+        arrays.clear()
+        arrays.addAll(arr)
+        this.notifyDataSetChanged()
+    }
+
     fun selectAll() {
         for (arr in arrays) {
-            arr.isCheck = !false;
+            arr.isCheck = !false
         }
         this.notifyDataSetChanged()
     }
 
     fun unSelectAll() {
         for (arr in arrays) {
-            arr.isCheck = false;
+            arr.isCheck = false
         }
         this.notifyDataSetChanged()
     }
@@ -68,7 +84,7 @@ class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>): 
                 checkArrays.add(arr.id!!)
             }
         }
-        return checkArrays;
+        return checkArrays
     }
 
 }

@@ -7,6 +7,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.databinding.ItemCartBinding
+import com.finderbar.innox.repository.Cart
 import com.finderbar.innox.repository.Font
 import retrofit2.Call
 import retrofit2.Callback
@@ -63,6 +65,10 @@ interface ItemFontClick {
 
 interface ItemProductCategoryClick {
     fun onItemClick(_id: Int)
+}
+
+interface ItemCartCallBack {
+    fun onItemClick(carId: Int, quantity: Int)
 }
 
 

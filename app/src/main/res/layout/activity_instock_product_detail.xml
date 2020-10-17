@@ -151,40 +151,14 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
-               <!-- <LinearLayout
-                    android:layout_below="@id/lbl_input"
-                    android:id="@+id/lbl_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/title_font_size"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:text="@string/product_high_light"/>
-                    <ListView
-                        android:id="@+id/lv_item"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:divider="@null"
-                        android:dividerHeight="0dp"
-                        android:listSelector="@android:color/transparent"
-                        android:orientation="vertical"/>
-                </LinearLayout>-->
-
                 <LinearLayout
                     android:layout_below="@id/lbl_list"
                     android:id="@+id/lbl_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingTop="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="60dp"
+                    android:paddingBottom="100dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"

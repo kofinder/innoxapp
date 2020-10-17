@@ -2,7 +2,6 @@ package com.finderbar.innox.ui.cart
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,30 +10,41 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import cc.cloudist.acplibrary.ACProgressConstant
+import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.AppContext
+import com.finderbar.innox.ItemCartCallBack
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentCartBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.repository.CartIds
 import com.finderbar.innox.ui.checkout.ProductCheckoutActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import es.dmoral.toasty.Toasty
 import java.util.ArrayList
 
-class CartFragment : Fragment() {
+class CartFragment : Fragment(), ItemCartCallBack {
 
     private lateinit var binding: FragmentCartBinding
     private val bizApiVM: BizApiViewModel by viewModels()
-    private val carts: MutableList<Int> = mutableListOf()
+    private lateinit var acProgress: ACProgressFlower
+    private lateinit var adaptor: CartAdaptor
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val context = activity as AppCompatActivity
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
-        val adaptor = CartAdaptor(context, mutableListOf());
+        acProgress = ACProgressFlower.Builder(requireContext())
+            .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+            .themeColor(android.graphics.Color.WHITE)
+            .text("Please Wait")
+            .fadeColor(android.graphics.Color.DKGRAY).build();
 
+        adaptor = CartAdaptor(context, mutableListOf(), this);
+        binding.lvItem.adapter = adaptor
         bizApiVM.loadShoppingCart().observe(viewLifecycleOwner, Observer { res ->
             when(res.status) {
                 Status.LOADING -> {
@@ -48,7 +58,6 @@ class CartFragment : Fragment() {
                         binding.lblHeader.visibility = View.VISIBLE
                         binding.lblCheckout.visibility = View.VISIBLE
                         adaptor.addAll(it.carts!!)
-                        binding.lvItem.adapter = adaptor
                         binding.txtTotal.text = it.totalAmountText
                     } ?: run {
                         binding.progress.visibility = View.GONE
@@ -74,7 +83,22 @@ class CartFragment : Fragment() {
 
         binding.btnDelete.setOnClickListener{
             var arr = adaptor.getCheckItem();
-            print(arr)
+            bizApiVM.loadDeleteShoppingCart(CartIds(arr)).observe(viewLifecycleOwner, Observer { res ->
+                when(res.status) {
+                    Status.LOADING -> {
+                        acProgress.show()
+                    }
+                    Status.SUCCESS -> {
+                        acProgress.hide()
+                        adaptor.modifyArray(res.data?.carts!!)
+                        binding.txtTotal.text = res.data?.totalAmountText
+                    }
+                    Status.ERROR -> {
+                        acProgress.hide()
+                        Toasty.error(requireContext(), res.msg.toString()).show()
+                    }
+                }
+            })
         }
 
         binding.btnCheckout.setOnClickListener{
@@ -85,6 +109,25 @@ class CartFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onItemClick(carId: Int, quantity: Int) {
+        bizApiVM.loadEditShoppingCart(carId, quantity).observe(viewLifecycleOwner, Observer { res ->
+            when(res.status) {
+                Status.LOADING -> {
+                    acProgress.show()
+                }
+                Status.SUCCESS -> {
+                    acProgress.hide()
+                    adaptor.modifyArray(res.data?.carts!!)
+                    binding.txtTotal.text = res.data?.totalAmountText
+                }
+                Status.ERROR -> {
+                    acProgress.hide()
+                    Toasty.error(requireContext(), res.msg.toString()).show()
+                }
+            }
+        })
     }
 
 }

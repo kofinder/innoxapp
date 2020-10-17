@@ -94,13 +94,12 @@
                         android:textStyle="bold"
                         android:text="-"/>
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_text"
+                        android:id="@+id/btn_count"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         app:backgroundTint="@color/colorWhite"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/title_font_size"
-                        android:text="5"/>
+                        android:textSize="@dimen/title_font_size"/>
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_increment"
                         android:layout_width="50dp"

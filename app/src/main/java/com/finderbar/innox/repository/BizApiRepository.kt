@@ -2,6 +2,7 @@ package com.finderbar.innox.repository
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import okhttp3.internal.http.hasBody
 import retrofit2.Response
 import retrofit2.http.*
 import java.lang.reflect.Array
@@ -70,10 +71,10 @@ interface BizApiRepository {
     suspend fun saveShoppingCart(@Body cart: ShoppingCart): Response<ServiceResponse<Any>>
 
     @PUT("shopping/cart")
-    suspend fun editShoppingCart(@Query("cart_id") cartId: Int, @Query("quantity") quantity: Int): Response<ServiceResponse<Any>>
+    suspend fun editShoppingCart(@Query("cart_id") cartId: Int, @Query("quantity") quantity: Int): Response<ServiceResponse<ShoppingCarts>>
 
-    @DELETE("shopping/cart")
-    suspend fun deleteShoppingCart(@Body cart: CartIds): Response<ServiceResponse<Any>>
+    @HTTP(method = "DELETE", path = "shopping/cart", hasBody = true)
+    suspend fun deleteShoppingCart(@Body cart: CartIds): Response<ServiceResponse<ShoppingCarts>>
 
     @GET("shopping/carts")
     suspend fun getShoppingCart(): Response<ServiceResponse<ShoppingCarts>>
@@ -134,7 +135,7 @@ data class ConfirmOrder(
 @Keep
 data class CartIds(
     @SerializedName("cart_ids")
-    val categoryIds: ArrayList<Int>
+    val categoryIds: MutableList<Int>
 )
 
 
