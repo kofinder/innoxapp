@@ -1,5 +1,6 @@
 package com.finderbar.innox.ui.designer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import com.finderbar.innox.ItemProductCategoryClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentDesignerBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.utilities.SpaceItemDecoration
 
-
-class DesignerFragment : Fragment() {
+class DesignerFragment : Fragment(), ItemProductCategoryClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()
 
@@ -29,9 +30,8 @@ class DesignerFragment : Fragment() {
         val binding: FragmentDesignerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_designer, container , false)
         var rootView : View  = binding.root
 
-        val adaptor = DesignerAdaptor(arrayListOf())
+        val adaptor = DesignerAdaptor(arrayListOf(), this)
         val layoutManager = GridLayoutManager(requireContext(), 2);
-
         layoutManager.spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (position % 3 == 0)
@@ -60,5 +60,11 @@ class DesignerFragment : Fragment() {
         })
 
         return rootView
+    }
+
+    override fun onItemClick(_id: Int) {
+        val intent = Intent(requireContext(), CustomizeDesignListActivity::class.java)
+        intent.putExtra("categoryId", _id)
+        startActivity(intent)
     }
 }

@@ -2,6 +2,8 @@ package com.finderbar.innox.ui.instock
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +30,7 @@ class InStockSearchFilterActivity:  AppCompatActivity() {
     private var keyWord: String = ""
     private var categoryId = 0
     private var categoryName: String = ""
-    private var subCategoryId  = 0;
+    private var subCategoryId  = 0
     private var subCategoryName: String = ""
     private var startPrice = 0
     private var endPrice = 50000
@@ -57,7 +59,7 @@ class InStockSearchFilterActivity:  AppCompatActivity() {
 
         val subCategoryArrayAdaptor = SubCategoryArrayAdaptor(applicationContext, R.layout.item_dropdown, mutableListOf())
         subCategoryArrayAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-        binding.acSubCategory.clearFocus();
+        binding.acSubCategory.clearFocus()
         binding.acSubCategory.setAdapter(subCategoryArrayAdaptor)
         binding.acSubCategory.setOnItemClickListener { parent, _, position, _ ->
             val subCategory = parent.getItemAtPosition(position) as SubCategory
@@ -67,7 +69,7 @@ class InStockSearchFilterActivity:  AppCompatActivity() {
 
         val categoryArrayAdaptor = CategoryArrayAdaptor(applicationContext, R.layout.item_dropdown, mutableListOf())
         categoryArrayAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-        binding.acCategory.clearFocus();
+        binding.acCategory.clearFocus()
         binding.acCategory.setAdapter(categoryArrayAdaptor)
         binding.acCategory.setOnItemClickListener { parent, _, position, _ ->
             val category = parent.getItemAtPosition(position) as Category

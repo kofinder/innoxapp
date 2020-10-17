@@ -35,6 +35,7 @@ object AppConstant {
     const val ITEM_SIZE_ID = "item:size_id"
     const val ITEM_NAME = "item:name"
     const val ITEM_PRICE = "item:price"
+    const val ITEM_PRICE_TEXT = "item:price"
     const val ITEM_COLOR = "item:color"
     const val ITEM_SIZE = "item:size"
 

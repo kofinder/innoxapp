@@ -1,10 +1,11 @@
 package com.finderbar.innox.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -13,7 +14,6 @@ import androidx.navigation.ui.*
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityMainBinding
 import com.finderbar.innox.prefs
-import es.dmoral.toasty.Toasty
 
 class MainActivity : AppCompatActivity() {
 
@@ -84,6 +84,21 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.instock_menu, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//
+//        val id = item.itemId
+//        if (id == R.id.item_search) {
+//            return true
+//        }
+//
+//        return super.onOptionsItemSelected(item)
+//    }
 
     override fun onBackPressed() {
         when {

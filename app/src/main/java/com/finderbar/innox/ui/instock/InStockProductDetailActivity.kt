@@ -38,8 +38,8 @@ class InStockProductDetailActivity: AppCompatActivity() {
     private var productName: String? = ""
     private var colorName: String? = ""
     private var sizeName: String? = ""
-    private var price: String? = ""
-
+    private var priceText: String? = ""
+    private var price: Int? = 0
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class InStockProductDetailActivity: AppCompatActivity() {
                 Status.SUCCESS -> {
                     var product = res.data!!
                     binding.txtTitle.text = product.name
-                    binding.txtPrice.text = product.price
+                    binding.txtPrice.text = product.priceText
                     binding.txtDescription.text = product.description
                     binding.vpLayout.adapter = ImageSlidePagerAdapter(applicationContext, product.images!!)
                     binding.btnIndicator.setViewPager(binding.vpLayout)
@@ -80,14 +80,14 @@ class InStockProductDetailActivity: AppCompatActivity() {
                     sizeAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownSize.clearFocus();
                     binding.dropdownSize.setAdapter(sizeAdaptor)
-                    binding.dropdownSize.setOnItemClickListener { parent, view, position, id ->
+                    binding.dropdownSize.setOnItemClickListener { parent, _, position, _ ->
                         sizeId = (parent.getItemAtPosition(position) as Size).id
                         sizeName = (parent.getItemAtPosition(position) as Size).name
                     }
 
                     productName = product.name
+                    priceText = product.priceText
                     price = product.price
-
                 }
                 Status.ERROR -> {
                     print(res.msg)
@@ -96,9 +96,9 @@ class InStockProductDetailActivity: AppCompatActivity() {
         })
 
 
-        val hAdaptor = StableArrayAdapter(applicationContext, mutableListOf("test"))
-        binding.lvItem.adapter = hAdaptor
-        setListViewHeight(binding.lvItem)
+//        val hAdaptor = StableArrayAdapter(applicationContext, mutableListOf("test"))
+//        binding.lvItem.adapter = hAdaptor
+//        setListViewHeight(binding.lvItem)
 
         val handler = Handler()
         val update = Runnable {
@@ -123,33 +123,37 @@ class InStockProductDetailActivity: AppCompatActivity() {
             override fun onPageScrollStateChanged(pos: Int) {}
         })
 
-        binding.btnCart.isEnabled = !prefs.userId.isNullOrBlank()
+        if(prefs.userId.isNullOrBlank()) {
+            binding.btnCart.visibility = View.GONE
+        } else {
+            binding.btnCart.visibility = View.VISIBLE
+        }
 
         binding.btnCart.setOnClickListener {
-            val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!)
+            val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!, priceText!!)
             frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
         }
 
     }
 
 
-    private fun setListViewHeight(listView: ListView) {
-        val listAdapter = listView.adapter ?: return
-        val desiredWidth =
-            MeasureSpec.makeMeasureSpec(listView.width, MeasureSpec.UNSPECIFIED)
-        var totalHeight = 0
-        var view: View? = null
-        for (i in 0 until listAdapter.count) {
-            view = listAdapter.getView(i, view, listView)
-            if (i == 0) view.layoutParams =
-                ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
-            view.measure(desiredWidth, MeasureSpec.UNSPECIFIED)
-            totalHeight += view.measuredHeight
-        }
-        val params = listView.layoutParams
-        params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
-        listView.layoutParams = params
-    }
+//    private fun setListViewHeight(listView: ListView) {
+//        val listAdapter = listView.adapter ?: return
+//        val desiredWidth =
+//            MeasureSpec.makeMeasureSpec(listView.width, MeasureSpec.UNSPECIFIED)
+//        var totalHeight = 0
+//        var view: View? = null
+//        for (i in 0 until listAdapter.count) {
+//            view = listAdapter.getView(i, view, listView)
+//            if (i == 0) view.layoutParams =
+//                ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
+//            view.measure(desiredWidth, MeasureSpec.UNSPECIFIED)
+//            totalHeight += view.measuredHeight
+//        }
+//        val params = listView.layoutParams
+//        params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
+//        listView.layoutParams = params
+//    }
 
 
     override fun onSupportNavigateUp(): Boolean {

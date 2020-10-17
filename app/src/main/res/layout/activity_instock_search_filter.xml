@@ -124,11 +124,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:background="@color/colorPrimary"
             android:layout_margin="0dp"
             android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -142,10 +142,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/search"
-                android:layout_margin="0dp"
-                android:paddingTop="10dp"
-                app:cornerRadius="0dp"
-                android:paddingBottom="10dp"/>
+                android:padding="20dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="0dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

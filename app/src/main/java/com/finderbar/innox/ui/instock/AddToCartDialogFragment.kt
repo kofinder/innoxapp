@@ -1,6 +1,8 @@
 package com.finderbar.innox.ui.instock
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,7 @@ import com.finderbar.innox.AppConstant.ITEM_COLOR
 import com.finderbar.innox.AppConstant.ITEM_COLOR_ID
 import com.finderbar.innox.AppConstant.ITEM_NAME
 import com.finderbar.innox.AppConstant.ITEM_PRICE
+import com.finderbar.innox.AppConstant.ITEM_PRICE_TEXT
 import com.finderbar.innox.AppConstant.ITEM_PRODUCT_ID
 import com.finderbar.innox.AppConstant.ITEM_SIZE
 import com.finderbar.innox.AppConstant.ITEM_SIZE_ID
@@ -38,7 +41,8 @@ class AddToCartDialogFragment : DialogFragment() {
     private var productName: String? = ""
     private var colorName: String? = ""
     private var sizeName: String? = ""
-    private var price: String? = ""
+    private var priceText: String? = ""
+    private var price: Int? = 0
     private var quantity: Int = 1
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -63,7 +67,8 @@ class AddToCartDialogFragment : DialogFragment() {
         productName = bundle?.getString(ITEM_NAME)
         colorName = bundle?.getString(ITEM_COLOR)
         sizeName = bundle?.getString(ITEM_SIZE)
-        price = bundle?.getString(ITEM_PRICE)
+        price = bundle?.getInt(ITEM_PRICE)
+        priceText = bundle?.getString(ITEM_PRICE_TEXT)
     }
 
 
@@ -77,9 +82,21 @@ class AddToCartDialogFragment : DialogFragment() {
             .text("Please Wait")
             .fadeColor(android.graphics.Color.DKGRAY).build();
         binding.txtTitle.text = "$productName ($colorName $sizeName)"
-        binding.txtPrice.text = price
-        binding.txtSubTotal.text = price
-        binding.txtTotal.text = price
+        binding.txtPrice.text = priceText
+        binding.txtSubTotal.text = priceText
+        binding.txtTotal.text = priceText
+
+        binding.edCount.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                s!!
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.txtTotal.text = (s.toString().toInt() *  price!!).toString()
+            }
+            override fun afterTextChanged(s: Editable?) {
+                s!!
+            }
+        })
 
         binding.btnCart.setOnClickListener{
             quantity = binding.edCount.text.toString().toInt()
@@ -110,7 +127,7 @@ class AddToCartDialogFragment : DialogFragment() {
 
     companion object {
         const val TAG = "AddToCartDialogFragment"
-        fun newInstance(productId: Int, colorId: Int, sizeId: Int, productName: String, colorName: String, sizeName: String, price: String): AddToCartDialogFragment {
+        fun newInstance(productId: Int, colorId: Int, sizeId: Int, productName: String, colorName: String, sizeName: String, price: Int, priceText: String): AddToCartDialogFragment {
             val fragment = AddToCartDialogFragment()
             val args = Bundle()
             args.putInt(ITEM_PRODUCT_ID, productId)
@@ -119,7 +136,8 @@ class AddToCartDialogFragment : DialogFragment() {
             args.putString(ITEM_NAME, productName)
             args.putString(ITEM_COLOR, colorName)
             args.putString(ITEM_SIZE, sizeName)
-            args.putString(ITEM_PRICE, price)
+            args.putInt(ITEM_PRICE, price)
+            args.putString(ITEM_PRICE_TEXT, priceText)
             fragment.arguments = args
 
             return fragment

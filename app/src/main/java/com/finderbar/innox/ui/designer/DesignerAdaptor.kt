@@ -1,23 +1,34 @@
 package com.finderbar.innox.ui.designer
 
 import android.net.Uri
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.R
-import com.finderbar.innox.inflate
+import com.finderbar.innox.ItemProductCategoryClick
+import com.finderbar.innox.databinding.ItemDesignerProductBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.jovian.utilities.android.loadLarge
-import com.google.android.material.button.MaterialButton
 
-class DesignerAdaptor(private val arrayList: MutableList<Category>) : RecyclerView.Adapter<DesignerAdaptor.ProductViewHolder>() {
+class DesignerAdaptor(private val arrayList: MutableList<Category>, private val itemProductClick: ItemProductCategoryClick) : RecyclerView.Adapter<DesignerAdaptor.DesignerProductViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder(parent.inflate(R.layout.item_designer_product))
+    inner class DesignerProductViewHolder(val binding: ItemDesignerProductBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DesignerProductViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemDesignerProductBinding.inflate(inflater, parent, false)
+        return DesignerProductViewHolder(binding)
+    }
 
     override fun getItemCount(): Int = arrayList.size
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) = holder.bindData(arrayList[position])
+    override fun onBindViewHolder(holder: DesignerProductViewHolder, position: Int) {
+        val datum : Category = arrayList[position]
+        holder.binding.thumb.loadLarge(Uri.parse(datum.photoUrl));
+        holder.binding.btnCreate.text = datum.name
+        holder.itemView.setOnClickListener{
+            itemProductClick.onItemClick(datum.id!!)
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
        return if(position % 2 == 0) 2 else 1
@@ -34,12 +45,4 @@ class DesignerAdaptor(private val arrayList: MutableList<Category>) : RecyclerVi
         }
     }
 
-    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val thumb: ImageView = itemView.findViewById(R.id.thumb)
-        private val btnCreate: MaterialButton = itemView.findViewById(R.id.btn_create)
-        fun bindData(category: Category) {
-            thumb.loadLarge(Uri.parse(category.photoUrl));
-            btnCreate.text = "Create " + category.name
-        }
-    }
 }

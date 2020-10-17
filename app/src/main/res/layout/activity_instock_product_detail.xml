@@ -151,7 +151,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
-                <LinearLayout
+               <!-- <LinearLayout
                     android:layout_below="@id/lbl_input"
                     android:id="@+id/lbl_list"
                     android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                         android:dividerHeight="0dp"
                         android:listSelector="@android:color/transparent"
                         android:orientation="vertical"/>
-                </LinearLayout>
+                </LinearLayout>-->
 
                 <LinearLayout
                     android:layout_below="@id/lbl_list"
