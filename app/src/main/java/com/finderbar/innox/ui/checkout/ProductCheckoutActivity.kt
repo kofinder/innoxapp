@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ListView
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ import com.finderbar.innox.repository.TownShip
 import com.finderbar.innox.ui.account.StateArrayAdaptor
 import com.finderbar.innox.ui.account.TownShipArrayAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import com.google.android.material.radiobutton.MaterialRadioButton
 import es.dmoral.toasty.Toasty
+
 
 class ProductCheckoutActivity : AppCompatActivity() {
 
@@ -52,7 +55,11 @@ class ProductCheckoutActivity : AppCompatActivity() {
         bizApiVM.loadState().observe(this, Observer { res ->
             when (res.status) {
                 Status.SUCCESS -> {
-                    val stateAdaptor = StateArrayAdaptor(this, R.layout.item_dropdown, res.data?.states!!)
+                    val stateAdaptor = StateArrayAdaptor(
+                        this,
+                        R.layout.item_dropdown,
+                        res.data?.states!!
+                    )
                     stateAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownState.clearFocus();
                     binding.dropdownState.setAdapter(stateAdaptor)
@@ -66,7 +73,11 @@ class ProductCheckoutActivity : AppCompatActivity() {
         bizApiVM.loadTownship(1).observe(this, Observer { res ->
             when (res.status) {
                 Status.SUCCESS -> {
-                    val townshipAdaptor = TownShipArrayAdaptor(this, R.layout.item_dropdown, res.data?.townships!!)
+                    val townshipAdaptor = TownShipArrayAdaptor(
+                        this,
+                        R.layout.item_dropdown,
+                        res.data?.townships!!
+                    )
                     townshipAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownTownship.clearFocus();
                     binding.dropdownTownship.setAdapter(townshipAdaptor)
@@ -92,13 +103,23 @@ class ProductCheckoutActivity : AppCompatActivity() {
                         adaptor.addAll(it.orderItem!!)
                         binding.listItem.adapter = adaptor
                         setListViewHeight(binding.listItem)
-                    }?: kotlin.run {
 
+                        it.paymentType?.forEach { x ->
+                            val radioButton = MaterialRadioButton(this)
+                            radioButton.text = x.name
+                            radioButton.id = x.id!!
+                            val params = RadioGroup.LayoutParams(
+                                RadioGroup.LayoutParams.WRAP_CONTENT,
+                                RadioGroup.LayoutParams.WRAP_CONTENT
+                            )
+                            binding.rdoGroup.addView(radioButton, params)
+                        }
+
+                    } ?: kotlin.run {
                     }
                 }
                 Status.ERROR -> {
                     acProgress.hide()
-                    print(res.msg)
                 }
             }
         })
@@ -107,8 +128,16 @@ class ProductCheckoutActivity : AppCompatActivity() {
         binding.btnConfirm.setOnClickListener{
             val address = binding.address.text.toString();
             val remark = binding.address.text.toString();
-
-            bizApiVM.loadConfirmOrder(ConfirmOrder(cartIds!!, "COD", stateId!!, townShipId!!, address, remark)).observe(this, Observer { res ->
+            bizApiVM.loadConfirmOrder(
+                ConfirmOrder(
+                    cartIds!!,
+                    "COD",
+                    stateId!!,
+                    townShipId!!,
+                    address,
+                    remark
+                )
+            ).observe(this, Observer { res ->
                 when (res.status) {
                     Status.LOADING -> {
                         acProgress.show()
@@ -117,9 +146,14 @@ class ProductCheckoutActivity : AppCompatActivity() {
                         res.data?.let {
                             acProgress.hide()
                             Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
-                            val frag = ConfirmOrderFragment.newInstance(ArrayList(it.orderItem!!), it.invoiceNumber!!, it.totalCostText!!, it.deliveryFeeText!!)
+                            val frag = ConfirmOrderFragment.newInstance(
+                                ArrayList(it.orderItem!!),
+                                it.invoiceNumber!!,
+                                it.totalCostText!!,
+                                it.deliveryFeeText!!
+                            )
                             frag.show(supportFragmentManager, ConfirmOrderFragment.TAG)
-                        }?: kotlin.run {
+                        } ?: kotlin.run {
                             acProgress.hide()
                             Toasty.warning(this, "Fail!", Toast.LENGTH_SHORT, true).show();
                         }

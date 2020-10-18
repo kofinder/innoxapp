@@ -1,10 +1,13 @@
 package com.finderbar.innox.ui
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
@@ -21,6 +24,7 @@ import com.finderbar.innox.ui.account.RegisterActivity
 import com.finderbar.jovian.utilities.android.loadAvatar
 import com.google.android.material.button.MaterialButton
 import de.hdodenhof.circleimageview.CircleImageView
+import es.dmoral.toasty.Toasty
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         visibilityNavElements(navController)
 
-        val header = binding.mainNavigationView.getHeaderView(0);
+        val header = binding.mainNavigationView.getHeaderView(0)
         val lblUser: ConstraintLayout = header.findViewById(R.id.lbl_user)
         val lblGuest: ConstraintLayout = header.findViewById(R.id.lbl_guest)
         val userProfileImage: CircleImageView = header.findViewById(R.id.avatar)
@@ -56,9 +60,15 @@ class MainActivity : AppCompatActivity() {
         val btnRegister: MaterialButton = header.findViewById(R.id.btn_register)
 
         if(prefs.userId.isNullOrBlank()) {
-            binding.mainBottomNavigationView.menu.getItem(3).isEnabled = false
             lblUser.visibility = View.GONE
             lblGuest.visibility = View.VISIBLE
+            val menu = binding.mainBottomNavigationView.menu.getItem(3)
+            menu.setIcon(R.drawable.ic_baseline_remove_shopping_cart_24)
+            menu.isChecked = true
+            menu.setOnMenuItemClickListener {
+                Toasty.warning(this, "You are not login!").show()
+                true
+            }
         } else {
             binding.mainBottomNavigationView.menu.getItem(3).isEnabled = true
             lblGuest.visibility = View.GONE
@@ -77,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun visibilityNavElements(navController: NavController) {

@@ -42,8 +42,8 @@ class UserProfileActivity: AppCompatActivity() {
                     binding.txtName.text = res.data?.name
                     binding.txtEmail.text = res.data?.email
                     binding.txtPhone.text = res.data?.phoneNo
-                    binding.txtDivisionn.text = res.data?.state
-                    binding.txtTownship.text = res.data?.township
+                    binding.txtDivisionn.text = res.data?.stateName
+                    binding.txtTownship.text = res.data?.townshipName
                     binding.txtAddress.text = res.data?.address
                 }
                 Status.ERROR -> {

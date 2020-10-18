@@ -12,13 +12,9 @@ TESTING REPORT
 
 *** Mobile ***
 # Account
--> Display wrong user name at "Account" screen
--> User profile state and township data can't display well
--> Remove change password UI
 -> User edit can't work, please check again
 
 # Cart
--> If user before login, need to display alert box
 -> Can you display add to cart button, even user before login
 -> If there's no cart list, no need to go Check out page
 -> Need to display error message when user click "add to cart" with no selected data
@@ -28,12 +24,8 @@ TESTING REPORT
 -> Support html view for product detail and hight light
 -> Product image slide need to resize to display full view for Image
 
-# Left Menu
--> please remove unnecessary menu from side menu
-
 # Order 
--> Can't display "cash on delivery" label 
--> Can't display validation message 
+-> Can't display validation message
 -> Error happen when click "done" buttom at order confirm success screen
 
 ------------------------------------

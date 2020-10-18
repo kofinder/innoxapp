@@ -56,7 +56,7 @@ class LoginActivity: AppCompatActivity() {
                         prefs.userId = res.data?.userId!!
                         prefs.userName = res.data?.userName!!
                         prefs.userPhone = res.data?.phoneNo!!
-                        prefs.userName = res.data?.avatar!!
+                        prefs.userAvatar = res.data?.avatar!!
                         val homeIntent = Intent(this, MainActivity::class.java)
                         startActivity(homeIntent)
                         finish()

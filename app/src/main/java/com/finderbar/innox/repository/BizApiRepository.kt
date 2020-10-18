@@ -473,9 +473,13 @@ data class User(
     @SerializedName("profile_image")
     val image: String? = "",
     @SerializedName("state_id")
-    val state: String? = "",
+    val stateId: String? = "",
+    @SerializedName("state_name")
+    val stateName: String? = "",
     @SerializedName("township_id")
-    val township: String? = "",
+    val townshipId: String? = "",
+    @SerializedName("township_name")
+    val townshipName: String? = "",
     @SerializedName("address")
     val address: String? = ""
 )
