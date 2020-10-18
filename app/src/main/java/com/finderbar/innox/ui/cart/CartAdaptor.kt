@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.ItemCartCallBack
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemCartBinding
 import com.finderbar.innox.repository.Cart
 import com.finderbar.jovian.utilities.android.loadAvatar
+import es.dmoral.toasty.Toasty
 
 class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, private val onItemCallBack: ItemCartCallBack): BaseAdapter() {
 
@@ -35,7 +37,12 @@ class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, p
         }
 
         binding.btnDecrement.setOnClickListener {
-           // onItemCallBack.onItemClick(datum, binding)
+            if(datum.quantity!! > 1) {
+                val quantity = datum.quantity?.minus(1)
+                onItemCallBack.onItemClick(datum.id!!, quantity!!)
+            } else {
+                Toasty.warning(context, "You cannot update this item!")
+            }
         }
 
         binding.checkbox.setOnCheckedChangeListener {_, isCheck ->

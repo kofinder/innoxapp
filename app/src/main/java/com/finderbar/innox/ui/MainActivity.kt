@@ -1,10 +1,12 @@
 package com.finderbar.innox.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,6 +16,11 @@ import androidx.navigation.ui.*
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityMainBinding
 import com.finderbar.innox.prefs
+import com.finderbar.innox.ui.account.LoginActivity
+import com.finderbar.innox.ui.account.RegisterActivity
+import com.finderbar.jovian.utilities.android.loadAvatar
+import com.google.android.material.button.MaterialButton
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,14 +46,44 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         visibilityNavElements(navController)
 
-        binding.mainBottomNavigationView.menu.getItem(3).isEnabled = !prefs.userId.isNullOrBlank()
+        val header = binding.mainNavigationView.getHeaderView(0);
+        val lblUser: ConstraintLayout = header.findViewById(R.id.lbl_user)
+        val lblGuest: ConstraintLayout = header.findViewById(R.id.lbl_guest)
+        val userProfileImage: CircleImageView = header.findViewById(R.id.avatar)
+        val userName: TextView = header.findViewById(R.id.txt_name)
+        val userPhone: TextView = header.findViewById(R.id.txt_phone)
+        val btnLogin: MaterialButton = header.findViewById(R.id.btn_login)
+        val btnRegister: MaterialButton = header.findViewById(R.id.btn_register)
+
+        if(prefs.userId.isNullOrBlank()) {
+            binding.mainBottomNavigationView.menu.getItem(3).isEnabled = false
+            lblUser.visibility = View.GONE
+            lblGuest.visibility = View.VISIBLE
+        } else {
+            binding.mainBottomNavigationView.menu.getItem(3).isEnabled = true
+            lblGuest.visibility = View.GONE
+            lblUser.visibility = View.VISIBLE
+            userName.text = prefs.userName
+            userPhone.text = prefs.userPhone
+            userProfileImage.loadAvatar(Uri.parse(prefs.userAvatar))
+        }
+
+        btnLogin.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnRegister.setOnClickListener{
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun visibilityNavElements(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.nav_credit -> hideBothNavigation()
-                R.id.nav_privacy_policy -> hideBottomNavigation()
+                R.id.nav_contact_us -> hideBothNavigation()
+                R.id.nav_faq -> hideBottomNavigation()
                 else -> showBothNavigation()
             }
         }
@@ -84,21 +121,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.instock_menu, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//
-//        val id = item.itemId
-//        if (id == R.id.item_search) {
-//            return true
-//        }
-//
-//        return super.onOptionsItemSelected(item)
-//    }
 
     override fun onBackPressed() {
         when {

@@ -1,6 +1,7 @@
 package com.finderbar.innox.ui.account
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.ui.notification.NotificationActivity
 import com.finderbar.innox.ui.order.OrderActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import com.finderbar.jovian.utilities.android.loadAvatar
 import es.dmoral.toasty.Toasty
 
 class UserProfileFragment: Fragment()  {
@@ -31,6 +33,9 @@ class UserProfileFragment: Fragment()  {
     ): View? {
         val context = AppContext;
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false)
+
+        binding.txtName.text = prefs.userName
+        binding.avatar.loadAvatar(Uri.parse(prefs.userAvatar))
 
         binding.lblAccount.setOnClickListener{
             val userProfile = Intent(context, UserProfileActivity::class.java)

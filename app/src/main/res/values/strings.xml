@@ -8,10 +8,8 @@
     <string name="title_account">Account</string>
 
     <!-- DRAWER NAVIGATION -->
-    <string name="nav_privacy">Privacy Policy</string>
-    <string name="nav_about_us">About Us</string>
-    <string name="nav_credit">Credit Libraries</string>
-    <string name="nav_settings">Settings</string>
+    <string name="nav_contact_us">Contact Us</string>
+    <string name="nav_faq">FAQ</string>
 
     <!--  OTHER TITLE-->
     <string name="title_custom">Create Customized Designs </string>

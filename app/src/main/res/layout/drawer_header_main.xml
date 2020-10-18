@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/colorPrimary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lbl_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingTop="30dp"
+        android:visibility="gone">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_account_circle_white_80"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guest Account"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/title_font_size"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/txt_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guest Account"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/body_font_size"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lbl_guest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingTop="30dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_baseline_account_circle_white_80"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/txt_guest_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guest Account"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/title_font_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            tools:ignore="MissingConstraints" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_login"
+            android:textColor="@color/colorPrimary"
+            app:backgroundTint="@color/colorWhite"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_guest_user"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            android:textAllCaps="false"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_register"
+            android:backgroundTint="@color/colorPrimaryDarkLight"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintTop_toBottomOf="@+id/txt_guest_user"
+            app:layout_constraintStart_toEndOf="@+id/btn_login"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

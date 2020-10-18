@@ -446,10 +446,16 @@ data class TownShip(
 
 @Keep
 data class Token(
-    @SerializedName("jwt_token")
-    val jwtToken: String? = "",
     @SerializedName("user_id")
-    val userId: String? = ""
+    val userId: String? = "",
+    @SerializedName("user_name")
+    val userName: String? = "",
+    @SerializedName("phoneNo")
+    val phoneNo: String? = "",
+    @SerializedName("profile_image")
+    val avatar: String? = "",
+    @SerializedName("jwt_token")
+    val jwtToken: String? = ""
 )
 
 @Keep
