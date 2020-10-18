@@ -30,6 +30,12 @@ class StateArrayAdaptor(mContext: Context, private val textViewResourceId: Int, 
         return dropdownItemView
     }
 
+    fun addAll(states: MutableList<State>) {
+        arrays.clear()
+        arrays.addAll(states)
+        this.notifyDataSetChanged()
+    }
+
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View = super.getDropDownView(position, convertView, parent)
         val txtName: TextView = view.findViewById(R.id.txt_name)

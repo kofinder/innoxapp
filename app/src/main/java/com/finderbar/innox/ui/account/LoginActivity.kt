@@ -41,7 +41,6 @@ class LoginActivity: AppCompatActivity() {
             .fadeColor(Color.DKGRAY).build();
 
 
-
         binding.btnLogin.setOnClickListener{
             val usrName: String = binding.usrName.text?.trim().toString()
             val password: String = binding.password.text?.trim().toString()
@@ -55,6 +54,9 @@ class LoginActivity: AppCompatActivity() {
                         Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
                         prefs.authToken = res.data?.jwtToken!!
                         prefs.userId = res.data?.userId!!
+                        prefs.userName = res.data?.userName!!
+                        prefs.userPhone = res.data?.phoneNo!!
+                        prefs.userName = res.data?.avatar!!
                         val homeIntent = Intent(this, MainActivity::class.java)
                         startActivity(homeIntent)
                         finish()

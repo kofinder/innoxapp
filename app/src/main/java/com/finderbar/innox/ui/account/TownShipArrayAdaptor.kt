@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
 import com.finderbar.innox.R
+import com.finderbar.innox.repository.State
 import com.finderbar.innox.repository.TownShip
 
 
@@ -29,6 +30,12 @@ class TownShipArrayAdaptor(mContext: Context, private val textViewResourceId: In
         txtName.text = datum.name
 
         return dropdownItemView
+    }
+
+    fun addAll(township: MutableList<TownShip>) {
+        arrays.clear()
+        arrays.addAll(township)
+        this.notifyDataSetChanged()
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {

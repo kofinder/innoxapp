@@ -66,33 +66,43 @@ class RegisterInfoFragment: Fragment() {
             .text("Please Wait")
             .fadeColor(android.graphics.Color.DKGRAY).build();
 
+
+        // STATE & DIVISION
+        val stateAdaptor = StateArrayAdaptor(context, R.layout.item_dropdown, arrayListOf())
+        stateAdaptor.setDropDownViewResource(R.layout.item_dropdown)
+        binding.dropdownState.clearFocus();
+        binding.dropdownState.setAdapter(stateAdaptor)
+
+        val townshipAdaptor = TownShipArrayAdaptor(context, R.layout.item_dropdown, arrayListOf())
+        townshipAdaptor.setDropDownViewResource(R.layout.item_dropdown)
+        binding.dropdownTownship.clearFocus();
+        binding.dropdownTownship.setAdapter(townshipAdaptor)
+
         bizApiVM.loadState().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.SUCCESS -> {
-                    val stateAdaptor = StateArrayAdaptor(context, R.layout.item_dropdown, res.data?.states!!)
-                    stateAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-                    binding.dropdownState.clearFocus();
-                    binding.dropdownState.setAdapter(stateAdaptor)
-                    binding.dropdownState.setOnItemClickListener { parent, _, position, _ ->
-                        stateId = (parent.getItemAtPosition(position) as State).id
-                    }
+                    stateAdaptor.addAll(res.data?.states!!)
                 }
             }
         })
 
-        bizApiVM.loadTownship(1).observe(viewLifecycleOwner, Observer { res ->
-            when (res.status) {
-                Status.SUCCESS -> {
-                    val townshipAdaptor = TownShipArrayAdaptor(context, R.layout.item_dropdown, res.data?.townships!!)
-                    townshipAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-                    binding.dropdownTownship.clearFocus();
-                    binding.dropdownTownship.setAdapter(townshipAdaptor)
-                    binding.dropdownTownship.setOnItemClickListener { parent, _, position, _ ->
-                        townShipId = (parent.getItemAtPosition(position) as TownShip).id
+        binding.dropdownState.setOnItemClickListener { parent, _, position, _ ->
+            stateId = (parent.getItemAtPosition(position) as State).id
+            binding.dropdownTownship.text.clear()
+            binding.dropdownTownship.setText("Choose TownShip")
+            bizApiVM.loadTownship(stateId!!).observe(viewLifecycleOwner, Observer { res ->
+                when (res.status) {
+                    Status.SUCCESS -> {
+                        townshipAdaptor.addAll(res.data?.townships!!)
                     }
                 }
-            }
-        })
+            })
+        }
+
+        binding.dropdownTownship.setOnItemClickListener { parent, _, position, _ ->
+            townShipId = (parent.getItemAtPosition(position) as TownShip).id
+        }
+
 
         binding.btnContinue.setOnClickListener{
             bizApiVM.loadTokenByRegister(Register(userName!!, email!!, phone!!, password!!, confirmPassword!!, stateId!!, townShipId!!, binding.edAddress.text.toString(), "",2)).observe(viewLifecycleOwner, Observer { res ->
@@ -105,6 +115,9 @@ class RegisterInfoFragment: Fragment() {
                         Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
                         prefs.authToken = res.data?.jwtToken!!
                         prefs.userId = res.data?.userId!!
+                        prefs.userName = res.data?.userName!!
+                        prefs.userAvatar = res.data?.avatar!!
+                        prefs.userPhone = res.data?.phoneNo!!
                         startActivity(Intent(context, MainActivity::class.java))
                     }
                     Status.ERROR -> {
