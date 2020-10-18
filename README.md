@@ -10,26 +10,34 @@
 TESTING REPORT
 ------------------------------------------------
 
-# Product detail
-- Reduce color and size choose select box size 
-- Disable add to cart button when user is not login
-- Add link at click sub-category name to product detail page
-- Disable "Cart" tag when user is not login
-
+*** Mobile ***
 # Account
-- Modifiy account name and image at "Acccount" tab
-- User login took too long when login with invalid email and password 
-- Data is disapper when enter into Email and Password input box
-- User register data input is not smooth 
-- There's no error message alert box when user register is not ok
-- User data disapper when go through user edit icon
+-> Display wrong user name at "Account" screen
+-> User profile state and township data can't display well
+-> Remove change password UI
+-> User edit can't work, please check again
 
-# Add to cart
-- Need to calculate estimate amount base on user input add to cart count
-- After add to cart success, page no need to switch to Home page
-- Need to updated add to cart count
-- Need to delete add to cart data
-- Check select box at add to cart page, product image switch when do check and un-check
+# Cart
+-> If user before login, need to display alert box
+-> Can you display add to cart button, even user before login
+-> If there's no cart list, no need to go Check out page
+-> Need to display error message when user click "add to cart" with no selected data
+-> App will be crack when click "add to cart" with no selected(quantity) data
 
-# Order
-- Need to display error message when order validation process occur
+# Product
+-> Support html view for product detail and hight light
+-> Product image slide need to resize to display full view for Image
+
+# Left Menu
+-> please remove unnecessary menu from side menu
+
+# Order 
+-> Can't display "cash on delivery" label 
+-> Can't display validation message 
+-> Error happen when click "done" buttom at order confirm success screen
+
+------------------------------------
+
+*** Admin ***
+-> Check add to cart validation flow (color, size...)
+-> To implement notification manage page
