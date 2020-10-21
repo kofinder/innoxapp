@@ -11,9 +11,6 @@ TESTING REPORT
 ------------------------------------------------
 
 *** Mobile ***
-# Account
--> User edit can't work, please check again
-
 # Cart
 -> Can you display add to cart button, even user before login
 -> If there's no cart list, no need to go Check out page
@@ -21,7 +18,6 @@ TESTING REPORT
 -> App will be crack when click "add to cart" with no selected(quantity) data
 
 # Product
--> Support html view for product detail and hight light
 -> Product image slide need to resize to display full view for Image
 
 # Order 

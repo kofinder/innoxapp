@@ -46,7 +46,7 @@ class PendingOrderFragment : Fragment(), ItemOrderClick {
                 }
                 Status.SUCCESS -> {
                     binding.pbLoading.visibility = View.GONE
-                    val adaptor = OrderHistoryAdaptor(requireContext(), res.data?.orderHistories!!, OrderHistoryType.ACTIVE, this)
+                    val adaptor = OrderHistoryAdaptor(requireContext(), res.data?.orderHistories!!, OrderHistoryType.PENDING, this)
                     val layoutManager = LinearLayoutManager(requireContext());
                     layoutManager.orientation = LinearLayoutManager.VERTICAL
                     binding.recyclerView.layoutManager = LinearLayoutManager(requireContext());
@@ -66,7 +66,7 @@ class PendingOrderFragment : Fragment(), ItemOrderClick {
     override fun onItemClick(_id: Int, orderDate: String) {
         val intent = Intent(AppContext, OrderDetail::class.java)
         intent.putExtra("orderId", _id)
-        intent.putExtra("orderType", OrderHistoryType.ACTIVE.name)
+        intent.putExtra("orderType", OrderHistoryType.PENDING.name)
         intent.putExtra("orderDate", orderDate)
         startActivity(intent)
     }

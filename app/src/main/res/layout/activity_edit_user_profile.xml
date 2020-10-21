@@ -45,7 +45,7 @@
                     app:endIconCheckable="true"
                     app:endIconMode="custom">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name"
+                        android:id="@+id/txt_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -61,7 +61,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/email"/>
+                        android:id="@+id/txt_email"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -73,7 +73,7 @@
                     app:endIconCheckable="true"
                     app:endIconMode="custom">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phone"
+                        android:id="@+id/txt_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -123,7 +123,7 @@
                     app:endIconCheckable="true"
                     app:endIconMode="custom">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed_address"
+                        android:id="@+id/txt_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -142,7 +142,8 @@
                         android:layout_marginRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/colorRed"
-                        android:text="@string/btn_cancel" />
+                        android:text="@string/btn_cancel"
+                        android:layout_gravity="center"/>
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_confirm"
                         style="@style/Widget.MaterialComponents.Button"
@@ -150,7 +151,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:textAllCaps="false"
-                        android:text="@string/btn_confirm" />
+                        android:text="@string/btn_confirm"
+                        android:layout_gravity="center"/>
                 </LinearLayout>
 
             </LinearLayout>

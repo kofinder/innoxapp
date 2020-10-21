@@ -12,7 +12,7 @@ class AuthInterceptor : Interceptor {
             .addHeader("Accept", "application/json")
             .addHeader("Content-Type", "application/json")
             .addHeader("Authorization", "Bearer ${prefs.authToken}")
-            .addHeader("customer_id", prefs.userId)
+            .addHeader("user_id", prefs.userId)
         val request = requestBuilder.build()
         return chain.proceed(request)
     }

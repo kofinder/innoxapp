@@ -291,6 +291,17 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
+    fun loadUpdateUserProfile(user: UpdateUser)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        try {
+            val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+            val response = api.updateUserProfile(user)
+            emit(Resource.success(response.body()?.data))
+        } catch (ex: Exception) {
+            emit(Resource.error(500, ex.message!!))
+        }
+    }
+
 
     fun loadOrderHistory(status: Int)  = liveData(Dispatchers.IO) {
         emit(Resource.loading())

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import okhttp3.internal.http.hasBody
 import retrofit2.Response
 import retrofit2.http.*
+import java.io.Serializable
 import java.lang.reflect.Array
 
 interface BizApiRepository {
@@ -17,6 +18,9 @@ interface BizApiRepository {
 
     @GET("user")
     suspend fun getUserProfile(@Query("user_id") userId: Int): Response<ServiceResponse<User>>
+
+    @PUT("user")
+    suspend fun updateUserProfile(@Body user: UpdateUser): Response<ServiceResponse<Any>>
 
     @GET("home")
     suspend fun getScreen(): Response<ServiceResponse<HomeScreen>>
@@ -107,6 +111,18 @@ data class Register(
     val phoneNo: String,
     val password: String,
     val confirm_password: String,
+    val state_id: Int,
+    val township_id: Int,
+    val detail_address: String,
+    val profile_image: String,
+    val user_role: Int = 2
+)
+
+@Keep
+data class UpdateUser(
+    val name: String,
+    val email: String,
+    val phoneNo: String,
     val state_id: Int,
     val township_id: Int,
     val detail_address: String,
@@ -473,11 +489,11 @@ data class User(
     @SerializedName("profile_image")
     val image: String? = "",
     @SerializedName("state_id")
-    val stateId: String? = "",
+    val stateId: Int? = 0,
     @SerializedName("state_name")
     val stateName: String? = "",
     @SerializedName("township_id")
-    val townshipId: String? = "",
+    val townshipId: Int? = 0,
     @SerializedName("township_name")
     val townshipName: String? = "",
     @SerializedName("address")

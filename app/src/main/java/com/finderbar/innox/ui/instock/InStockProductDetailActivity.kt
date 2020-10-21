@@ -3,13 +3,12 @@ package com.finderbar.innox.ui.instock
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.text.Html
 import android.view.View
-import android.view.View.MeasureSpec
-import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
@@ -22,7 +21,6 @@ import com.finderbar.innox.repository.Size
 import com.finderbar.innox.ui.instock.adaptor.ColorArrayAdaptor
 import com.finderbar.innox.ui.instock.adaptor.ImageSlidePagerAdapter
 import com.finderbar.innox.ui.instock.adaptor.SizeArrayAdaptor
-import com.finderbar.innox.ui.instock.adaptor.StableArrayAdapter
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import java.util.*
 
@@ -61,13 +59,21 @@ class InStockProductDetailActivity: AppCompatActivity() {
                     var product = res.data!!
                     binding.txtTitle.text = product.name
                     binding.txtPrice.text = product.priceText
-                    binding.txtDescription.text = product.description
-                    binding.vpLayout.adapter = ImageSlidePagerAdapter(applicationContext, product.images!!)
+                    binding.txtDescription.text = HtmlCompat.fromHtml(product.description!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+                    binding.vpLayout.adapter = ImageSlidePagerAdapter(
+                        applicationContext,
+                        product.images!!
+                    )
                     binding.btnIndicator.setViewPager(binding.vpLayout)
                     val density = resources.displayMetrics.density
                     binding.btnIndicator.radius = 5 * density
 
-                    val colorAdaptor = ColorArrayAdaptor(applicationContext, R.layout.item_dropdown, product.colors!!)
+                    val colorAdaptor = ColorArrayAdaptor(
+                        applicationContext,
+                        R.layout.item_dropdown,
+                        product.colors!!
+                    )
                     colorAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownColor.clearFocus();
                     binding.dropdownColor.setAdapter(colorAdaptor)
@@ -76,7 +82,11 @@ class InStockProductDetailActivity: AppCompatActivity() {
                         colorName = (parent.getItemAtPosition(position) as Color).name
                     }
 
-                    val sizeAdaptor = SizeArrayAdaptor(applicationContext, R.layout.item_dropdown, product.sizes!!)
+                    val sizeAdaptor = SizeArrayAdaptor(
+                        applicationContext,
+                        R.layout.item_dropdown,
+                        product.sizes!!
+                    )
                     sizeAdaptor.setDropDownViewResource(R.layout.item_dropdown)
                     binding.dropdownSize.clearFocus();
                     binding.dropdownSize.setAdapter(sizeAdaptor)
@@ -119,6 +129,7 @@ class InStockProductDetailActivity: AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 currentPage = position
             }
+
             override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {}
             override fun onPageScrollStateChanged(pos: Int) {}
         })
@@ -130,7 +141,16 @@ class InStockProductDetailActivity: AppCompatActivity() {
         }
 
         binding.btnCart.setOnClickListener {
-            val frag = AddToCartDialogFragment.newInstance(productId, colorId.let { 0 }, sizeId.let { 0 }, productName!!, colorName!!, sizeName!!, price!!, priceText!!)
+            val frag = AddToCartDialogFragment.newInstance(
+                productId,
+                colorId.let { 0 },
+                sizeId.let { 0 },
+                productName!!,
+                colorName!!,
+                sizeName!!,
+                price!!,
+                priceText!!
+            )
             frag.show(supportFragmentManager, AddToCartDialogFragment.TAG)
         }
 
