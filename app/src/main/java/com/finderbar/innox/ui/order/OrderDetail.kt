@@ -39,11 +39,11 @@ class OrderDetail: AppCompatActivity() {
             }
             PENDING.name -> {
                 binding.txtOrderInfo.text = resources.getString(R.string.order_pending_info)
-                binding.ivThumb.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.order_pending))
+                binding.ivThumb.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.order_pending_large))
             }
             PAST.name -> {
                 binding.txtOrderInfo.text = resources.getString(R.string.order_past_info, "02/02/2020")
-                binding.ivThumb.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.order_pass))
+                binding.ivThumb.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.order_past_large))
             }
         }
 

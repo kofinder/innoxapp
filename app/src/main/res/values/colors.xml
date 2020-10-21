@@ -12,4 +12,7 @@
     <color name="colorBlack">#0B0B0B</color>
     <color name="colorLightBlack">#A1A1A1</color>
     <color name="colorBlue">#039BE5</color>
+
+    <color name="pending_order_color">#D19F08</color>
+    <color name="past_order_color">#D54F5A</color>
 </resources>

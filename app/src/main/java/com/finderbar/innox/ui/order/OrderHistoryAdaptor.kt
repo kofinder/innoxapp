@@ -14,11 +14,6 @@ import com.finderbar.innox.utilities.OrderHistoryType
 class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHistory>, private val orderType: OrderHistoryType, private val itemOrderClick: ItemOrderClick) :
     RecyclerView.Adapter<OrderHistoryAdaptor.OrderHistoryViewHolder>() {
 
-//    companion object: DiffUtil.ItemCallback<OrderHistory>() {
-//        override fun areItemsTheSame(oldItem: OrderHistory, newItem: OrderHistory): Boolean = oldItem === newItem
-//        override fun areContentsTheSame(oldItem: OrderHistory, newItem: OrderHistory): Boolean = oldItem.id == newItem.id
-//    }
-
     class OrderHistoryViewHolder(val binding: ItemOrderHistoryBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderHistoryViewHolder {
@@ -32,12 +27,15 @@ class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHis
         when (orderType) {
             OrderHistoryType.ACTIVE -> {
                 holder.binding.civThumb.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.order_active_small))
+                holder.binding.cvItem.strokeColor = context.resources.getColor(R.color.colorPrimary)
             }
             OrderHistoryType.PENDING -> {
                 holder.binding.civThumb.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.order_pending_small))
+                holder.binding.cvItem.strokeColor = context.resources.getColor(R.color.pending_order_color)
             }
             else -> {
                 holder.binding.civThumb.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.order_past_small))
+                holder.binding.cvItem.strokeColor = context.resources.getColor(R.color.past_order_color)
             }
         }
 
