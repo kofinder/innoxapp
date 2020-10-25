@@ -1,9 +1,7 @@
 package com.finderbar.innox.ui.checkout
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.ListView
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -190,5 +188,18 @@ class ProductCheckoutActivity : AppCompatActivity() {
         val params = listView.layoutParams
         params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
         listView.layoutParams = params
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.cart_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_cart) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
