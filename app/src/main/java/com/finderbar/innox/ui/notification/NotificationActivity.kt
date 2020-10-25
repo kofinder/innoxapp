@@ -19,4 +19,9 @@ class NotificationActivity: AppCompatActivity() {
         supportActionBar?.title = "Notification"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

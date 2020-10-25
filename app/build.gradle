@@ -124,7 +124,6 @@ dependencies {
     // VALIDATION
     implementation "com.wajahatkarim3.easyvalidation:easyvalidation-core:1.0.1"
 
-
     // DEX
     implementation 'com.android.support:multidex:1.0.3'
 

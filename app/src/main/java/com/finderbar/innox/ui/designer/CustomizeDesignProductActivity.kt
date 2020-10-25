@@ -2,6 +2,8 @@ package com.finderbar.innox.ui.designer
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +60,19 @@ class CustomizeDesignProductActivity: AppCompatActivity(), ItemProductClick {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.cart_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_cart) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onItemClick(_id: Int, position: Int) {

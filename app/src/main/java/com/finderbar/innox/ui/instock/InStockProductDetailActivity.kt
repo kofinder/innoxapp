@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -75,7 +77,7 @@ class InStockProductDetailActivity: AppCompatActivity() {
                         product.colors!!
                     )
                     colorAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-                    binding.dropdownColor.clearFocus();
+                    binding.dropdownColor.clearFocus()
                     binding.dropdownColor.setAdapter(colorAdaptor)
                     binding.dropdownColor.setOnItemClickListener { parent, view, position, id ->
                         colorId = (parent.getItemAtPosition(position) as Color).id
@@ -88,7 +90,7 @@ class InStockProductDetailActivity: AppCompatActivity() {
                         product.sizes!!
                     )
                     sizeAdaptor.setDropDownViewResource(R.layout.item_dropdown)
-                    binding.dropdownSize.clearFocus();
+                    binding.dropdownSize.clearFocus()
                     binding.dropdownSize.setAdapter(sizeAdaptor)
                     binding.dropdownSize.setOnItemClickListener { parent, _, position, _ ->
                         sizeId = (parent.getItemAtPosition(position) as Size).id
@@ -104,11 +106,6 @@ class InStockProductDetailActivity: AppCompatActivity() {
                 }
             }
         })
-
-
-//        val hAdaptor = StableArrayAdapter(applicationContext, mutableListOf("test"))
-//        binding.lvItem.adapter = hAdaptor
-//        setListViewHeight(binding.lvItem)
 
         val handler = Handler()
         val update = Runnable {
@@ -156,29 +153,22 @@ class InStockProductDetailActivity: AppCompatActivity() {
 
     }
 
-
-//    private fun setListViewHeight(listView: ListView) {
-//        val listAdapter = listView.adapter ?: return
-//        val desiredWidth =
-//            MeasureSpec.makeMeasureSpec(listView.width, MeasureSpec.UNSPECIFIED)
-//        var totalHeight = 0
-//        var view: View? = null
-//        for (i in 0 until listAdapter.count) {
-//            view = listAdapter.getView(i, view, listView)
-//            if (i == 0) view.layoutParams =
-//                ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            view.measure(desiredWidth, MeasureSpec.UNSPECIFIED)
-//            totalHeight += view.measuredHeight
-//        }
-//        val params = listView.layoutParams
-//        params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
-//        listView.layoutParams = params
-//    }
-
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.cart_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_cart) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

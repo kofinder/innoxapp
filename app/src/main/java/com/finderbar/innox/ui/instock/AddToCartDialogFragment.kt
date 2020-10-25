@@ -107,24 +107,29 @@ class AddToCartDialogFragment : DialogFragment() {
         })
 
         binding.btnCart.setOnClickListener{
-            quantity = binding.edCount.text.toString().toInt()
-            bizApiVM.loadAddToCart(ShoppingCart(productId!!, 1, 1, quantity)).observe(viewLifecycleOwner, Observer { res ->
-                when (res.status) {
-                    Status.LOADING -> {
-                        acProgress.show()
+            val cartText = binding.edCount.text.toString()
+            if(cartText.isNullOrBlank()) {
+                print(quantity)
+                Toasty.error(context, "Please, Input Number of Items!", Toast.LENGTH_SHORT, true).show();
+            } else {
+                quantity = binding.edCount.text.toString().toInt()
+                bizApiVM.loadAddToCart(ShoppingCart(productId!!, 1, 1, quantity)).observe(viewLifecycleOwner, Observer { res ->
+                    when (res.status) {
+                        Status.LOADING -> {
+                            acProgress.show()
+                        }
+                        Status.SUCCESS -> {
+                            acProgress.dismiss()
+                            Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
+                            dialog?.dismiss()
+                        }
+                        Status.ERROR -> {
+                            acProgress.dismiss()
+                            Toasty.error(context, res.msg.toString(), Toast.LENGTH_SHORT, true).show();
+                        }
                     }
-                    Status.SUCCESS -> {
-                        acProgress.dismiss()
-                        Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
-                        val intent = Intent(AppContext, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                    Status.ERROR -> {
-                        acProgress.dismiss()
-                        Toasty.error(context, res.msg.toString(), Toast.LENGTH_SHORT, true).show();
-                    }
-                }
-            })
+                })
+            }
         }
 
         binding.btnCancel.setOnClickListener{ dialog?.dismiss() }
