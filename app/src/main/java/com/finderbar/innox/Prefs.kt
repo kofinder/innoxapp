@@ -12,6 +12,7 @@ class Prefs(context: Context) {
         private const val USER_PHONE = "phone"
         private const val USER_AVATAR = "avatar"
         private const val USER_TOKEN = "authToken"
+        private const val SHOPPING_COUNT="cartCount"
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
@@ -36,6 +37,10 @@ class Prefs(context: Context) {
     var userAvatar: String
         get() = prefs.getString(USER_AVATAR, "").toString()
         set(value) = prefs.edit().putString(USER_AVATAR, value).apply()
+
+    var shoppingCount: Int
+        get() = prefs.getInt(SHOPPING_COUNT, 0)
+        set(value) = prefs.edit().putInt(SHOPPING_COUNT, value).apply()
 
     fun logout() {
         editor.clear()

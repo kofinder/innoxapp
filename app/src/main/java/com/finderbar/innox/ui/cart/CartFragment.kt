@@ -17,6 +17,7 @@ import com.finderbar.innox.ItemCartCallBack
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentCartBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.CartIds
 import com.finderbar.innox.ui.checkout.ProductCheckoutActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
@@ -73,6 +74,7 @@ class CartFragment : Fragment(), ItemCartCallBack {
                             adaptor.modifyArray(res.data?.carts!!)
                             binding.txtTotal.text = res.data?.totalAmountText
                         }
+                        prefs.shoppingCount -= arr.size
                     }
                     Status.ERROR -> {
                         acProgress.hide()

@@ -7,12 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.databinding.ItemCartBinding
-import com.finderbar.innox.repository.Cart
 import com.finderbar.innox.repository.Font
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot : Boolean = false) : View {
@@ -22,15 +17,6 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot : Boolean = false)
 fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int) -> Unit): T {
     itemView.setOnClickListener {event.invoke(adapterPosition) }
     return this
-}
-
-fun <T> Call<T>.enqueue(success: (response: Response<T>) -> Unit,
-                        failure: (t: Throwable) -> Unit) {
-    enqueue(object : Callback<T> {
-        override fun onResponse(call: Call<T>?, response: Response<T>) = success(response)
-
-        override fun onFailure(call: Call<T>?, t: Throwable) = failure(t)
-    })
 }
 
 interface ItemInStockClick {

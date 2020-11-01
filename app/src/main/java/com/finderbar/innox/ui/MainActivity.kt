@@ -78,6 +78,8 @@ class MainActivity : AppCompatActivity() {
             userProfileImage.loadAvatar(Uri.parse(prefs.userAvatar))
         }
 
+        binding.mainBottomNavigationView.menu.getItem(3).isChecked = true
+
         btnLogin.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

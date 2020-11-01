@@ -1,9 +1,11 @@
 package com.finderbar.innox.ui.checkout
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ListView
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,10 +16,12 @@ import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityProductCheckoutBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.CartIds
 import com.finderbar.innox.repository.ConfirmOrder
 import com.finderbar.innox.repository.State
 import com.finderbar.innox.repository.TownShip
+import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.ui.account.StateArrayAdaptor
 import com.finderbar.innox.ui.account.TownShipArrayAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
@@ -143,6 +147,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
                         res.data?.let {
                             acProgress.hide()
+                            prefs.shoppingCount -= cartIds.size
                             Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
                             val frag = ConfirmOrderFragment.newInstance(
                                 ArrayList(it.orderItem!!),
@@ -192,14 +197,29 @@ class ProductCheckoutActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cart_menu, menu)
+        val item = menu.findItem(R.id.action_cart)
+        var cartText: TextView = item.actionView.findViewById(R.id.cart_badge)
+        cartText.text = prefs.shoppingCount.toString()
+        item.actionView.setOnClickListener{
+            onOptionsItemSelected(item)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_cart) {
+            if (!prefs.userId.isNullOrBlank()) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("tab", 3)
+                startActivity(intent)
+            } else {
+                Toasty.warning(this, "You are not Login!").show()
+            }
+
             return true
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

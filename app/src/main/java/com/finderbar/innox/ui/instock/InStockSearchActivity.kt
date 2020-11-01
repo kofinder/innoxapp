@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,9 +18,12 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityInstockSearchBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.prefs
+import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.ui.instock.adaptor.SearchProductAdaptor
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import es.dmoral.toasty.Toasty
 
 class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
@@ -103,16 +107,31 @@ class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cart_menu, menu)
+        val item = menu.findItem(R.id.action_cart)
+        var cartText: TextView = item.actionView.findViewById(R.id.cart_badge)
+        cartText.text = prefs.shoppingCount.toString()
+        item.actionView.setOnClickListener{
+            onOptionsItemSelected(item)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_cart) {
+            if (!prefs.userId.isNullOrBlank()) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("tab", 3)
+                startActivity(intent)
+            } else {
+                Toasty.warning(this, "You are not Login!").show()
+            }
+
             return true
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

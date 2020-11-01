@@ -1,13 +1,14 @@
 package com.finderbar.innox.ui.instock
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -20,10 +21,12 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.Color
 import com.finderbar.innox.repository.Size
+import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.ui.instock.adaptor.ColorArrayAdaptor
 import com.finderbar.innox.ui.instock.adaptor.ImageSlidePagerAdapter
 import com.finderbar.innox.ui.instock.adaptor.SizeArrayAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
+import es.dmoral.toasty.Toasty
 import java.util.*
 
 
@@ -40,6 +43,7 @@ class InStockProductDetailActivity: AppCompatActivity() {
     private var sizeName: String? = ""
     private var priceText: String? = ""
     private var price: Int? = 0
+    private lateinit var cartText : TextView
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +65,10 @@ class InStockProductDetailActivity: AppCompatActivity() {
                     var product = res.data!!
                     binding.txtTitle.text = product.name
                     binding.txtPrice.text = product.priceText
-                    binding.txtDescription.text = HtmlCompat.fromHtml(product.description!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                    binding.txtDescription.text = HtmlCompat.fromHtml(
+                        product.description!!,
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
 
                     binding.vpLayout.adapter = ImageSlidePagerAdapter(
                         applicationContext,
@@ -160,15 +167,33 @@ class InStockProductDetailActivity: AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cart_menu, menu)
+        val item = menu.findItem(R.id.action_cart)
+        cartText = item.actionView.findViewById(R.id.cart_badge)
+        cartText.text = prefs.shoppingCount.toString()
+        item.actionView.setOnClickListener{
+            onOptionsItemSelected(item)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_cart) {
+            if (!prefs.userId.isNullOrBlank()) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("tab", 3)
+                startActivity(intent)
+            } else {
+                Toasty.warning(this, "You are not Login!").show()
+            }
+
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun setShoppingCartToCount(count: Int) {
+        cartText.text = count.toString()
     }
 
 }

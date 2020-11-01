@@ -13,7 +13,7 @@ class NotificationReceiver: BroadcastReceiver() {
         Log.e("FirebaseDataReceiver", "Key: $ Value: $")
 
         if (isMyServiceRunning(context!!, NotificationReceiver::class.java)) {
-            println("alredy running no need to start again")
+            println("already running no need to start again")
         } else {
             val background = Intent(context, NotificationReceiver::class.java)
             context.startService(background)

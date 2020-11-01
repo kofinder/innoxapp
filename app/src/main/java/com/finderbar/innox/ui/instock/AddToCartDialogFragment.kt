@@ -1,5 +1,4 @@
 package com.finderbar.innox.ui.instock
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,16 +19,15 @@ import com.finderbar.innox.AppConstant.ITEM_PRICE_TEXT
 import com.finderbar.innox.AppConstant.ITEM_PRODUCT_ID
 import com.finderbar.innox.AppConstant.ITEM_SIZE
 import com.finderbar.innox.AppConstant.ITEM_SIZE_ID
-import com.finderbar.innox.AppContext
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentDialogAddToCartBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.prefs
-import com.finderbar.innox.repository.Register
 import com.finderbar.innox.repository.ShoppingCart
 import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
+
 
 class AddToCartDialogFragment : DialogFragment() {
     private val bizApiVM: BizApiViewModel by viewModels()
@@ -72,10 +70,19 @@ class AddToCartDialogFragment : DialogFragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        parent: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE);
         val context = activity as AppCompatActivity
-        val binding: FragmentDialogAddToCartBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_add_to_cart, parent , false)
+        val binding: FragmentDialogAddToCartBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_dialog_add_to_cart,
+            parent,
+            false
+        )
         acProgress = ACProgressFlower.Builder(context)
             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
             .themeColor(android.graphics.Color.WHITE)
@@ -90,17 +97,20 @@ class AddToCartDialogFragment : DialogFragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 s!!
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var count : Int = 1;
-                if(s.isNullOrBlank()) {
-                    count = 1
+                var count: Int = 1;
+                count = if (s.isNullOrBlank()) {
+                    1
                 } else {
-                    count = s.toString().toInt();
+                    s.toString().toInt();
                 }
 
                 val totalCount = count * price!!
                 binding.txtTotal.text = "$totalCount Ks"
+                binding.txtSubTotal.text = "$totalCount Ks"
             }
+
             override fun afterTextChanged(s: Editable?) {
                 s!!
             }
@@ -113,22 +123,29 @@ class AddToCartDialogFragment : DialogFragment() {
                 Toasty.error(context, "Please, Input Number of Items!", Toast.LENGTH_SHORT, true).show();
             } else {
                 quantity = binding.edCount.text.toString().toInt()
-                bizApiVM.loadAddToCart(ShoppingCart(productId!!, 1, 1, quantity)).observe(viewLifecycleOwner, Observer { res ->
-                    when (res.status) {
-                        Status.LOADING -> {
-                            acProgress.show()
+                bizApiVM.loadAddToCart(ShoppingCart(productId!!, 1, 1, quantity)).observe(
+                    viewLifecycleOwner,
+                    Observer { res ->
+                        when (res.status) {
+                            Status.LOADING -> {
+                                acProgress.show()
+                            }
+                            Status.SUCCESS -> {
+                                acProgress.dismiss()
+                                Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true)
+                                    .show();
+                                dialog?.dismiss()
+                                prefs.shoppingCount += 1
+                                (activity as InStockProductDetailActivity?)?.setShoppingCartToCount(
+                                    prefs.shoppingCount)
+                            }
+                            Status.ERROR -> {
+                                acProgress.dismiss()
+                                Toasty.error(context, res.msg.toString(), Toast.LENGTH_SHORT, true)
+                                    .show();
+                            }
                         }
-                        Status.SUCCESS -> {
-                            acProgress.dismiss()
-                            Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true).show();
-                            dialog?.dismiss()
-                        }
-                        Status.ERROR -> {
-                            acProgress.dismiss()
-                            Toasty.error(context, res.msg.toString(), Toast.LENGTH_SHORT, true).show();
-                        }
-                    }
-                })
+                    })
             }
         }
 
@@ -140,7 +157,16 @@ class AddToCartDialogFragment : DialogFragment() {
 
     companion object {
         const val TAG = "AddToCartDialogFragment"
-        fun newInstance(productId: Int, colorId: Int, sizeId: Int, productName: String, colorName: String, sizeName: String, price: Int, priceText: String): AddToCartDialogFragment {
+        fun newInstance(
+            productId: Int,
+            colorId: Int,
+            sizeId: Int,
+            productName: String,
+            colorName: String,
+            sizeName: String,
+            price: Int,
+            priceText: String
+        ): AddToCartDialogFragment {
             val fragment = AddToCartDialogFragment()
             val args = Bundle()
             args.putInt(ITEM_PRODUCT_ID, productId)
