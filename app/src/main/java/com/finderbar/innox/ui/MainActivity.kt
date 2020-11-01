@@ -1,13 +1,10 @@
 package com.finderbar.innox.ui
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
@@ -31,10 +28,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+    private var tabItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        tabItem = intent.getIntExtra("tab", 0)
 
         navController = findNavController(R.id.main_nav_host)
         appBarConfiguration = AppBarConfiguration.Builder(setOf(
@@ -59,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         val btnLogin: MaterialButton = header.findViewById(R.id.btn_login)
         val btnRegister: MaterialButton = header.findViewById(R.id.btn_register)
 
+        if(tabItem == 3) {
+            val view: View = binding.mainBottomNavigationView.findViewById(R.id.navigation_cart)
+            view.performClick()
+        }
+
         if(prefs.userId.isNullOrBlank()) {
             lblUser.visibility = View.GONE
             lblGuest.visibility = View.VISIBLE
@@ -78,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             userProfileImage.loadAvatar(Uri.parse(prefs.userAvatar))
         }
 
-        binding.mainBottomNavigationView.menu.getItem(3).isChecked = true
+
 
         btnLogin.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)

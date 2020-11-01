@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     app:labelVisibilityMode="labeled"
                     android:background="?android:attr/windowBackground"
+                    app:itemBackground="@drawable/item_bg"
                     app:menu="@menu/bottom_menu"/>
             </LinearLayout>
             <com.google.android.material.navigation.NavigationView
