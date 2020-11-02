@@ -13,6 +13,7 @@ class Prefs(context: Context) {
         private const val USER_AVATAR = "avatar"
         private const val USER_TOKEN = "authToken"
         private const val SHOPPING_COUNT="cartCount"
+        private const val SHOPPING_KEYS="cartIds"
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
@@ -41,6 +42,10 @@ class Prefs(context: Context) {
     var shoppingCount: Int
         get() = prefs.getInt(SHOPPING_COUNT, 0)
         set(value) = prefs.edit().putInt(SHOPPING_COUNT, value).apply()
+
+    var cartIds: MutableSet<String>?
+        get() = prefs.getStringSet(SHOPPING_KEYS, mutableSetOf())
+        set(value) = prefs.edit().putStringSet(SHOPPING_KEYS, value).apply()
 
     fun logout() {
         editor.clear()

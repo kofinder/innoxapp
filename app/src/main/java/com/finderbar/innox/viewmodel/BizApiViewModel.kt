@@ -217,7 +217,12 @@ class BizApiViewModel : ViewModel() {
         try {
             val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
             val response = api.saveShoppingCart(cart)
-            emit(Resource.success(response.body()?.data))
+            if(response.code() == 400) {
+                emit(Resource.error(response.code(), "Product is out of stock!"))
+            }
+            if(response.isSuccessful) {
+                emit(Resource.success(response.body()?.data))
+            }
         } catch (ex: Exception) {
             emit(Resource.error(500, ex.message!!))
         }

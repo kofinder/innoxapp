@@ -40,6 +40,7 @@ class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.Ta
     private lateinit var binding: ActivityInstockProductBinding
     private lateinit var productAdaptor: InStockProductAdaptor
     private val bizApiVM: BizApiViewModel by viewModels()
+    private var cartText : TextView? = null
     private var categoryId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,6 +131,11 @@ class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.Ta
         return true
     }
 
+    override fun onResume() {
+        cartText?.text = prefs.shoppingCount.toString()
+        super.onResume()
+    }
+
     override fun onItemClick(_id: Int, position: Int) {
         val intent = Intent(this, InStockProductDetailActivity::class.java)
         intent.putExtra("_id", _id)
@@ -160,8 +166,8 @@ class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.Ta
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cart_menu, menu)
         val item = menu.findItem(R.id.action_cart)
-        var cartText: TextView = item.actionView.findViewById(R.id.cart_badge)
-        cartText.text = prefs.shoppingCount.toString()
+        cartText = item.actionView.findViewById(R.id.cart_badge)
+        cartText?.text = prefs.shoppingCount.toString()
         item.actionView.setOnClickListener{
             onOptionsItemSelected(item)
         }

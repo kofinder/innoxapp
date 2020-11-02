@@ -22,7 +22,7 @@ import com.finderbar.innox.repository.CartIds
 import com.finderbar.innox.ui.checkout.ProductCheckoutActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
-import java.util.ArrayList
+import java.util.*
 
 class CartFragment : Fragment(), ItemCartCallBack {
 
@@ -57,37 +57,50 @@ class CartFragment : Fragment(), ItemCartCallBack {
 
         binding.btnDelete.setOnClickListener{
             var arr = adaptor.getCheckItem();
-            bizApiVM.loadDeleteShoppingCart(CartIds(arr)).observe(viewLifecycleOwner, Observer { res ->
-                when(res.status) {
-                    Status.LOADING -> {
-                        acProgress.show()
-                    }
-                    Status.SUCCESS -> {
-                        acProgress.hide()
-                        if (res.data?.totalAmount!! < 1) {
-                            binding.lblError.visibility = View.VISIBLE
-                            binding.lblCard.visibility = View.GONE
-                            binding.progress.visibility = View.GONE
-                            binding.lblHeader.visibility = View.GONE
-                            binding.lblCheckout.visibility = View.GONE
-                        } else {
-                            adaptor.modifyArray(res.data?.carts!!)
-                            binding.txtTotal.text = res.data?.totalAmountText
+            bizApiVM.loadDeleteShoppingCart(CartIds(arr)).observe(
+                viewLifecycleOwner,
+                Observer { res ->
+                    when (res.status) {
+                        Status.LOADING -> {
+                            acProgress.show()
                         }
-                        prefs.shoppingCount -= arr.size
+                        Status.SUCCESS -> {
+                            acProgress.hide()
+                            if (res.data?.totalAmount!! < 1) {
+                                binding.lblError.visibility = View.VISIBLE
+                                binding.lblCard.visibility = View.GONE
+                                binding.progress.visibility = View.GONE
+                                binding.lblHeader.visibility = View.GONE
+                                binding.lblCheckout.visibility = View.GONE
+                            } else {
+                                adaptor.modifyArray(res.data?.carts!!)
+                                binding.txtTotal.text = res.data?.totalAmountText
+                            }
+
+                            val arrays = prefs.cartIds!!
+                            arrays.removeAll(arrays)
+                            res.data.carts?.forEach { x ->
+                                arrays.add(x.productId.toString())
+                            }
+                            prefs.cartIds = arrays
+                            prefs.shoppingCount = arrays.size
+
+                            binding.cbSelectAll.isChecked = false
+                        }
+                        Status.ERROR -> {
+                            acProgress.hide()
+                            Toasty.error(requireContext(), res.msg.toString()).show()
+                        }
                     }
-                    Status.ERROR -> {
-                        acProgress.hide()
-                        Toasty.error(requireContext(), res.msg.toString()).show()
-                    }
-                }
-            })
+                })
         }
 
         binding.btnCheckout.setOnClickListener{
             var cartIds = adaptor.getCheckItem();
+            var productIds = adaptor.getProductIds();
             val chIntent = Intent(AppContext, ProductCheckoutActivity::class.java)
             chIntent.putIntegerArrayListExtra("cartIds", ArrayList(cartIds))
+            chIntent.putIntegerArrayListExtra("productIds", ArrayList(productIds))
             startActivity(chIntent)
         }
 
@@ -102,17 +115,17 @@ class CartFragment : Fragment(), ItemCartCallBack {
 
     private fun loadItem() {
         bizApiVM.loadShoppingCart().observe(viewLifecycleOwner, Observer { res ->
-            when(res.status) {
+            when (res.status) {
                 Status.LOADING -> {
                     binding.lblError.visibility = View.GONE
-                    binding.lblCard.visibility = View.VISIBLE
+                    binding.lblCard.visibility = View.GONE
                     binding.progress.visibility = View.VISIBLE
                     binding.lblHeader.visibility = View.GONE
                     binding.lblCheckout.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     res.data?.let {
-                        if(it.carts.isNullOrEmpty()) {
+                        if (it.carts.isNullOrEmpty()) {
                             binding.lblError.visibility = View.VISIBLE
                             binding.lblCard.visibility = View.GONE
                             binding.progress.visibility = View.GONE
@@ -149,7 +162,7 @@ class CartFragment : Fragment(), ItemCartCallBack {
 
     override fun onItemClick(carId: Int, quantity: Int) {
         bizApiVM.loadEditShoppingCart(carId, quantity).observe(viewLifecycleOwner, Observer { res ->
-            when(res.status) {
+            when (res.status) {
                 Status.LOADING -> {
                     acProgress.show()
                 }
@@ -167,3 +180,4 @@ class CartFragment : Fragment(), ItemCartCallBack {
     }
 
 }
+

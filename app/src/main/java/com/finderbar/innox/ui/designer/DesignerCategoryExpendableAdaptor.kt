@@ -14,9 +14,11 @@ import com.finderbar.innox.repository.Category
 import com.finderbar.innox.utilities.ExpandableLayout
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.jovian.utilities.android.loadAvatar
-import de.hdodenhof.circleimageview.CircleImageView
 
 class DesignerCategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<Category>, var onItemClick: ItemProductClick) : RecyclerView.Adapter<DesignerCategoryExpendableAdaptor.CategoryExpendableViewHolder>() {
+
+    inner class CategoryExpendableViewHolder(val binding: ItemExpendableCategoryBinding) : RecyclerView.ViewHolder(binding.root)
+
     private val expandedPositionSet: HashSet<Int> = HashSet()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryExpendableViewHolder {
@@ -29,18 +31,18 @@ class DesignerCategoryExpendableAdaptor(private val context: Context, private va
 
     override fun onBindViewHolder(holder: CategoryExpendableViewHolder, position: Int)  {
         val datum : Category = arrayList[position]
-        holder.txtTitle.text = datum.name
-        holder.thumb.loadAvatar(Uri.parse(datum.photoUrl))
+        holder.binding.txtTitle.text = datum.name
+        holder.binding.thumb.loadAvatar(Uri.parse(datum.photoUrl))
 
-        holder.recyclerView.adapter = DesignerSubCategoryAdaptor(datum.subCategory!!, onItemClick)
-        holder.recyclerView.addItemDecoration(SpaceItemDecoration(10));
-        holder.recyclerView.layoutManager = GridLayoutManager(context, 2);
-        holder.recyclerView.setHasFixedSize(true)
-        holder.recyclerView.isNestedScrollingEnabled = false
-        holder.recyclerView.itemAnimator = DefaultItemAnimator()
-        holder.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
+        holder.binding.recyclerView.adapter = DesignerSubCategoryAdaptor(datum.subCategory!!, onItemClick)
+        holder.binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
+        holder.binding.recyclerView.layoutManager = GridLayoutManager(context, 2);
+        holder.binding.recyclerView.setHasFixedSize(true)
+        holder.binding.recyclerView.isNestedScrollingEnabled = false
+        holder.binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        holder.binding.recyclerView.setRecycledViewPool(RecyclerView.RecycledViewPool());
 
-        holder.expendLayout.setOnExpandListener(object :
+        holder.binding.expandLayout.setOnExpandListener(object :
             ExpandableLayout.OnExpandListener {
             override fun onExpand(expanded: Boolean) {
                 if (expandedPositionSet.contains(position)) {
@@ -50,7 +52,7 @@ class DesignerCategoryExpendableAdaptor(private val context: Context, private va
                 }
             }
         })
-        holder.expendLayout.setExpand(expandedPositionSet.contains(position))
+        holder.binding.expandLayout.setExpand(expandedPositionSet.contains(position))
     }
 
     private fun add(r: Category) {
@@ -62,13 +64,6 @@ class DesignerCategoryExpendableAdaptor(private val context: Context, private va
         for (result in resultList) {
             add(result)
         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-    }
-
-    inner class CategoryExpendableViewHolder(val binding: ItemExpendableCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
-        val txtTitle: TextView = binding.txtTitle
-        val thumb: CircleImageView = binding.thumb
-        val expendLayout: ExpandableLayout = binding.expandLayout
-        val recyclerView: RecyclerView = binding.recyclerView
     }
 
 }

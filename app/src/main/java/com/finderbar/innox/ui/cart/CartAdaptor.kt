@@ -94,4 +94,14 @@ class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, p
         return checkArrays
     }
 
+    fun getProductIds(): MutableList<Int> {
+        val checkArrays: MutableList<Int> = mutableListOf()
+        for (arr in arrays) {
+            if(arr.isCheck) {
+                checkArrays.add(arr.productId!!)
+            }
+        }
+        return checkArrays
+    }
+
 }

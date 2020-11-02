@@ -81,8 +81,8 @@ fun ImageView.loadAvatar(uri: Uri) {
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .skipMemoryCache(true)
         .priority(Priority.IMMEDIATE)
-        .placeholder(R.drawable.user)
-        .error(R.drawable.user)
+        .placeholder(R.drawable.spinner)
+        .error(R.drawable.spinner)
         .into(this)
 }
 
@@ -94,7 +94,7 @@ fun ImageView.drawableImage(uri: Uri) {
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .skipMemoryCache(true)
         .priority(Priority.IMMEDIATE)
-        .placeholder(R.drawable.user)
-        .error(R.drawable.user)
+        .placeholder(R.drawable.spinner)
+        .error(R.drawable.spinner)
         .into(this)
 }

@@ -131,13 +131,21 @@ class AddToCartDialogFragment : DialogFragment() {
                                 acProgress.show()
                             }
                             Status.SUCCESS -> {
+
+
                                 acProgress.dismiss()
                                 Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true)
                                     .show();
                                 dialog?.dismiss()
-                                prefs.shoppingCount += 1
+                                val pId = productId.toString()
+                                val arrays: MutableSet<String>? = prefs.cartIds?.toMutableSet()
+                                arrays?.add(pId)
+                                prefs.shoppingCount = arrays?.size?: 0
+                                prefs.cartIds = arrays
+
                                 (activity as InStockProductDetailActivity?)?.setShoppingCartToCount(
-                                    prefs.shoppingCount)
+                                    prefs.shoppingCount
+                                )
                             }
                             Status.ERROR -> {
                                 acProgress.dismiss()

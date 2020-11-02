@@ -514,6 +514,8 @@ data class ShoppingCarts(
 data class Cart(
     @SerializedName("cart_id")
     val id: Int? = 0,
+    @SerializedName("product_id")
+    val productId: Int? = 0,
     @SerializedName("product_name")
     val name: String? = "",
     @SerializedName("product_price")

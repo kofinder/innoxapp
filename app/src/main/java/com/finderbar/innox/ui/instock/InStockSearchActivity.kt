@@ -29,6 +29,7 @@ class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
     private lateinit var binding: ActivityInstockSearchBinding
     private val bizApiVM: BizApiViewModel by viewModels()
+    private var cartText : TextView? = null
 
     private var keyWord: String = ""
     private var categoryId = 0
@@ -108,8 +109,8 @@ class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cart_menu, menu)
         val item = menu.findItem(R.id.action_cart)
-        var cartText: TextView = item.actionView.findViewById(R.id.cart_badge)
-        cartText.text = prefs.shoppingCount.toString()
+        cartText = item.actionView.findViewById(R.id.cart_badge)
+        cartText?.text = prefs.shoppingCount.toString()
         item.actionView.setOnClickListener{
             onOptionsItemSelected(item)
         }
@@ -131,6 +132,12 @@ class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onResume() {
+        cartText?.text = prefs.shoppingCount.toString()
+        super.onResume()
+    }
+
 
 
     override fun onSupportNavigateUp(): Boolean {

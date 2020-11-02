@@ -34,6 +34,7 @@ class ProductCheckoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductCheckoutBinding
     private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var acProgress: ACProgressFlower
+    private var cartText : TextView? = null
 
     private var stateId: Int? = 0
     private var townShipId: Int? = 0
@@ -46,7 +47,10 @@ class ProductCheckoutActivity : AppCompatActivity() {
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Checkout"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val cartIds= intent?.getIntegerArrayListExtra("cartIds")
+        val productIds= intent?.getIntegerArrayListExtra("productIds")
+
         acProgress = ACProgressFlower.Builder(this)
             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
             .themeColor(android.graphics.Color.WHITE)
@@ -116,7 +120,12 @@ class ProductCheckoutActivity : AppCompatActivity() {
                             )
                             binding.rdoGroup.addView(radioButton, params)
                         }
-
+                        val arrays = prefs.cartIds
+                        productIds?.forEach { id ->
+                            arrays?.remove(id.toString())
+                        }
+                        prefs.cartIds = arrays
+                        prefs.shoppingCount = prefs.cartIds!!.size
                     } ?: kotlin.run {
                     }
                 }
@@ -146,8 +155,13 @@ class ProductCheckoutActivity : AppCompatActivity() {
                     }
                     Status.SUCCESS -> {
                         res.data?.let {
+
                             acProgress.hide()
                             prefs.shoppingCount -= cartIds.size
+                            cartIds.forEach{ id ->
+                                prefs.cartIds?.remove(id.toString())
+                            }
+
                             Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
                             val frag = ConfirmOrderFragment.newInstance(
                                 ArrayList(it.orderItem!!),
@@ -170,6 +184,11 @@ class ProductCheckoutActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onResume() {
+        cartText?.text = prefs.shoppingCount.toString()
+        super.onResume()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -198,8 +217,8 @@ class ProductCheckoutActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cart_menu, menu)
         val item = menu.findItem(R.id.action_cart)
-        var cartText: TextView = item.actionView.findViewById(R.id.cart_badge)
-        cartText.text = prefs.shoppingCount.toString()
+        cartText = item.actionView.findViewById(R.id.cart_badge)
+        cartText?.text = prefs.shoppingCount.toString()
         item.actionView.setOnClickListener{
             onOptionsItemSelected(item)
         }
