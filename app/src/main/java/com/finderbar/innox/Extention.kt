@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
 
 
@@ -25,6 +26,10 @@ interface ItemInStockClick {
 
 interface ItemProductClick {
     fun onItemClick(_id: Int, position: Int)
+}
+
+interface ItemLayoutButtonClick {
+    fun onItemClick(_id: Int, arrays: MutableList<CustomLayout>)
 }
 
 interface ItemOrderClick {

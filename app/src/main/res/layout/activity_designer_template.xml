@@ -59,8 +59,8 @@
                     app:backgroundTint="@color/colorWhite"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="70dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,31 +91,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_below="@+id/lbl_btn"
-                        android:weightSum="2">
-
-                        <LinearLayout
+                        android:layout_below="@+id/lbl_btn">
+                        <ja.burhanrashid52.photoeditor.PhotoEditorView
+                            android:id="@+id/img_designer"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/img_designer"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/placeholder"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="80dp"
-                            android:layout_height="match_parent">
-                            <ListView
-                                android:id="@+id/lv_colors"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
+                            android:layout_height="match_parent"
+                            app:photo_src="@drawable/placeholder" />
                     </LinearLayout>
-
                 </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
@@ -128,7 +111,21 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_shirt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorBlack"
+                android:backgroundTint="@color/colorBlack"
+                android:backgroundTintMode="screen"
+                android:drawableTop="@drawable/ic_shopping_cart_white_24dp"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="T-Shirt"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_text"
                 android:layout_width="wrap_content"
@@ -156,7 +153,7 @@
                 android:textAllCaps="false"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Designer ArtWork"/>
+                android:text="ArtWork"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

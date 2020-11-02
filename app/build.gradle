@@ -120,6 +120,8 @@ dependencies {
 
     // DRAG & DRAG
     implementation 'com.github.woxthebox:draglistview:1.7.2'
+    implementation 'ja.burhanrashid52:photoeditor:1.1.0'
+
 
     // VALIDATION
     implementation "com.wajahatkarim3.easyvalidation:easyvalidation-core:1.0.1"
