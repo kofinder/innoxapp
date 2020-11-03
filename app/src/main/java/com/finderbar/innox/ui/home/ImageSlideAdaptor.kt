@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.finderbar.innox.databinding.ItemImageSliderBinding
 import com.finderbar.innox.repository.Banner
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 

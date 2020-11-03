@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductCategoryClick
 import com.finderbar.innox.databinding.ItemDesignerProductBinding
 import com.finderbar.innox.repository.Category
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 class DesignerAdaptor(private val arrayList: MutableList<Category>, private val itemProductClick: ItemProductCategoryClick) : RecyclerView.Adapter<DesignerAdaptor.DesignerProductViewHolder>() {
 

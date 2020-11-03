@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemInstockSubProductBinding
 import com.finderbar.innox.repository.Product
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 class InStockProductAdaptor(
     private val arrays: MutableList<Product>,

@@ -1,15 +1,24 @@
 package com.finderbar.innox
 
+import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BlendMode
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.annotation.LayoutRes
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.repository.ArtWork
 import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
+import com.finderbar.innox.ui.designer.ButtonGroupAdaptor
 
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot : Boolean = false) : View {
@@ -76,4 +85,24 @@ fun AppCompatActivity.replaceFragment(fragment: Fragment){
     transaction.replace(R.id.ft_main, fragment)
     transaction.addToBackStack(null)
     transaction.commit()
+}
+
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun RadioButton.setCircleColor(color: Int){
+    val colorStateList = ColorStateList(
+        arrayOf(
+            intArrayOf(-android.R.attr.state_checked),
+            intArrayOf(android.R.attr.state_checked)
+        ), intArrayOf(
+            color,
+            color
+        )
+    )
+    buttonTintList = colorStateList
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        buttonTintBlendMode = BlendMode.SRC_IN
+    }else{
+        buttonTintMode = PorterDuff.Mode.SRC_IN
+    }
+    invalidate()
 }

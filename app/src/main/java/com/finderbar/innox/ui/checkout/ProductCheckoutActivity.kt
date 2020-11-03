@@ -155,13 +155,11 @@ class ProductCheckoutActivity : AppCompatActivity() {
                     }
                     Status.SUCCESS -> {
                         res.data?.let {
-
                             acProgress.hide()
                             prefs.shoppingCount -= cartIds.size
                             cartIds.forEach{ id ->
                                 prefs.cartIds?.remove(id.toString())
                             }
-
                             Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
                             val frag = ConfirmOrderFragment.newInstance(
                                 ArrayList(it.orderItem!!),

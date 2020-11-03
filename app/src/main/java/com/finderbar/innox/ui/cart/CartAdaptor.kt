@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.ItemCartCallBack
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemCartBinding
 import com.finderbar.innox.repository.Cart
-import com.finderbar.jovian.utilities.android.loadAvatar
+import com.finderbar.innox.utilities.loadAvatar
 import es.dmoral.toasty.Toasty
 
 class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, private val onItemCallBack: ItemCartCallBack): BaseAdapter() {

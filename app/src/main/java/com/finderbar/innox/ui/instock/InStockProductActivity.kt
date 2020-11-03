@@ -29,10 +29,9 @@ import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.ui.instock.adaptor.InStockProductAdaptor
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
-import com.finderbar.jovian.utilities.android.loadAvatar
+import com.finderbar.innox.utilities.loadAvatar
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.tab_indicator.view.*
-import org.w3c.dom.Text
 
 
 class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.TabContentFactory {

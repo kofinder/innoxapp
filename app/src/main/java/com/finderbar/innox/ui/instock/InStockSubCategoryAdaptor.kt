@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemInStockClick
 import com.finderbar.innox.databinding.ItemInstockSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 class InStockSubCategoryAdaptor(val categoryId: Int, val categoryName: String, val arrays: MutableList<SubCategory>,  val onItemInStockClick: ItemInStockClick) :
     RecyclerView.Adapter<InStockSubCategoryAdaptor.SubCategoryViewHolder>() {

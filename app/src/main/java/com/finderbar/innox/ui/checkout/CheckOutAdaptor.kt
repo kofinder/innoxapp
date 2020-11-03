@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemCheckoutBinding
 import com.finderbar.innox.repository.OrderItem
-import com.finderbar.jovian.utilities.android.loadAvatar
+import com.finderbar.innox.utilities.loadAvatar
 
 
 class CheckOutAdaptor(val context: Context, private val arrays: MutableList<OrderItem>): BaseAdapter() {

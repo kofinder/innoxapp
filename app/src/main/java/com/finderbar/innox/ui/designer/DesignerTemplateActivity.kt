@@ -1,37 +1,46 @@
 package com.finderbar.innox.ui.designer
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+
+import android.content.res.ColorStateList
+import android.graphics.*
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.finderbar.innox.ItemArtWorkCallBack
-import com.finderbar.innox.ItemFontClick
-import com.finderbar.innox.ItemLayoutButtonClick
-import com.finderbar.innox.R
+import com.finderbar.innox.*
 import com.finderbar.innox.databinding.ActivityDesignerTemplateBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.ArtWork
+import com.finderbar.innox.repository.CustomItems
 import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
 import com.finderbar.innox.ui.designer.artwork.CustomizeArtWorkDialogFragment
 import com.finderbar.innox.ui.designer.fontstyle.CustomizeTextDialogFragment
+import com.finderbar.innox.utilities.convertUriToBitmap
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.viewmodel.TemplateVM
-import com.finderbar.jovian.utilities.android.convertUriToBitmap
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
+import com.google.android.material.radiobutton.MaterialRadioButton
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.TextStyleBuilder
 import ja.burhanrashid52.photoeditor.ViewType
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.File
 
 
 class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPhotoEditorListener,
@@ -43,6 +52,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     private lateinit var mPhotoEditor: PhotoEditor
     private lateinit var fontFrag: DialogFragment
     private lateinit var artworkFrag: DialogFragment
+    private lateinit var template: MutableList<CustomItems>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +97,11 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         templateVM.layouts?.observe(this, Observer { x ->
             binding.imgDesigner.source.loadLarge(Uri.parse(x.imageAvatar))
         })
+
+        binding.rdoGroup.setOnCheckedChangeListener { rgGroup, optId ->
+            print(rgGroup)
+            print(optId)
+        }
     }
 
     private fun loadTemplate(productId: Int) {
@@ -99,6 +114,29 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                     supportActionBar?.title = res.data?.name
                     binding.txtPrice.text = res.data?.priceText
                     templateVM.getTemplate(0, res.data?.customItems!!)
+                   // template.addAll(res.data?.customItems)
+
+                    var defaultCheck = 0;
+                    res?.data?.customItems?.forEach { x ->
+                        defaultCheck +=1
+                        val radioButton = MaterialRadioButton(this)
+                        radioButton.id = x.id!!
+                        radioButton.tag = x.id
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            radioButton.setCircleColor(Color.parseColor("#" + x.colorCode))
+                        }
+                        radioButton.scaleX = 1.5f
+                        radioButton.scaleY = 1.5f
+                        val params = RadioGroup.LayoutParams(
+                            RadioGroup.LayoutParams.WRAP_CONTENT,
+                            RadioGroup.LayoutParams.WRAP_CONTENT
+                        )
+
+                        binding.rdoGroup.addView(radioButton, params)
+                        if(defaultCheck == 1) {
+                            radioButton.isChecked = true
+                        }
+                    }
                 }
                 Status.ERROR -> {
                     print("err")
@@ -126,14 +164,19 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     }
 
     override fun onItemClick(artwork: ArtWork) {
-        var bitmap = Glide.with(this)
-            .asBitmap()
-            .load(Uri.parse(artwork.imageAvatar))
-            .submit().get()
 
-        mPhotoEditor.addImage(bitmap)
-        artworkFrag.dismiss()
+        val mainLooper = Looper.getMainLooper()
+        GlobalScope.launch {
+            val file: File? = convertUriToBitmap(AppContext, Uri.parse(artwork.imageAvatar))
+            val filePath = file?.absolutePath
+            val bitmap: Bitmap? = BitmapFactory.decodeFile(filePath);
+            Handler(mainLooper).post {
+                mPhotoEditor.addImage(bitmap)
+                artworkFrag.dismiss()
+            }
+        }
     }
+
 
 
     /**

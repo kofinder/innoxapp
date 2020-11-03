@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemArtWorkCallBack
 import com.finderbar.innox.databinding.ItemArtworkBinding
 import com.finderbar.innox.repository.ArtWork
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 class ArtWorkAdaptor(private val arrays: MutableList<ArtWork>, private val onItemArtWork : ItemArtWorkCallBack) : RecyclerView.Adapter<ArtWorkAdaptor.ArtWorkViewHolder>() {
 

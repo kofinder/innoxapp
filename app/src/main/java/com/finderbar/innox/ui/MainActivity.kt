@@ -18,7 +18,7 @@ import com.finderbar.innox.databinding.ActivityMainBinding
 import com.finderbar.innox.prefs
 import com.finderbar.innox.ui.account.LoginActivity
 import com.finderbar.innox.ui.account.RegisterActivity
-import com.finderbar.jovian.utilities.android.loadAvatar
+import com.finderbar.innox.utilities.loadAvatar
 import com.google.android.material.button.MaterialButton
 import de.hdodenhof.circleimageview.CircleImageView
 import es.dmoral.toasty.Toasty

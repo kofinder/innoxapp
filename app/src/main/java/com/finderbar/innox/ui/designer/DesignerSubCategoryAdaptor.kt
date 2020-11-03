@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemDesignerSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 class DesignerSubCategoryAdaptor(private val arrayList: MutableList<SubCategory>, var onItemProductClick: ItemProductClick?) :
     RecyclerView.Adapter<DesignerSubCategoryAdaptor.SubCategoryViewHolder>() {

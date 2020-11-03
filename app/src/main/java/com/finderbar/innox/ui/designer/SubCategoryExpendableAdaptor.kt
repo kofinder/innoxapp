@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.databinding.ItemExpendableSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 class SubCategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<SubCategory>) : RecyclerView.Adapter<SubCategoryExpendableAdaptor.SubCategoryInStockViewHolder>() {
 

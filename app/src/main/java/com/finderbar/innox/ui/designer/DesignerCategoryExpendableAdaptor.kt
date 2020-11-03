@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,7 @@ import com.finderbar.innox.databinding.ItemExpendableCategoryBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.utilities.ExpandableLayout
 import com.finderbar.innox.utilities.SpaceItemDecoration
-import com.finderbar.jovian.utilities.android.loadAvatar
+import com.finderbar.innox.utilities.loadAvatar
 
 class DesignerCategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<Category>, var onItemClick: ItemProductClick) : RecyclerView.Adapter<DesignerCategoryExpendableAdaptor.CategoryExpendableViewHolder>() {
 

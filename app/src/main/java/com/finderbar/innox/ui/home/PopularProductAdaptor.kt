@@ -11,7 +11,7 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemLoadingBinding
 import com.finderbar.innox.databinding.ItemPopularProductBinding
 import com.finderbar.innox.repository.PopularProduct
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 import kotlinx.android.synthetic.main.item_popular_product.view.*
 
 class PopularProductAdaptor(private val arrayList: MutableList<PopularProduct>, private val itemClick : ItemProductClick) : RecyclerView.Adapter<PopularProductAdaptor.ItemViewHolder>() {

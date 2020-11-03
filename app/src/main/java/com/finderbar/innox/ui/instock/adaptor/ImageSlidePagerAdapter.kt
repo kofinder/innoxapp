@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.finderbar.innox.R
-import com.finderbar.jovian.utilities.android.loadLarge
+import com.finderbar.innox.utilities.loadLarge
 
 
 class ImageSlidePagerAdapter(val context: Context, private val images: MutableList<String>): PagerAdapter() {

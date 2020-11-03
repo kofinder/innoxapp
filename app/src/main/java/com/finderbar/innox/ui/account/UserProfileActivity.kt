@@ -12,7 +12,7 @@ import com.finderbar.innox.databinding.ActivityUserProfileBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.User
 import com.finderbar.innox.viewmodel.BizApiViewModel
-import com.finderbar.jovian.utilities.android.loadAvatar
+import com.finderbar.innox.utilities.loadAvatar
 
 class UserProfileActivity: AppCompatActivity() {
     private lateinit var binding: ActivityUserProfileBinding
