@@ -52,7 +52,9 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     private lateinit var mPhotoEditor: PhotoEditor
     private lateinit var fontFrag: DialogFragment
     private lateinit var artworkFrag: DialogFragment
-    private lateinit var template: MutableList<CustomItems>
+
+    private var template: MutableList<CustomItems>? = arrayListOf()
+    private var initialTemplate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,12 +100,15 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             binding.imgDesigner.source.loadLarge(Uri.parse(x.imageAvatar))
         })
 
-        binding.rdoGroup.setOnCheckedChangeListener { rgGroup, optId ->
-            print(rgGroup)
-            print(optId)
+        binding.rdoGroup.setOnCheckedChangeListener { _, optId ->
+            if(!initialTemplate) {
+                initialTemplate = true
+            } else {
+                templateVM.getTemplate(optId, template!!)
+            }
         }
-    }
 
+}
     private fun loadTemplate(productId: Int) {
         bizApiVM.loadDesignerProduct(productId).observe(this, Observer { res ->
             when (res.status) {
@@ -114,14 +119,12 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                     supportActionBar?.title = res.data?.name
                     binding.txtPrice.text = res.data?.priceText
                     templateVM.getTemplate(0, res.data?.customItems!!)
-                   // template.addAll(res.data?.customItems)
-
                     var defaultCheck = 0;
                     res?.data?.customItems?.forEach { x ->
                         defaultCheck +=1
                         val radioButton = MaterialRadioButton(this)
-                        radioButton.id = x.id!!
-                        radioButton.tag = x.id
+                        radioButton.id = x.colorId
+                        radioButton.tag = x.colorId
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             radioButton.setCircleColor(Color.parseColor("#" + x.colorCode))
                         }
@@ -137,6 +140,8 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                             radioButton.isChecked = true
                         }
                     }
+                    initialTemplate = true
+                    template!!.addAll(res.data?.customItems.copyOf())
                 }
                 Status.ERROR -> {
                     print("err")
