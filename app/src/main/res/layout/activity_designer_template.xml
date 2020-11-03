@@ -86,7 +86,8 @@
                 android:layout_below="@+id/lbl_btn"
                 android:orientation="horizontal"
                 android:weightSum="2">
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/lbl_template"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
@@ -96,8 +97,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:photo_src="@drawable/spinner" />
-                </LinearLayout>
-                <LinearLayout
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -108,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"/>
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
 

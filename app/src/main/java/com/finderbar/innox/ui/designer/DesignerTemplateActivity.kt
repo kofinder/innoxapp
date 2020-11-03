@@ -1,25 +1,24 @@
 package com.finderbar.innox.ui.designer
 
 
-import android.content.res.ColorStateList
-import android.graphics.*
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.view.View
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import cc.cloudist.acplibrary.ACProgressConstant
+import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.*
 import com.finderbar.innox.databinding.ActivityDesignerTemplateBinding
 import com.finderbar.innox.network.Status
@@ -30,10 +29,11 @@ import com.finderbar.innox.repository.Font
 import com.finderbar.innox.ui.designer.artwork.CustomizeArtWorkDialogFragment
 import com.finderbar.innox.ui.designer.fontstyle.CustomizeTextDialogFragment
 import com.finderbar.innox.utilities.convertUriToBitmap
+import com.finderbar.innox.utilities.loadLarge
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.viewmodel.TemplateVM
-import com.finderbar.innox.utilities.loadLarge
 import com.google.android.material.radiobutton.MaterialRadioButton
+import es.dmoral.toasty.Toasty
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.TextStyleBuilder
@@ -41,6 +41,9 @@ import ja.burhanrashid52.photoeditor.ViewType
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPhotoEditorListener,
@@ -52,6 +55,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     private lateinit var mPhotoEditor: PhotoEditor
     private lateinit var fontFrag: DialogFragment
     private lateinit var artworkFrag: DialogFragment
+    private lateinit var acProgress: ACProgressFlower
 
     private var template: MutableList<CustomItems>? = arrayListOf()
     private var initialTemplate: Boolean = false
@@ -64,6 +68,12 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Create Design"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        acProgress = ACProgressFlower.Builder(this)
+            .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+            .themeColor(android.graphics.Color.WHITE)
+            .text("Please Wait")
+            .fadeColor(android.graphics.Color.DKGRAY).build();
 
         fontFrag = CustomizeTextDialogFragment()
         (fontFrag as CustomizeTextDialogFragment).setFontListener(this)
@@ -108,6 +118,44 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             }
         }
 
+
+        binding.btnSave.setOnClickListener {
+            acProgress.show()
+            val bitmap = Bitmap.createBitmap(
+                binding.lblTemplate.width,
+                binding.lblTemplate.height,
+                Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            binding.lblTemplate.draw(canvas)
+
+            var outputStream: FileOutputStream? = null
+            val sdCard = Environment.getExternalStorageDirectory()
+            val directory = File(sdCard.absolutePath + "/innox")
+            directory.mkdir()
+            val fileName = String.format("%d.png", System.currentTimeMillis())
+            val outFile = File(directory, fileName)
+            Toasty.success(this, "Image Saved Successfully").show()
+            try {
+                outputStream = FileOutputStream(outFile)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                outputStream.flush()
+                outputStream.close()
+                val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+                intent.data = Uri.fromFile(outFile)
+                sendBroadcast(intent)
+                acProgress.dismiss()
+            } catch (ex: FileNotFoundException) {
+                ex.printStackTrace()
+                ex.message?.let { it1 -> Toasty.error(this, it1).show() }
+                acProgress.dismiss()
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                ex.message?.let { it1 -> Toasty.error(this, it1).show() }
+                acProgress.dismiss()
+            }
+        }
+
 }
     private fun loadTemplate(productId: Int) {
         bizApiVM.loadDesignerProduct(productId).observe(this, Observer { res ->
@@ -119,9 +167,9 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                     supportActionBar?.title = res.data?.name
                     binding.txtPrice.text = res.data?.priceText
                     templateVM.getTemplate(0, res.data?.customItems!!)
-                    var defaultCheck = 0;
-                    res?.data?.customItems?.forEach { x ->
-                        defaultCheck +=1
+                    var defaultCheck = 0
+                    res?.data.customItems.forEach { x ->
+                        defaultCheck += 1
                         val radioButton = MaterialRadioButton(this)
                         radioButton.id = x.colorId
                         radioButton.tag = x.colorId
@@ -136,12 +184,12 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                         )
 
                         binding.rdoGroup.addView(radioButton, params)
-                        if(defaultCheck == 1) {
+                        if (defaultCheck == 1) {
                             radioButton.isChecked = true
                         }
                     }
                     initialTemplate = true
-                    template!!.addAll(res.data?.customItems.copyOf())
+                    template!!.addAll(res.data.customItems.copyOf())
                 }
                 Status.ERROR -> {
                     print("err")
@@ -149,7 +197,6 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             }
         })
     }
-
 
 
     override fun onSupportNavigateUp(): Boolean {
@@ -169,12 +216,11 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     }
 
     override fun onItemClick(artwork: ArtWork) {
-
         val mainLooper = Looper.getMainLooper()
         GlobalScope.launch {
             val file: File? = convertUriToBitmap(AppContext, Uri.parse(artwork.imageAvatar))
             val filePath = file?.absolutePath
-            val bitmap: Bitmap? = BitmapFactory.decodeFile(filePath);
+            val bitmap: Bitmap? = BitmapFactory.decodeFile(filePath)
             Handler(mainLooper).post {
                 mPhotoEditor.addImage(bitmap)
                 artworkFrag.dismiss()
@@ -183,58 +229,20 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     }
 
 
-
-    /**
-     * When user long press the existing text this event will trigger implying that user want to
-     * edit the current [android.widget.TextView]
-     *
-     * @param rootView  view on which the long press occurs
-     * @param text      current text set on the view
-     * @param colorCode current color value set on view
-     */
     override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
         print(text)
     }
 
-    /**
-     * This is a callback when user adds any view on the [PhotoEditorView] it can be
-     * brush,text or sticker i.e bitmap on parent view
-     *
-     * @param viewType           enum which define type of view is added
-     * @param numberOfAddedViews number of views currently added
-     * @see ViewType
-     */
     override fun onAddViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
         print(viewType)
     }
 
-    /**
-     * This is a callback when user remove any view on the [PhotoEditorView] it happens when usually
-     * undo and redo happens or text is removed
-     *
-     * @param viewType           enum which define type of view is added
-     * @param numberOfAddedViews number of views currently added
-     */
     override fun onRemoveViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
         print(viewType)
     }
-
-    /**
-     * A callback when user start dragging a view which can be
-     * any of [ViewType]
-     *
-     * @param viewType enum which define type of view is added
-     */
     override fun onStartViewChangeListener(viewType: ViewType?) {
         print(viewType)
     }
-
-    /**
-     * A callback when user stop/up touching a view which can be
-     * any of [ViewType]
-     *
-     * @param viewType enum which define type of view is added
-     */
     override fun onStopViewChangeListener(viewType: ViewType?) {
         print(viewType)
     }
