@@ -61,46 +61,35 @@
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginBottom="80dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/lbl_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:padding="20dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:orientation="vertical"
-                android:layout_marginBottom="70dp">
-                <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_btn">
+                <ja.burhanrashid52.photoeditor.PhotoEditorView
+                    android:id="@+id/img_designer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/lbl_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp">
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/lbl_btn">
-                        <ja.burhanrashid52.photoeditor.PhotoEditorView
-                            android:id="@+id/img_designer"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:photo_src="@drawable/placeholder" />
-                    </LinearLayout>
-                </RelativeLayout>
+                    app:photo_src="@drawable/spinner" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

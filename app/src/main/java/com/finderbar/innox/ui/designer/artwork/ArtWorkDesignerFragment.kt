@@ -17,11 +17,11 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class ArtWorkDesignerFragment: Fragment(), ItemArtWorkCallBack {
+class ArtWorkDesignerFragment: Fragment(), ItemArtWorkTitleCallBack  {
 
     private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var fragCallBack: FragCallBack
-
+    private lateinit var itemArtworkCallBack: ItemArtWorkCallBack
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +32,7 @@ class ArtWorkDesignerFragment: Fragment(), ItemArtWorkCallBack {
         val binding: FragmentArtworkDesignerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_artwork_designer, container , false)
         var rootView : View = binding.root
         fragCallBack = parentFragment as FragCallBack
+        itemArtworkCallBack = activity as ItemArtWorkCallBack
 
         bizApiVM.loadArtWorkDesigner().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {

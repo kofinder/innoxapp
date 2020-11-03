@@ -1,38 +1,48 @@
 package com.finderbar.innox.ui.designer
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.finderbar.innox.ItemArtWorkCallBack
+import com.finderbar.innox.ItemFontClick
 import com.finderbar.innox.ItemLayoutButtonClick
-import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityDesignerTemplateBinding
 import com.finderbar.innox.network.Status
+import com.finderbar.innox.repository.ArtWork
 import com.finderbar.innox.repository.CustomLayout
+import com.finderbar.innox.repository.Font
 import com.finderbar.innox.ui.designer.artwork.CustomizeArtWorkDialogFragment
 import com.finderbar.innox.ui.designer.fontstyle.CustomizeTextDialogFragment
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.viewmodel.TemplateVM
+import com.finderbar.jovian.utilities.android.convertUriToBitmap
 import com.finderbar.jovian.utilities.android.loadLarge
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.PhotoEditor
+import ja.burhanrashid52.photoeditor.TextStyleBuilder
 import ja.burhanrashid52.photoeditor.ViewType
 
 
-class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPhotoEditorListener  {
+class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPhotoEditorListener,
+    ItemFontClick, ItemArtWorkCallBack {
 
     private val bizApiVM: BizApiViewModel by viewModels()
     private val templateVM: TemplateVM by viewModels()
     private lateinit var binding: ActivityDesignerTemplateBinding
     private lateinit var mPhotoEditor: PhotoEditor
+    private lateinit var fontFrag: DialogFragment
+    private lateinit var artworkFrag: DialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,18 +53,21 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         supportActionBar?.title = "Create Design"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        fontFrag = CustomizeTextDialogFragment()
+        (fontFrag as CustomizeTextDialogFragment).setFontListener(this)
         binding.btnText.setOnClickListener{
-            val frag = CustomizeTextDialogFragment()
-            frag.show(supportFragmentManager, CustomizeTextDialogFragment.TAG)
+            fontFrag.show(supportFragmentManager, CustomizeTextDialogFragment.TAG)
         }
-
+        artworkFrag = CustomizeArtWorkDialogFragment()
+        (artworkFrag as CustomizeArtWorkDialogFragment).setArtworkListener(this)
         binding.btnArtwork.setOnClickListener{
-            val frag = CustomizeArtWorkDialogFragment()
-            frag.show(supportFragmentManager, CustomizeArtWorkDialogFragment.TAG)
+            artworkFrag.show(supportFragmentManager, CustomizeArtWorkDialogFragment.TAG)
         }
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.imgDesigner)
+            .setPinchTextScalable(true)
             .build()
+        mPhotoEditor.setOnPhotoEditorListener(this)
 
         loadTemplate(productId)
 
@@ -94,6 +107,8 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         })
     }
 
+
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -102,6 +117,24 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     override fun onItemClick(_id: Int, arrays: MutableList<CustomLayout>) {
         templateVM.getLayout(_id, arrays)
     }
+
+    override fun onItemClick(font: Font) {
+        val styleBuilder = TextStyleBuilder()
+        styleBuilder.withTextColor(R.color.colorPrimary)
+        mPhotoEditor.addText(font.name, styleBuilder)
+        fontFrag.dismiss()
+    }
+
+    override fun onItemClick(artwork: ArtWork) {
+        var bitmap = Glide.with(this)
+            .asBitmap()
+            .load(Uri.parse(artwork.imageAvatar))
+            .submit().get()
+
+        mPhotoEditor.addImage(bitmap)
+        artworkFrag.dismiss()
+    }
+
 
     /**
      * When user long press the existing text this event will trigger implying that user want to
@@ -112,7 +145,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
      * @param colorCode current color value set on view
      */
     override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
-        TODO("Not yet implemented")
+        print(text)
     }
 
     /**
@@ -124,7 +157,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
      * @see ViewType
      */
     override fun onAddViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
-        TODO("Not yet implemented")
+        print(viewType)
     }
 
     /**
@@ -135,7 +168,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
      * @param numberOfAddedViews number of views currently added
      */
     override fun onRemoveViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
-        TODO("Not yet implemented")
+        print(viewType)
     }
 
     /**
@@ -145,7 +178,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
      * @param viewType enum which define type of view is added
      */
     override fun onStartViewChangeListener(viewType: ViewType?) {
-        TODO("Not yet implemented")
+        print(viewType)
     }
 
     /**
@@ -155,7 +188,8 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
      * @param viewType enum which define type of view is added
      */
     override fun onStopViewChangeListener(viewType: ViewType?) {
-        TODO("Not yet implemented")
+        print(viewType)
     }
+
 
 }

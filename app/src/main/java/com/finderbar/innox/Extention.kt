@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.finderbar.innox.repository.ArtWork
 import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
 
@@ -36,9 +37,6 @@ interface ItemOrderClick {
     fun onItemClick(_id: Int, orderDate: String)
 }
 
-interface ItemArtWorkCallBack {
-    fun onItemClick(_id: Int, title: String)
-}
 
 interface FragCallBack {
     fun fragListener(frag: Fragment)
@@ -53,6 +51,15 @@ interface RootFragListener {
 interface ItemFontClick {
     fun onItemClick(font: Font)
 }
+
+interface ItemArtWorkTitleCallBack {
+    fun onItemClick(_id: Int, title: String)
+}
+
+interface ItemArtWorkCallBack {
+    fun onItemClick(artwork: ArtWork)
+}
+
 
 interface ItemProductCategoryClick {
     fun onItemClick(_id: Int)

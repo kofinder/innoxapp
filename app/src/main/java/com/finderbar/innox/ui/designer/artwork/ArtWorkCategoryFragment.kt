@@ -11,19 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.FragCallBack
-import com.finderbar.innox.ItemArtWorkCallBack
-import com.finderbar.innox.R
+import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentArtworkCategoryBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
 
-class ArtWorkCategoryFragment: Fragment(), ItemArtWorkCallBack {
+class ArtWorkCategoryFragment: Fragment(), ItemArtWorkTitleCallBack {
 
     private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var fragCallBack: FragCallBack
+    private lateinit var itemArtworkCallBack: ItemArtWorkCallBack
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +32,9 @@ class ArtWorkCategoryFragment: Fragment(), ItemArtWorkCallBack {
 
         val binding: FragmentArtworkCategoryBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_artwork_category, container , false)
         var rootView : View = binding.root
+
         fragCallBack = parentFragment as FragCallBack
+        itemArtworkCallBack = activity as ItemArtWorkCallBack
 
         bizApiVM.loadArtWorkCategory().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
@@ -41,11 +42,7 @@ class ArtWorkCategoryFragment: Fragment(), ItemArtWorkCallBack {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                    val adaptor =
-                        ArtWorkCategoryAdaptor(
-                            res.data?.artWorkCategories!!,
-                            this
-                        )
+                    val adaptor = ArtWorkCategoryAdaptor(res.data?.artWorkCategories!!, this)
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(10));
                     binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2);
                     binding.recyclerView.adapter = adaptor

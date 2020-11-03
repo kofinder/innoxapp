@@ -6,11 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.finderbar.innox.R
-import com.finderbar.innox.RootFragListener
+import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentDialogCustomizeArtworkBinding
 
 class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
+
+    private lateinit var itemArtworkCallBack: ItemArtWorkCallBack
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -41,9 +42,7 @@ class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
         ft.commit()
     }
 
-    companion object {
-        const val TAG = "CustomizeArtWorkDialogFragment"
-    }
+
 
     override fun onPressed(frag: Fragment) {
         var ft : FragmentTransaction = childFragmentManager.beginTransaction()
@@ -57,5 +56,13 @@ class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
         ft.replace(R.id.ft_main, ArtWorkCustomizeFragment())
         ft.addToBackStack(ArtWorkCustomizeFragment.TAG)
         ft.commit()
+    }
+
+    fun setArtworkListener(itemArtwork: ItemArtWorkCallBack) {
+        this.itemArtworkCallBack = itemArtwork
+    }
+
+    companion object {
+        const val TAG = "CustomizeArtWorkDialogFragment"
     }
 }

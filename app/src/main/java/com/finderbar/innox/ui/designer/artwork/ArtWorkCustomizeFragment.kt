@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentCustomizeArtworkBinding
 import com.finderbar.innox.utilities.ViewPagerAdapter
@@ -14,6 +13,7 @@ import com.finderbar.innox.utilities.ViewPagerAdapter
 class ArtWorkCustomizeFragment: Fragment(), FragCallBack {
 
     private lateinit var rootFrag: RootFragListener
+    private lateinit var itemArtworkCallBack: ItemArtWorkCallBack
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +23,7 @@ class ArtWorkCustomizeFragment: Fragment(), FragCallBack {
         val binding: FragmentCustomizeArtworkBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_customize_artwork, container , false)
         var rootView : View  = binding.root
         rootFrag = parentFragment as RootFragListener
+        itemArtworkCallBack = activity as ItemArtWorkCallBack
 
         val adapter = ViewPagerAdapter(
             childFragmentManager
@@ -35,16 +36,16 @@ class ArtWorkCustomizeFragment: Fragment(), FragCallBack {
         return rootView
     }
 
-    companion object {
-        const val TAG = "ArtWorkCustomizeFragment"
-    }
-
     override fun fragListener(frag: Fragment) {
         rootFrag.onPressed(frag)
     }
 
     override fun backPressed() {
         rootFrag.onBackPressed()
+    }
+
+    companion object {
+        const val TAG = "ArtWorkCustomizeFragment"
     }
 
 }

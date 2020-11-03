@@ -2,30 +2,23 @@ package com.finderbar.innox.ui.designer.artwork
 
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.finderbar.innox.ItemArtWorkCallBack
+import com.finderbar.innox.ItemArtWorkTitleCallBack
 import com.finderbar.innox.databinding.ItemArtworkDesignerBinding
 import com.finderbar.innox.repository.ArtWorkDesigner
 import com.finderbar.jovian.utilities.android.loadLarge
 
-
 class ArtWorkDesignerAdaptor(
     private val arrays: MutableList<ArtWorkDesigner>,
-    private val itemClick: ItemArtWorkCallBack
-) : RecyclerView.Adapter<ArtWorkDesignerAdaptor.ItemViewHolder>() {
+    private val itemClick: ItemArtWorkTitleCallBack
+) : RecyclerView.Adapter<ArtWorkDesignerAdaptor.ArtworkDesignerViewHolder>() {
 
-    abstract class ItemViewHolder(root: View) : RecyclerView.ViewHolder(root)
-
-    private class ArtworkDesignerViewHolder(binding: ItemArtworkDesignerBinding) : ItemViewHolder(binding.root) {
-        val imageAvatar = binding.civThumb
-        val txtName = binding.txtName
-    }
+    class ArtworkDesignerViewHolder(val binding: ItemArtworkDesignerBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int = arrays.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtworkDesignerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemArtworkDesignerBinding.inflate(inflater, parent, false)
         return ArtworkDesignerViewHolder(
@@ -33,15 +26,13 @@ class ArtWorkDesignerAdaptor(
         )
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val view = holder as ArtworkDesignerViewHolder
+    override fun onBindViewHolder(holder: ArtworkDesignerViewHolder, position: Int) {
         val datum = arrays[position]
-        view.imageAvatar.loadLarge(Uri.parse(datum.imageAvatar))
-        view. txtName.text = datum.name
-        view.itemView.setOnClickListener{
+        holder.binding.civThumb.loadLarge(Uri.parse(datum.imageAvatar))
+        holder.binding.txtName.text = datum.name
+        holder.itemView.setOnClickListener{
             itemClick.onItemClick(datum.id, datum.name)
         }
     }
-
 
 }

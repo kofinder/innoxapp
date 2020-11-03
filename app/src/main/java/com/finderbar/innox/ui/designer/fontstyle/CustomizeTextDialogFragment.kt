@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemFontClick
 import com.finderbar.innox.R
-import com.finderbar.innox.databinding.FragmentDialogCustomizeDesignerBinding
 import com.finderbar.innox.databinding.FragmentDialogCustomizeTextDesignerBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.Font
-import com.finderbar.innox.ui.designer.artwork.ArtWorkDesignerAdaptor
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class CustomizeTextDialogFragment: DialogFragment(), ItemFontClick {
+class CustomizeTextDialogFragment: DialogFragment(),  ItemFontClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()
+    private lateinit var itemFontClick: ItemFontClick
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -45,13 +44,14 @@ class CustomizeTextDialogFragment: DialogFragment(), ItemFontClick {
         val binding: FragmentDialogCustomizeTextDesignerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_customize_text_designer, parent , false)
         var rootView : View  = binding.root
 
+
         bizApiVM.loadFont().observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                     print(res.status)
                 }
                 Status.SUCCESS -> {
-                    val adaptor =  FontAdaptor(res.data?.fonts!!, this)
+                    val adaptor =  FontAdaptor(res.data?.fonts!!, itemFontClick)
                     binding.recyclerView.addItemDecoration(SpaceItemDecoration(10))
                     val layoutManager = GridLayoutManager(requireContext(), 2)
                     binding.recyclerView.layoutManager = layoutManager
@@ -69,18 +69,17 @@ class CustomizeTextDialogFragment: DialogFragment(), ItemFontClick {
         return rootView
     }
 
+
+    fun setFontListener(itemFontClick: ItemFontClick) {
+        this.itemFontClick = itemFontClick
+    }
+
+
     companion object {
         const val TAG = "CustomizeTextDialogFragment"
-//        fun newInstance(body: String): CustomizeTextDialogFragment {
-//            val fragment =
-//                CustomizeTextDialogFragment()
-//            val args = Bundle()
-//            fragment.arguments = args
-//            return fragment
-//        }
     }
 
     override fun onItemClick(font: Font) {
-        print(font)
+        this.dismiss()
     }
 }
