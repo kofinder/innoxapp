@@ -97,6 +97,8 @@
     <string name="search">Search</string>
     <string name="artwork">Choose ArtWork</string>
     <string name="font_style">Choose Text Styles</string>
+    <string name="font_weight">Choose Text Weight</string>
+    <string name="font_color">Choose Text Color</string>
 
 
     <!--    BUTTON TEXT-->

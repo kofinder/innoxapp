@@ -17,7 +17,7 @@ import com.finderbar.innox.repository.Font
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-class CustomizeTextDialogFragment: DialogFragment(),  ItemFontClick {
+class CustomizeTextDialogFragment: DialogFragment() {
 
     private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var itemFontClick: ItemFontClick
@@ -77,9 +77,5 @@ class CustomizeTextDialogFragment: DialogFragment(),  ItemFontClick {
 
     companion object {
         const val TAG = "CustomizeTextDialogFragment"
-    }
-
-    override fun onItemClick(font: Font) {
-        this.dismiss()
     }
 }

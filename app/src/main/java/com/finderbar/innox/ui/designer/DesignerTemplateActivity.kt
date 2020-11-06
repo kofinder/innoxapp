@@ -2,14 +2,12 @@ package com.finderbar.innox.ui.designer
 
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
+import android.graphics.*
 import android.net.Uri
 import android.os.*
 import android.view.View
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -20,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cc.cloudist.acplibrary.ACProgressConstant
 import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.*
+import com.finderbar.innox.AppConstant.FONT_BOOKS
 import com.finderbar.innox.databinding.ActivityDesignerTemplateBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.ArtWork
@@ -28,15 +27,16 @@ import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
 import com.finderbar.innox.ui.designer.artwork.CustomizeArtWorkDialogFragment
 import com.finderbar.innox.ui.designer.fontstyle.CustomizeTextDialogFragment
+import com.finderbar.innox.ui.designer.fontstyle.TextActionDialogFragment
 import com.finderbar.innox.utilities.convertUriToBitmap
 import com.finderbar.innox.utilities.loadLarge
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.viewmodel.TemplateVM
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.radiobutton.MaterialRadioButton
 import es.dmoral.toasty.Toasty
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.PhotoEditor
-import ja.burhanrashid52.photoeditor.TextStyleBuilder
 import ja.burhanrashid52.photoeditor.ViewType
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -68,22 +68,21 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Create Design"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         acProgress = ACProgressFlower.Builder(this)
             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
             .themeColor(android.graphics.Color.WHITE)
             .text("Please Wait")
-            .fadeColor(android.graphics.Color.DKGRAY).build();
+            .fadeColor(Color.DKGRAY).build()
 
         fontFrag = CustomizeTextDialogFragment()
         (fontFrag as CustomizeTextDialogFragment).setFontListener(this)
         binding.btnText.setOnClickListener{
-            fontFrag.show(supportFragmentManager, CustomizeTextDialogFragment.TAG)
+            fontFrag.show(supportFragmentManager, fontFrag.tag)
         }
         artworkFrag = CustomizeArtWorkDialogFragment()
         (artworkFrag as CustomizeArtWorkDialogFragment).setArtworkListener(this)
         binding.btnArtwork.setOnClickListener{
-            artworkFrag.show(supportFragmentManager, CustomizeArtWorkDialogFragment.TAG)
+            artworkFrag.show(supportFragmentManager, artworkFrag.tag)
         }
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.imgDesigner)
@@ -156,7 +155,17 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             }
         }
 
-}
+        binding.btnCart.setOnClickListener {
+            Toasty.info(this, "custom product uploaded").show()
+        }
+
+        if(!fontFrag.isAdded) {
+            return
+        }
+        if(!artworkFrag.isAdded) {
+            return
+        }
+    }
     private fun loadTemplate(productId: Int) {
         bizApiVM.loadDesignerProduct(productId).observe(this, Observer { res ->
             when (res.status) {
@@ -209,11 +218,11 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     }
 
     override fun onItemClick(font: Font) {
-        val styleBuilder = TextStyleBuilder()
-        styleBuilder.withTextColor(R.color.colorPrimary)
-        mPhotoEditor.addText(font.name, styleBuilder)
+        val typeface = Typeface.createFromAsset(assets, FONT_BOOKS["firasans"])
+        mPhotoEditor.addText(typeface, font.name, R.color.colorBlack)
         fontFrag.dismiss()
     }
+
 
     override fun onItemClick(artwork: ArtWork) {
         val mainLooper = Looper.getMainLooper()
@@ -230,7 +239,41 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
 
 
     override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
-        print(text)
+        val frag = TextActionDialogFragment.newInstance(rootView!!, text!!, colorCode);
+        frag.show(supportFragmentManager, frag.tag)
+        frag.setColorPickerListener(object : ItemColorPickerCallBack {
+            override fun onColorPickerClick(colorCode: Int) {
+                mPhotoEditor.editText(rootView, text, colorCode)
+                frag.dismiss()
+            }
+        })
+        frag.setFontStyleListener(object : ItemFontStyleCallBack {
+            override fun onFontStyleClick(
+                isOpen: Boolean,
+                group: MaterialButtonToggleGroup?,
+                checkedId: Int,
+                isChecked: Boolean
+            ) {
+                var typeface = Typeface.createFromAsset(assets, FONT_BOOKS["firasans"])
+                mPhotoEditor.editText(rootView, typeface, text, colorCode)
+                var textView: TextView = rootView.findViewById(ja.burhanrashid52.photoeditor.R.id.tvPhotoEditorText)
+                when (checkedId) {
+                    R.id.btn_normal -> {
+                        textView.setTypeface(typeface, Typeface.NORMAL)
+                    }
+                    R.id.btn_italic -> {
+                        textView.setTypeface(typeface, Typeface.ITALIC)
+                    }
+                    R.id.btn_bold -> {
+                        textView.setTypeface(typeface, Typeface.BOLD)
+                    }
+                    R.id.btn_bold_italic -> {
+                        textView.setTypeface(typeface, Typeface.BOLD_ITALIC)
+                    }
+                }
+                frag.dismiss()
+            }
+        })
     }
 
     override fun onAddViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
@@ -246,6 +289,5 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     override fun onStopViewChangeListener(viewType: ViewType?) {
         print(viewType)
     }
-
 
 }

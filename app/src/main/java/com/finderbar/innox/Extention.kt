@@ -19,6 +19,7 @@ import com.finderbar.innox.repository.ArtWork
 import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
 import com.finderbar.innox.ui.designer.ButtonGroupAdaptor
+import com.google.android.material.button.MaterialButtonToggleGroup
 
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot : Boolean = false) : View {
@@ -76,6 +77,16 @@ interface ItemProductCategoryClick {
 
 interface ItemCartCallBack {
     fun onItemClick(carId: Int, quantity: Int)
+}
+
+interface ItemColorPickerCallBack {
+    fun onColorPickerClick(colorCode: Int)
+}
+
+interface ItemFontStyleCallBack  {
+    fun onFontStyleClick(isOpen: Boolean, group: MaterialButtonToggleGroup?,
+                         checkedId: Int,
+                         isChecked: Boolean)
 }
 
 
