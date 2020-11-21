@@ -24,7 +24,6 @@ import com.finderbar.innox.databinding.FragmentDialogAddToCartBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.ShoppingCart
-import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
 
@@ -123,7 +122,7 @@ class AddToCartDialogFragment : DialogFragment() {
                 Toasty.error(context, "Please, Input Number of Items!", Toast.LENGTH_SHORT, true).show();
             } else {
                 quantity = binding.edCount.text.toString().toInt()
-                bizApiVM.loadAddToCart(ShoppingCart(productId!!, 1, 1, quantity)).observe(
+                bizApiVM.loadAddToCart(ShoppingCart(productId!!, colorId!!, sizeId!!, quantity)).observe(
                     viewLifecycleOwner,
                     Observer { res ->
                         when (res.status) {
@@ -131,8 +130,6 @@ class AddToCartDialogFragment : DialogFragment() {
                                 acProgress.show()
                             }
                             Status.SUCCESS -> {
-
-
                                 acProgress.dismiss()
                                 Toasty.success(context, "Success!", Toast.LENGTH_SHORT, true)
                                     .show();

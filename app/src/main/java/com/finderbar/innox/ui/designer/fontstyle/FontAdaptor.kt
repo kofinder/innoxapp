@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemFontClick
 import com.finderbar.innox.databinding.ItemFontBinding
+import com.finderbar.innox.loadFontUri
 import com.finderbar.innox.repository.Font
 
-class FontAdaptor(private val arrays: MutableList<Font>, val itemClick : ItemFontClick) : RecyclerView.Adapter<FontAdaptor.FontViewHolder>() {
+class FontAdaptor(private val arrays: MutableList<Font>, private val itemClick : ItemFontClick) : RecyclerView.Adapter<FontAdaptor.FontViewHolder>() {
 
     class FontViewHolder(val binding: ItemFontBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,6 +24,7 @@ class FontAdaptor(private val arrays: MutableList<Font>, val itemClick : ItemFon
     override fun onBindViewHolder(holder: FontViewHolder, position: Int) {
         val datum = arrays[position]
         holder.binding.txtName.text = datum.name
+        holder.binding.txtName.loadFontUri(datum.uri)
         holder.itemView.setOnClickListener{
             itemClick.onItemClick(datum)
         }

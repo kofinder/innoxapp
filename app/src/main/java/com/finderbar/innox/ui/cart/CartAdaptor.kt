@@ -12,6 +12,7 @@ import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemCartBinding
 import com.finderbar.innox.repository.Cart
 import com.finderbar.innox.utilities.loadAvatar
+import com.finderbar.innox.utilities.loadAvatarWithCache
 import es.dmoral.toasty.Toasty
 
 class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, private val onItemCallBack: ItemCartCallBack): BaseAdapter() {
@@ -26,7 +27,7 @@ class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, p
         binding.txtCount.text = datum.quantity.toString()
         binding.txtUnitPrice.text = datum.priceText
         binding.txtSubTotal.text = datum.subTotalText
-        binding.imgProduct.loadAvatar(Uri.parse(datum.image))
+        binding.imgProduct.loadAvatarWithCache(Uri.parse(datum.image))
         binding.checkbox.isChecked = datum.isCheck
         binding.btnCount.text = datum.quantity.toString()
 

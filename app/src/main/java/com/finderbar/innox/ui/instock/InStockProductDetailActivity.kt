@@ -147,8 +147,8 @@ class InStockProductDetailActivity: AppCompatActivity() {
         binding.btnCart.setOnClickListener {
             val frag = AddToCartDialogFragment.newInstance(
                 productId,
-                colorId.let { 0 },
-                sizeId.let { 0 },
+                colorId!!,
+                sizeId!!,
                 productName!!,
                 colorName!!,
                 sizeName!!,

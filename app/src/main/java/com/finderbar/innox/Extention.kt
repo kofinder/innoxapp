@@ -1,15 +1,15 @@
 package com.finderbar.innox
 
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.BlendMode
-import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.repository.ArtWork
 import com.finderbar.innox.repository.CustomLayout
 import com.finderbar.innox.repository.Font
-import com.finderbar.innox.ui.designer.ButtonGroupAdaptor
 import com.google.android.material.button.MaterialButtonToggleGroup
+import java.lang.Exception
 
 
-fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot : Boolean = false) : View {
-    return LayoutInflater.from(context).inflate(layoutRes,this,attachToRoot)
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false) : View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
 fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int) -> Unit): T {
@@ -32,7 +32,12 @@ fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int) -> Unit): T {
 }
 
 interface ItemInStockClick {
-    fun onItemClick(categoryId: Int, categoryName: String, subCategoryId: Int, subCategoryName: String)
+    fun onItemClick(
+        categoryId: Int,
+        categoryName: String,
+        subCategoryId: Int,
+        subCategoryName: String
+    )
 }
 
 interface ItemProductClick {
@@ -84,9 +89,11 @@ interface ItemColorPickerCallBack {
 }
 
 interface ItemFontStyleCallBack  {
-    fun onFontStyleClick(isOpen: Boolean, group: MaterialButtonToggleGroup?,
-                         checkedId: Int,
-                         isChecked: Boolean)
+    fun onFontStyleClick(
+        isOpen: Boolean, group: MaterialButtonToggleGroup?,
+        checkedId: Int,
+        isChecked: Boolean
+    )
 }
 
 
@@ -126,4 +133,15 @@ fun <T> List<T>.copyOf(): List<T> {
 fun <T> List<T>.mutableCopyOf(): MutableList<T> {
     val original = this
     return mutableListOf<T>().apply { addAll(original) }
+}
+
+
+fun TextView.loadFontUri(uri: String) {
+    try {
+        val fontName = "fonts/$uri"
+        val customFont = Typeface.createFromAsset(AppContext.assets, fontName)
+        this.typeface = customFont
+    } catch (ex: Exception) {
+        ex.printStackTrace()
+    }
 }

@@ -88,6 +88,16 @@ fun ImageView.loadAvatar(uri: Uri) {
         .into(this)
 }
 
+fun ImageView.loadAvatarWithCache(uri: Uri) {
+    Glide.with(this)
+        .load(uri)
+        .apply(RequestOptions.circleCropTransform())
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .placeholder(R.drawable.spinner)
+        .error(R.drawable.spinner)
+        .into(this)
+}
+
 fun ImageView.drawableImage(uri: Uri) {
     Glide.with(this)
         .load(uri)
