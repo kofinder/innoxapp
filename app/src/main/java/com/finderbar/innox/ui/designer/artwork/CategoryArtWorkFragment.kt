@@ -18,7 +18,10 @@ import com.finderbar.innox.databinding.FragmentArtworkBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CategoryArtWorkFragment: Fragment() {
 
     private val bizApiVM: BizApiViewModel by viewModels()

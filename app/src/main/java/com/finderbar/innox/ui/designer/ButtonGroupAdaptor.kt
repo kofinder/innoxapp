@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemLayoutButtonClick
 import com.finderbar.innox.databinding.ItemCustomizeDesignerButtonGroupBinding
 import com.finderbar.innox.repository.CustomLayout
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ButtonGroupAdaptor(
     private val arrays: MutableList<CustomLayout>,
     private val itemClick: ItemLayoutButtonClick

@@ -25,7 +25,10 @@ import kotlinx.android.synthetic.main.activity_instock_search_filter.*
 import java.text.NumberFormat
 import java.util.*
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockSearchFilterActivity:  AppCompatActivity() {
 
     private lateinit var binding: ActivityInstockSearchFilterBinding

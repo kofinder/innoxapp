@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockProductFragment: Fragment() {
 
     override fun onCreateView(

@@ -15,7 +15,10 @@ import com.finderbar.innox.prefs
 import com.finderbar.innox.replaceFragment
 import com.finderbar.innox.viewmodel.BizApiViewModel
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding

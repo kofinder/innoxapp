@@ -228,6 +228,22 @@ class BizApiViewModel : ViewModel() {
         }
     }
 
+    fun loadAddCustomToCart(cart: CustomShoppingCart)  = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        try {
+            val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
+            val response = api.saveCustomShoppingCart(cart)
+            if(response.code() == 400) {
+                emit(Resource.error(response.code(), "Product is out of stock!"))
+            }
+            if(response.isSuccessful) {
+                emit(Resource.success(response.body()?.data))
+            }
+        } catch (ex: Exception) {
+            emit(Resource.error(500, ex.message!!))
+        }
+    }
+
     fun loadShoppingCart() = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
@@ -290,9 +306,16 @@ class BizApiViewModel : ViewModel() {
         try {
             val api = AuthApiClientHandler.createService(BizApiRepository::class.java)
             val response = api.getUserProfile(userId)
-            emit(Resource.success(response.body()?.data))
+            if(response.code() == 401) {
+                val body = response.errorBody()
+                emit(Resource.error(response.code(), response.message()))
+            }
+            if(response.isSuccessful) {
+                emit(Resource.success(response.body()?.data))
+            }
         } catch (ex: Exception) {
             emit(Resource.error(500, ex.message!!))
+            ex.printStackTrace();
         }
     }
 
@@ -328,8 +351,6 @@ class BizApiViewModel : ViewModel() {
         } catch (ex: Exception) {
             emit(Resource.error(500, ex.message!!))
         }
-
-
     }
 
 }

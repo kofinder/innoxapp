@@ -9,7 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentGuestUserBinding
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class GuestUserFragment: Fragment()  {
 
     private lateinit var binding: FragmentGuestUserBinding

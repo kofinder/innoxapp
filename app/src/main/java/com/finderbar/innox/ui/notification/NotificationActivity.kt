@@ -7,7 +7,10 @@ import androidx.databinding.DataBindingUtil
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityNotificationBinding
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class NotificationActivity: AppCompatActivity() {
     private lateinit var binding: ActivityNotificationBinding
     private val bizApiVM: BizApiViewModel by viewModels()

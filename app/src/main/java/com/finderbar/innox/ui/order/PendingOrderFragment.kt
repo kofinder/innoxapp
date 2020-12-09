@@ -19,7 +19,10 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.OrderHistoryType
 
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class PendingOrderFragment : Fragment(), ItemOrderClick {
 
     private lateinit var binding: FragmentOrderPendingBinding

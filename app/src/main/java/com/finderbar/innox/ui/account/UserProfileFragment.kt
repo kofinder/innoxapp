@@ -19,7 +19,10 @@ import com.finderbar.innox.ui.order.OrderActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.utilities.loadAvatar
 import es.dmoral.toasty.Toasty
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class UserProfileFragment: Fragment()  {
 
     private lateinit var binding: FragmentUserProfileBinding

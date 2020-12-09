@@ -12,7 +12,10 @@ import com.finderbar.innox.databinding.ItemCheckoutBinding
 import com.finderbar.innox.repository.OrderItem
 import com.finderbar.innox.utilities.loadAvatar
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CheckOutAdaptor(val context: Context, private val arrays: MutableList<OrderItem>): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

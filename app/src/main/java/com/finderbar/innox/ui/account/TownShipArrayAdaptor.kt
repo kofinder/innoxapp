@@ -11,7 +11,10 @@ import com.finderbar.innox.R
 import com.finderbar.innox.repository.State
 import com.finderbar.innox.repository.TownShip
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class TownShipArrayAdaptor(mContext: Context, private val textViewResourceId: Int, val arrays: MutableList<TownShip>) : ArrayAdapter<TownShip>(mContext, 0, arrays) {
 
     private var inflater: LayoutInflater =

@@ -5,7 +5,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentDialogCustomizeDesignerBinding
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CustomizeDesignDialogFragment: DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

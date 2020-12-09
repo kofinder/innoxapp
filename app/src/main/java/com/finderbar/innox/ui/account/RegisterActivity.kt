@@ -7,7 +7,10 @@ import androidx.fragment.app.FragmentTransaction
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityRegisterBinding
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding

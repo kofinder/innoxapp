@@ -6,7 +6,10 @@ import android.content.Intent
 import android.util.Log
 import android.app.ActivityManager
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 
 class NotificationReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

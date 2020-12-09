@@ -15,7 +15,10 @@ import com.finderbar.innox.prefs
 import com.finderbar.innox.repository.OrderItem
 import com.finderbar.innox.ui.order.OrderActivity
 import java.io.Serializable
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ConfirmOrderFragment: DialogFragment() {
     private var orderItem: ArrayList<OrderItem>? = arrayListOf()
     private var invoiceNumber: String? = ""

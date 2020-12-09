@@ -13,7 +13,10 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.User
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.utilities.loadAvatar
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class UserProfileActivity: AppCompatActivity() {
     private lateinit var binding: ActivityUserProfileBinding
     private val bizApiVM: BizApiViewModel by viewModels()

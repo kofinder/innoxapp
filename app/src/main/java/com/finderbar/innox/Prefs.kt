@@ -2,7 +2,10 @@ package com.finderbar.innox
 
 import android.content.Context
 import android.content.SharedPreferences
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class Prefs(context: Context) {
 
     companion object {

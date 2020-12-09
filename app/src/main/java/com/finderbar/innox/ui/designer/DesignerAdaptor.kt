@@ -8,7 +8,10 @@ import com.finderbar.innox.ItemProductCategoryClick
 import com.finderbar.innox.databinding.ItemDesignerProductBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.utilities.loadLarge
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class DesignerAdaptor(private val arrayList: MutableList<Category>, private val itemProductClick: ItemProductCategoryClick) : RecyclerView.Adapter<DesignerAdaptor.DesignerProductViewHolder>() {
 
     inner class DesignerProductViewHolder(val binding: ItemDesignerProductBinding) : RecyclerView.ViewHolder(binding.root)

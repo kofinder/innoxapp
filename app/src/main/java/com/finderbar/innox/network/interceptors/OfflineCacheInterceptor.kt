@@ -6,7 +6,10 @@ import okhttp3.Interceptor.Chain
 import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class OfflineCacheInterceptor : Interceptor {
     override fun intercept(chain: Chain): Response {
                     return try {

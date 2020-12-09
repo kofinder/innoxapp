@@ -18,7 +18,10 @@ import com.finderbar.innox.databinding.FragmentInstockBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.ui.instock.adaptor.InStockCategoryAdaptor
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockFragment : Fragment(), ItemInStockClick, ItemProductCategoryClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()

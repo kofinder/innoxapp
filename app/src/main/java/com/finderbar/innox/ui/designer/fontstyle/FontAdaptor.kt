@@ -8,7 +8,10 @@ import com.finderbar.innox.ItemFontClick
 import com.finderbar.innox.databinding.ItemFontBinding
 import com.finderbar.innox.loadFontUri
 import com.finderbar.innox.repository.Font
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class FontAdaptor(private val arrays: MutableList<Font>, private val itemClick : ItemFontClick) : RecyclerView.Adapter<FontAdaptor.FontViewHolder>() {
 
     class FontViewHolder(val binding: ItemFontBinding) : RecyclerView.ViewHolder(binding.root)

@@ -11,7 +11,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 object AuthApiClientHandler {
 
     private val okHttpClient by lazy { OkHttpClient() }

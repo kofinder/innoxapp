@@ -8,7 +8,10 @@ import com.finderbar.innox.ItemArtWorkCallBack
 import com.finderbar.innox.databinding.ItemArtworkBinding
 import com.finderbar.innox.repository.ArtWork
 import com.finderbar.innox.utilities.loadLarge
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ArtWorkAdaptor(private val arrays: MutableList<ArtWork>, private val onItemArtWork : ItemArtWorkCallBack) : RecyclerView.Adapter<ArtWorkAdaptor.ArtWorkViewHolder>() {
 
     inner class ArtWorkViewHolder(val binding: ItemArtworkBinding) : RecyclerView.ViewHolder(binding.root)

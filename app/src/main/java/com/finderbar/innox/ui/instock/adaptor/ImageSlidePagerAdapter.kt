@@ -10,7 +10,10 @@ import androidx.viewpager.widget.PagerAdapter
 import com.finderbar.innox.R
 import com.finderbar.innox.utilities.loadLarge
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ImageSlidePagerAdapter(val context: Context, private val images: MutableList<String>): PagerAdapter() {
 
     override fun instantiateItem(view: ViewGroup, position: Int): Any {

@@ -12,7 +12,10 @@ import com.finderbar.innox.databinding.ItemLoadingBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.utilities.loadAvatar
 import kotlinx.android.synthetic.main.item_category_product.view.*
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CategoryProductAdaptor(private val arrayList: MutableList<Category>) : RecyclerView.Adapter<CategoryProductAdaptor.ItemViewHolder>() {
 
     abstract class ItemViewHolder(root: View) : RecyclerView.ViewHolder(root)

@@ -8,8 +8,11 @@ import com.finderbar.innox.ItemInStockClick
 import com.finderbar.innox.databinding.ItemInstockSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
 import com.finderbar.innox.utilities.loadLarge
-
-class InStockSubCategoryAdaptor(val categoryId: Int, val categoryName: String, val arrays: MutableList<SubCategory>,  val onItemInStockClick: ItemInStockClick) :
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
+class InStockSubCategoryAdaptor(val categoryId: Int, private val categoryName: String, val arrays: MutableList<SubCategory>, private val onItemInStockClick: ItemInStockClick) :
     RecyclerView.Adapter<InStockSubCategoryAdaptor.SubCategoryViewHolder>() {
 
     class SubCategoryViewHolder(val binding: ItemInstockSubCategoryBinding) : RecyclerView.ViewHolder(binding.root)

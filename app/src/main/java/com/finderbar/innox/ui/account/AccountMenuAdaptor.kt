@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.finderbar.innox.R
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class AccountMenuAdaptor(private val context: Context, private val arrayList: ArrayList<String> ) : BaseAdapter() {
     private val inflater = LayoutInflater.from(context)
 

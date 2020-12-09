@@ -21,7 +21,10 @@ import com.finderbar.innox.repository.Font
 import com.google.android.material.button.MaterialButtonToggleGroup
 import java.lang.Exception
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false) : View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }

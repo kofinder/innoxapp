@@ -33,7 +33,10 @@ import com.finderbar.innox.utilities.loadAvatar
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.tab_indicator.view.*
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockProductActivity : AppCompatActivity(), ItemProductClick, TabHost.TabContentFactory {
 
     private lateinit var binding: ActivityInstockProductBinding

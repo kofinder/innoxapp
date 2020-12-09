@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.databinding.ItemExpendableSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
 import com.finderbar.innox.utilities.loadLarge
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class SubCategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<SubCategory>) : RecyclerView.Adapter<SubCategoryExpendableAdaptor.SubCategoryInStockViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryInStockViewHolder {

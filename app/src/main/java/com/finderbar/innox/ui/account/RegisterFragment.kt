@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import com.finderbar.innox.R
 import com.finderbar.innox.databinding.FragmentRegisterBinding
 import com.finderbar.innox.replaceFragment
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding

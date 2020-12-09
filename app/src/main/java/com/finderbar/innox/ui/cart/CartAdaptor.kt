@@ -14,7 +14,10 @@ import com.finderbar.innox.repository.Cart
 import com.finderbar.innox.utilities.loadAvatar
 import com.finderbar.innox.utilities.loadAvatarWithCache
 import es.dmoral.toasty.Toasty
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CartAdaptor(val context: Context, private val arrays: MutableList<Cart>, private val onItemCallBack: ItemCartCallBack): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

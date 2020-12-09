@@ -25,7 +25,10 @@ import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class HomeFragment : Fragment(), ItemProductClick {
 
     private val bizApiVM: BizApiViewModel by viewModels()

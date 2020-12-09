@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentDialogCustomizeArtworkBinding
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CustomizeArtWorkDialogFragment: DialogFragment(), RootFragListener {
 
     private lateinit var itemArtworkCallBack: ItemArtWorkCallBack

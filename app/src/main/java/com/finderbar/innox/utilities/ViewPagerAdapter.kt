@@ -5,7 +5,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ViewPagerAdapter(manager: FragmentManager) : FragmentStatePagerAdapter(manager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val mFragmentList = ArrayList<Fragment>()

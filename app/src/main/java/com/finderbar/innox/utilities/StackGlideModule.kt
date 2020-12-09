@@ -25,7 +25,10 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 @GlideModule
 class StackGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {

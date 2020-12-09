@@ -3,6 +3,7 @@ package com.finderbar.innox.ui.designer
 
 import android.content.Intent
 import android.graphics.*
+import android.graphics.Color
 import android.net.Uri
 import android.os.*
 import android.view.View
@@ -18,13 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cc.cloudist.acplibrary.ACProgressConstant
 import cc.cloudist.acplibrary.ACProgressFlower
 import com.finderbar.innox.*
-import com.finderbar.innox.AppConstant.FONT_BOOKS
 import com.finderbar.innox.databinding.ActivityDesignerTemplateBinding
 import com.finderbar.innox.network.Status
-import com.finderbar.innox.repository.ArtWork
-import com.finderbar.innox.repository.CustomItems
-import com.finderbar.innox.repository.CustomLayout
-import com.finderbar.innox.repository.Font
+import com.finderbar.innox.repository.*
 import com.finderbar.innox.ui.designer.artwork.CustomizeArtWorkDialogFragment
 import com.finderbar.innox.ui.designer.fontstyle.CustomizeTextDialogFragment
 import com.finderbar.innox.ui.designer.fontstyle.TextActionDialogFragment
@@ -33,6 +30,7 @@ import com.finderbar.innox.utilities.loadLarge
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import com.finderbar.innox.viewmodel.TemplateVM
 import com.google.android.material.button.MaterialButtonToggleGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.radiobutton.MaterialRadioButton
 import es.dmoral.toasty.Toasty
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
@@ -56,14 +54,23 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     private lateinit var fontFrag: DialogFragment
     private lateinit var artworkFrag: DialogFragment
     private lateinit var acProgress: ACProgressFlower
-
     private var template: MutableList<CustomItems>? = arrayListOf()
     private var initialTemplate: Boolean = false
+    private var currentFont: Font? = null
+
+    // REQUEST PARAMETER
+    private var productId: Int? = 0
+    private var itemId: Int? = 0
+    private var price: Int? = 0
+    private var colorName: String? = null
+
+    private var customSizes: MutableList<CustomSize>? = arrayListOf()
+    private var customLayouts:  MutableList<CustomLayout>? = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_designer_template)
-        val productId: Int = intent?.extras?.get("productId") as Int
+        productId = intent?.extras?.get("productId") as Int
 
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.title = "Create Design"
@@ -90,10 +97,10 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             .build()
         mPhotoEditor.setOnPhotoEditorListener(this)
 
-        loadTemplate(productId)
+        loadTemplate(productId!!)
 
         templateVM.items?.observe(this, Observer { x ->
-            val adaptor = ButtonGroupAdaptor(x.customLayout!!, this)
+            val adaptor = ButtonGroupAdaptor(x.customLayouts!!, this)
             binding.recyclerView.layoutManager = LinearLayoutManager(
                 this,
                 LinearLayoutManager.HORIZONTAL,
@@ -102,10 +109,15 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.adapter = adaptor
             binding.recyclerView.itemAnimator = DefaultItemAnimator()
-            templateVM.getLayout(0, x.customLayout)
+            templateVM.getLayout(0, x.customLayouts)
+
+            customSizes!!.addAll(x.customSizes!!.copyOf())
+            customLayouts!!.addAll(x.customLayouts!!.copyOf())
+            colorName = x.colorName
         })
 
         templateVM.layouts?.observe(this, Observer { x ->
+            itemId = x.id
             binding.imgDesigner.source.loadLarge(Uri.parse(x.imageAvatar))
         })
 
@@ -116,7 +128,6 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                 templateVM.getTemplate(optId, template!!)
             }
         }
-
 
         binding.btnSave.setOnClickListener {
             acProgress.show()
@@ -156,9 +167,28 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         }
 
         binding.btnCart.setOnClickListener {
-            Toasty.info(this, "custom product uploaded").show()
+            if (prefs.userId != null) {
+                MaterialAlertDialogBuilder(this)
+                    .setMessage("Are you sure order?")
+                    .setPositiveButton("OK"
+                    ) { dialog, _ ->
+                        dialog.dismiss()
+                        val frag = CustomAddToCartDialogFragment.newInstance(
+                            productId!!,
+                            itemId!!,
+                            customSizes!!,
+                            customLayouts!!,
+                            colorName!!,
+                            price!!
+                        )
+                        frag.show(supportFragmentManager, CustomAddToCartDialogFragment.TAG)
+                    }
+                    .setNegativeButton("Cancel"
+                    ) { dialog, _ -> dialog.dismiss() }.show()
+            } else {
+                Toasty.info(this, "custom product uploaded").show()
+            }
         }
-
         if(!fontFrag.isAdded) {
             return
         }
@@ -166,6 +196,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
             return
         }
     }
+
     private fun loadTemplate(productId: Int) {
         bizApiVM.loadDesignerProduct(productId).observe(this, Observer { res ->
             when (res.status) {
@@ -175,6 +206,7 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                 Status.SUCCESS -> {
                     supportActionBar?.title = res.data?.name
                     binding.txtPrice.text = res.data?.priceText
+                    price = res.data?.price
                     templateVM.getTemplate(0, res.data?.customItems!!)
                     var defaultCheck = 0
                     res?.data.customItems.forEach { x ->
@@ -207,7 +239,6 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         })
     }
 
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -218,11 +249,12 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     }
 
     override fun onItemClick(font: Font) {
-        val typeface = Typeface.createFromAsset(assets, FONT_BOOKS["firasans"])
+        currentFont = font
+        val fontName = "fonts/${font.uri}"
+        val typeface = Typeface.createFromAsset(assets, fontName)
         mPhotoEditor.addText(typeface, font.name, R.color.colorBlack)
         fontFrag.dismiss()
     }
-
 
     override fun onItemClick(artwork: ArtWork) {
         val mainLooper = Looper.getMainLooper()
@@ -237,16 +269,17 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
         }
     }
 
-
     override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
         val frag = TextActionDialogFragment.newInstance(rootView!!, text!!, colorCode);
         frag.show(supportFragmentManager, frag.tag)
+
         frag.setColorPickerListener(object : ItemColorPickerCallBack {
             override fun onColorPickerClick(colorCode: Int) {
                 mPhotoEditor.editText(rootView, text, colorCode)
                 frag.dismiss()
             }
         })
+
         frag.setFontStyleListener(object : ItemFontStyleCallBack {
             override fun onFontStyleClick(
                 isOpen: Boolean,
@@ -254,12 +287,15 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
                 checkedId: Int,
                 isChecked: Boolean
             ) {
-                var typeface = Typeface.createFromAsset(assets, FONT_BOOKS["firasans"])
+                val textView: TextView = rootView.findViewById(ja.burhanrashid52.photoeditor.R.id.tvPhotoEditorText)
+                var fontName ="fonts/${currentFont?.uri}"
+                val typeface = Typeface.createFromAsset(assets, fontName)
                 mPhotoEditor.editText(rootView, typeface, text, colorCode)
-                var textView: TextView = rootView.findViewById(ja.burhanrashid52.photoeditor.R.id.tvPhotoEditorText)
+
                 when (checkedId) {
                     R.id.btn_normal -> {
                         textView.setTypeface(typeface, Typeface.NORMAL)
+                       // textView.set
                     }
                     R.id.btn_italic -> {
                         textView.setTypeface(typeface, Typeface.ITALIC)
@@ -283,9 +319,11 @@ class DesignerTemplateActivity: AppCompatActivity(), ItemLayoutButtonClick, OnPh
     override fun onRemoveViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
         print(viewType)
     }
+
     override fun onStartViewChangeListener(viewType: ViewType?) {
         print(viewType)
     }
+
     override fun onStopViewChangeListener(viewType: ViewType?) {
         print(viewType)
     }

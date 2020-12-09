@@ -11,7 +11,10 @@ import com.finderbar.innox.ItemProductCategoryClick
 import com.finderbar.innox.databinding.ItemInstockCategoryBinding
 import com.finderbar.innox.repository.Category
 import com.finderbar.innox.ui.instock.InStockSubCategoryAdaptor
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockCategoryAdaptor(private val context: Context, private val arrayList: MutableList<Category>,
                              var onItemInStockClick: ItemInStockClick, var onItemCategoryClick: ItemProductCategoryClick) :
     RecyclerView.Adapter<InStockCategoryAdaptor.InStockCategoryViewHolder>() {

@@ -8,7 +8,10 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemInstockSubProductBinding
 import com.finderbar.innox.repository.Product
 import com.finderbar.innox.utilities.loadLarge
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockProductAdaptor(
     private val arrays: MutableList<Product>,
     private val onItemProductClick: ItemProductClick

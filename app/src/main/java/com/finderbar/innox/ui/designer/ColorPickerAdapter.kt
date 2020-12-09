@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemColorPickerCallBack
 import com.finderbar.innox.databinding.ItemColorPickerBinding
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ColorPickerAdapter(
     private val arrays: MutableList<Int>,
     private val itemColorPickerClick: ItemColorPickerCallBack

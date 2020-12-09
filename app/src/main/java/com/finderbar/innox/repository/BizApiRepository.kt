@@ -1,13 +1,18 @@
 package com.finderbar.innox.repository
 
+import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import okhttp3.internal.http.hasBody
 import retrofit2.Response
 import retrofit2.http.*
 import java.io.Serializable
 import java.lang.reflect.Array
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 interface BizApiRepository {
 
     @POST("register")
@@ -74,6 +79,9 @@ interface BizApiRepository {
     @POST("shopping/cart")
     suspend fun saveShoppingCart(@Body cart: ShoppingCart): Response<ServiceResponse<Any>>
 
+    @POST("shopping/custom_add_to_cart")
+    suspend fun saveCustomShoppingCart(@Body cart: CustomShoppingCart): Response<ServiceResponse<Any>>
+
     @PUT("shopping/cart")
     suspend fun editShoppingCart(@Query("cart_id") cartId: Int, @Query("quantity") quantity: Int): Response<ServiceResponse<ShoppingCarts>>
 
@@ -137,6 +145,29 @@ data class ShoppingCart(
     val size_id: Int,
     val quantity: Int
 )
+
+@Keep
+data class CustomShoppingCart(
+    val custom_product_id: Int,
+    val custom_item_id: Int,
+    val product_layout: ArrayList<ProductLayout>,
+    val product_sizes: ArrayList<ProductSize>
+)
+
+@Keep
+data class ProductLayout(
+    val product_layout_id: Int,
+    val created_image: String,
+    val product_artworks: ArrayList<Int>,
+    val product_fonts: ArrayList<Int>
+)
+
+@Keep
+data class ProductSize(
+    val size_id: Int,
+    val quantity: Int
+)
+
 
 @Keep
 data class ConfirmOrder(
@@ -405,10 +436,20 @@ data class CustomItems(
     @SerializedName("color_id") val colorId: Int,
     @SerializedName("color_code") val colorCode: String,
     @SerializedName("color_name") val colorName: String,
-    @SerializedName("custom_item_layouts") val customLayout:  MutableList<CustomLayout>? = mutableListOf()
+    @SerializedName("custom_sizes") val customSizes: MutableList<CustomSize>? = mutableListOf(),
+    @SerializedName("custom_item_layouts") val customLayouts:  MutableList<CustomLayout>? = mutableListOf()
 )
 
 @Keep
+@Parcelize
+data class CustomSize(
+    @SerializedName("size_id") val id: Int,
+    @SerializedName("size_name") val name: String,
+    @SerializedName("size_code") val code: String
+) : Parcelable
+
+@Keep
+@Parcelize
 data class CustomLayout(
     @SerializedName("custom_item_layout_id") val id: Int,
     @SerializedName("sequence_no") val seq: Int,
@@ -416,7 +457,7 @@ data class CustomLayout(
     @SerializedName("layout_price") val price: Int,
     @SerializedName("layout_price_text") val priceText: String,
     @SerializedName("layout_image") val imageAvatar: String
-)
+): Parcelable
 
 @Keep
 data class ArtWork(

@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemCustomizeDesingerRadioGroupBinding
 import com.finderbar.innox.repository.CustomLayout
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class RadioGroupAdaptor(private val arrays: MutableList<CustomLayout>, private val itemClick : ItemProductClick) : RecyclerView.Adapter<RadioGroupAdaptor.ItemViewHolder>() {
 
     abstract class ItemViewHolder(root: View) : RecyclerView.ViewHolder(root)

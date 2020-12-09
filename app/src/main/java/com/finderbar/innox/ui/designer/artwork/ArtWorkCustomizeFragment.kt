@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import com.finderbar.innox.*
 import com.finderbar.innox.databinding.FragmentCustomizeArtworkBinding
 import com.finderbar.innox.utilities.ViewPagerAdapter
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ArtWorkCustomizeFragment: Fragment(), FragCallBack {
 
     private lateinit var rootFrag: RootFragListener

@@ -17,7 +17,10 @@ import com.finderbar.innox.repository.OrderHistoryDetail
 import com.finderbar.innox.ui.checkout.CheckOutAdaptor
 import com.finderbar.innox.utilities.OrderHistoryType.*
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class OrderDetail: AppCompatActivity() {
 
     private lateinit var binding: ActivityOrderDetailBinding

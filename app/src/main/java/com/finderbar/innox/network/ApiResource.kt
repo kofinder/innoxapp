@@ -1,5 +1,8 @@
 package com.finderbar.innox.network
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 enum class Status {
     SUCCESS,
     ERROR,

@@ -4,7 +4,10 @@ import com.finderbar.innox.prefs
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()

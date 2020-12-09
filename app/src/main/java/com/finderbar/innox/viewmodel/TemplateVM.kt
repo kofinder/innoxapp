@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.finderbar.innox.repository.CustomItems
 import com.finderbar.innox.repository.CustomLayout
 
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class TemplateVM: ViewModel() {
 
      var items: MutableLiveData<CustomItems>? = MutableLiveData()

@@ -22,7 +22,10 @@ import com.finderbar.innox.utilities.loadAvatar
 import com.google.android.material.button.MaterialButton
 import de.hdodenhof.circleimageview.CircleImageView
 import es.dmoral.toasty.Toasty
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

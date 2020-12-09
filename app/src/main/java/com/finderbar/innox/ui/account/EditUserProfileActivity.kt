@@ -20,7 +20,10 @@ import com.finderbar.innox.repository.TownShip
 import com.finderbar.innox.repository.UpdateUser
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class EditUserProfileActivity: AppCompatActivity() {
     private lateinit var binding: ActivityEditUserProfileBinding
     private lateinit var acProgress: ACProgressFlower

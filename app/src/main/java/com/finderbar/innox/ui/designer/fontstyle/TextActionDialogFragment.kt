@@ -20,7 +20,10 @@ import com.finderbar.innox.ui.checkout.ConfirmOrderFragment
 import com.finderbar.innox.ui.designer.ColorPickerAdapter
 import com.google.android.material.button.MaterialButtonToggleGroup
 import java.io.Serializable
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class TextActionDialogFragment: DialogFragment(), MaterialButtonToggleGroup.OnButtonCheckedListener {
 
     private lateinit var itemColorPickerCallBack: ItemColorPickerCallBack

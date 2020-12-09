@@ -13,7 +13,10 @@ import com.finderbar.innox.databinding.ItemPopularProductBinding
 import com.finderbar.innox.repository.PopularProduct
 import com.finderbar.innox.utilities.loadLarge
 import kotlinx.android.synthetic.main.item_popular_product.view.*
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class PopularProductAdaptor(private val arrayList: MutableList<PopularProduct>, private val itemClick : ItemProductClick) : RecyclerView.Adapter<PopularProductAdaptor.ItemViewHolder>() {
 
     abstract class ItemViewHolder(root: View) : RecyclerView.ViewHolder(root)

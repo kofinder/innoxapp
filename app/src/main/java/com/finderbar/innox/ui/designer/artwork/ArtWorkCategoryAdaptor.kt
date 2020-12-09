@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finderbar.innox.ItemArtWorkTitleCallBack
 import com.finderbar.innox.databinding.ItemArtworkCategoryBinding
 import com.finderbar.innox.repository.ArtWorkCategory
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ArtWorkCategoryAdaptor(private val arrays: MutableList<ArtWorkCategory>, private val itemClick : ItemArtWorkTitleCallBack) : RecyclerView.Adapter<ArtWorkCategoryAdaptor.ArtWorkCategoryViewHolder>() {
 
     class ArtWorkCategoryViewHolder(val binding: ItemArtworkCategoryBinding) : RecyclerView.ViewHolder(binding.root)

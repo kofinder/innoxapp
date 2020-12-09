@@ -10,7 +10,10 @@ import com.finderbar.innox.ItemProductClick
 import com.finderbar.innox.databinding.ItemDesignerSubCategoryBinding
 import com.finderbar.innox.repository.SubCategory
 import com.finderbar.innox.utilities.loadLarge
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class DesignerSubCategoryAdaptor(private val arrayList: MutableList<SubCategory>, var onItemProductClick: ItemProductClick?) :
     RecyclerView.Adapter<DesignerSubCategoryAdaptor.SubCategoryViewHolder>() {
 

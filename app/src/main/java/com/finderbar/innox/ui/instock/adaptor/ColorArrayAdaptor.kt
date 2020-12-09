@@ -10,7 +10,10 @@ import android.widget.TextView
 import com.finderbar.innox.R
 import com.finderbar.innox.repository.Color
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ColorArrayAdaptor(mContext: Context, private val textViewResourceId: Int, val arrays: MutableList<Color>) : ArrayAdapter<Color>(mContext, 0, arrays) {
 
     private var inflater: LayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

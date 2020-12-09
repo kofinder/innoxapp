@@ -24,7 +24,10 @@ import com.finderbar.innox.ui.instock.adaptor.SearchProductAdaptor
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class InStockSearchActivity:  AppCompatActivity(), ItemProductClick {
 
     private lateinit var binding: ActivityInstockSearchBinding

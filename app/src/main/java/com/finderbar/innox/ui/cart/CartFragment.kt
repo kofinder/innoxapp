@@ -23,7 +23,10 @@ import com.finderbar.innox.ui.checkout.ProductCheckoutActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CartFragment : Fragment(), ItemCartCallBack {
 
     private lateinit var binding: FragmentCartBinding

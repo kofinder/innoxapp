@@ -19,7 +19,10 @@ import com.finderbar.innox.ui.MainActivity
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class LoginActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding

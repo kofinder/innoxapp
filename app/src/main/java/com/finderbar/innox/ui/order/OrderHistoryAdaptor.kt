@@ -10,7 +10,10 @@ import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ItemOrderHistoryBinding
 import com.finderbar.innox.repository.OrderHistory
 import com.finderbar.innox.utilities.OrderHistoryType
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class OrderHistoryAdaptor(val context: Context, val arrays: MutableList<OrderHistory>, private val orderType: OrderHistoryType, private val itemOrderClick: ItemOrderClick) :
     RecyclerView.Adapter<OrderHistoryAdaptor.OrderHistoryViewHolder>() {
 

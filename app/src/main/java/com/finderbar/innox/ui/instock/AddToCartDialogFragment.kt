@@ -27,7 +27,10 @@ import com.finderbar.innox.repository.ShoppingCart
 import com.finderbar.innox.viewmodel.BizApiViewModel
 import es.dmoral.toasty.Toasty
 
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class AddToCartDialogFragment : DialogFragment() {
     private val bizApiVM: BizApiViewModel by viewModels()
     private lateinit var acProgress: ACProgressFlower

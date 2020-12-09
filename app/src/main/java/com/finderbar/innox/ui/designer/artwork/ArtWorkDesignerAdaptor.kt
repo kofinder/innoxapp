@@ -8,7 +8,10 @@ import com.finderbar.innox.ItemArtWorkTitleCallBack
 import com.finderbar.innox.databinding.ItemArtworkDesignerBinding
 import com.finderbar.innox.repository.ArtWorkDesigner
 import com.finderbar.innox.utilities.loadLarge
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ArtWorkDesignerAdaptor(
     private val arrays: MutableList<ArtWorkDesigner>,
     private val itemClick: ItemArtWorkTitleCallBack

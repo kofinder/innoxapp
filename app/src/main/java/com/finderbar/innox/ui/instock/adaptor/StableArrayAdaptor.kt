@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.finderbar.innox.R
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class StableArrayAdapter(context: Context, private val words: MutableList<String>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

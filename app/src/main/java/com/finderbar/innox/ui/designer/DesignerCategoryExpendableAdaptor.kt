@@ -13,7 +13,10 @@ import com.finderbar.innox.repository.Category
 import com.finderbar.innox.utilities.ExpandableLayout
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.utilities.loadAvatar
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class DesignerCategoryExpendableAdaptor(private val context: Context, private val arrayList: MutableList<Category>, var onItemClick: ItemProductClick) : RecyclerView.Adapter<DesignerCategoryExpendableAdaptor.CategoryExpendableViewHolder>() {
 
     inner class CategoryExpendableViewHolder(val binding: ItemExpendableCategoryBinding) : RecyclerView.ViewHolder(binding.root)

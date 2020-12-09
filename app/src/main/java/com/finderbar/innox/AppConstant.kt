@@ -31,56 +31,5 @@ object AppConstant {
     const val ITEM_COLOR = "item:color"
     const val ITEM_SIZE = "item:size"
 
-
-    // COMMON ERROR MESSAGE
     const val CONTACT_ADMINISTRATOR = "Please Contact Administrator!"
-
-    val FONT_BOOKS = mapOf<String, String>(
-        "alexbrush" to "fonts/alexbrush.ttf",
-        "aller" to "fonts/aller.ttf",
-        "allura" to "fonts/allura.otf",
-        "antonio" to "fonts/antonio.ttf",
-        "arizonia" to "fonts/arizonia.ttf",
-        "bebas" to "fonts/bebas.ttf",
-        "blackjack" to "fonts/blackjack.otf",
-        "caviardreams" to "fonts/caviardreams.ttf",
-        "chunkfive" to "fonts/chunkfive.otf",
-        "colab" to "fonts/colab.otf",
-        "dancingscript" to "fonts/dancingscript.otf",
-        "FFF_Tusj" to "fonts/FFF_Tusj.ttf",
-        "firasans" to "fonts/firasans.otf",
-        "grandhotel" to "fonts/grandhotel.otf",
-        "greatvibes" to "fonts/greatvibes.otf",
-        "josefinsans" to "fonts/josefinsans.ttf",
-        "kaaushanscript" to "fonts/kaaushanscript.otf",
-        "lato" to "fonts/lato.ttf",
-        "leaguegothic" to "fonts/leaguegothic.otf",
-        "lobster" to "fonts/lobster.otf",
-        "montserrat" to "fonts/montserrat.otf",
-        "opensans" to "fonts/opensans.ttf",
-        "ostrich" to "fonts/ostrich.ttf",
-        "oswald" to "fonts/oswald.ttf",
-        "pacifico" to "fonts/pacifico.ttf",
-        "playfairdisplaysc" to "fonts/playfairdisplaysc.otf",
-        "playfairdsplay" to "fonts/playfairdsplay.otf",
-        "poppins" to "fonts/poppins.otf",
-        "PTC55F" to "fonts/PTC55F.ttf",
-        "PTC75F" to "fonts/PTC75F.ttf",
-        "PTN57F" to "fonts/PTN57F.ttf",
-        "PTN77F" to "fonts/PTN77F.ttf",
-        "PTS55F" to "fonts/PTS55F.ttf",
-        "PTS56F" to "fonts/PTS56F.ttf",
-        "PTS75F" to "fonts/PTS75F.ttf",
-        "PTS76F" to "fonts/PTS76F.ttf",
-        "quicksand" to "fonts/quicksand.otf",
-        "raleway" to "fonts/raleway.ttf",
-        "roboto" to "fonts/roboto.ttf",
-        "salkway" to "fonts/salkway.ttf",
-        "sansation" to "fonts/sansation.ttf",
-        "searn" to "fonts/searn.ttf",
-        "sofia" to "fonts/sofia.otf",
-        "sourcesanspro" to "fonts/sourcesanspro.otf",
-        "titillium" to "fonts/titillium.otf",
-        "windsong" to "fonts/windsong.ttf"
-    )
 }

@@ -3,7 +3,10 @@ package com.finderbar.innox.utilities
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class SpaceItemDecoration(mspace: Int) : RecyclerView.ItemDecoration() {
     private val space = mspace
     override fun getItemOffsets(

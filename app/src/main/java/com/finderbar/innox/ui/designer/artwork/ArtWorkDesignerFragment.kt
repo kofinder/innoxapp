@@ -16,7 +16,10 @@ import com.finderbar.innox.databinding.FragmentArtworkDesignerBinding
 import com.finderbar.innox.network.Status
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class ArtWorkDesignerFragment: Fragment(), ItemArtWorkTitleCallBack  {
 
     private val bizApiVM: BizApiViewModel by viewModels()

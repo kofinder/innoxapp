@@ -9,7 +9,10 @@ import com.finderbar.innox.R
 import com.finderbar.innox.databinding.ActivityOrderBinding
 import com.finderbar.innox.utilities.ViewPagerAdapter
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class OrderActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityOrderBinding

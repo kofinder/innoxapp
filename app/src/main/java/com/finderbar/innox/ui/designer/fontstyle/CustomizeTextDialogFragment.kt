@@ -16,7 +16,10 @@ import com.finderbar.innox.network.Status
 import com.finderbar.innox.repository.Font
 import com.finderbar.innox.utilities.SpaceItemDecoration
 import com.finderbar.innox.viewmodel.BizApiViewModel
-
+/**
+ * Created by: finderbar
+ * Created at: 09,December,2020
+ */
 class CustomizeTextDialogFragment: DialogFragment() {
 
     private val bizApiVM: BizApiViewModel by viewModels()
@@ -69,11 +72,9 @@ class CustomizeTextDialogFragment: DialogFragment() {
         return rootView
     }
 
-
     fun setFontListener(itemFontClick: ItemFontClick) {
         this.itemFontClick = itemFontClick
     }
-
 
     companion object {
         const val TAG = "CustomizeTextDialogFragment"
